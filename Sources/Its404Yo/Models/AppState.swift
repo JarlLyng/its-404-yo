@@ -121,4 +121,10 @@ final class AppState: ObservableObject {
         ]
         outputDirectory = URL(fileURLWithPath: "/Users/jarl/Desktop/SP-404 Ready")
     }
+
+    /// Seed a finished-conversion report on top of the demo data (for the "done" screenshot).
+    func seedDemoReport() {
+        let dir = outputDirectory ?? URL(fileURLWithPath: "/Users/jarl/Desktop/SP-404 Ready")
+        lastReport = ConversionReport(converted: 3, copied: 3, failed: 0, warnings: 1, outputDirectory: dir)
+    }
 }

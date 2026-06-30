@@ -5,11 +5,19 @@ import AppKit
 struct Its404YoApp: App {
     @StateObject private var state = AppState()
 
-    // Screenshot/demo hook — DEBUG only, inert without the `-DemoMode` launch argument.
+    // Screenshot/demo hook — DEBUG only, inert without a `-Demo…` launch argument.
+    // Scenes: -DemoMode / -DemoAnalysis (populated, default), -DemoEmpty (drop zone),
+    //         -DemoDone (populated + conversion report). Appearance: -DemoLight (default dark).
     #if DEBUG
-    private let demoMode = CommandLine.arguments.contains("-DemoMode")
+    private let demoMode = CommandLine.arguments.contains { $0.hasPrefix("-Demo") }
+    private let demoEmpty = CommandLine.arguments.contains("-DemoEmpty")
+    private let demoDone = CommandLine.arguments.contains("-DemoDone")
+    private let demoLight = CommandLine.arguments.contains("-DemoLight")
     #else
     private let demoMode = false
+    private let demoEmpty = false
+    private let demoDone = false
+    private let demoLight = false
     #endif
 
     var body: some Scene {
@@ -17,9 +25,14 @@ struct Its404YoApp: App {
             ContentView()
                 .environmentObject(state)
                 .frame(minWidth: 640, minHeight: 480)
-                .onAppear { if demoMode { state.seedDemoData() } }
+                .onAppear {
+                    guard demoMode else { return }
+                    if demoEmpty { return }              // leave items empty → DropZoneView
+                    state.seedDemoData()
+                    if demoDone { state.seedDemoReport() }
+                }
                 .background(WindowConfigurator(active: demoMode))
-                .preferredColorScheme(demoMode ? .dark : nil)
+                .preferredColorScheme(demoMode ? (demoLight ? .light : .dark) : nil)
         }
         .windowResizability(.contentSize)
         .commands {

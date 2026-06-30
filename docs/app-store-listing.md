@@ -69,9 +69,19 @@ First release. Drag in a sample pack, make it SP-404 MkII-ready in one click.
 
 ## Screenshots
 macOS requires at least one screenshot at a supported size (1280×800, 1440×900, 2560×1600, or 2880×1800).
-Provided in `docs/screenshots/`:
-- `appstore-01-analysis-dark.png` (2560×1600) — hero, dark
-- `appstore-02-analysis-light.png` (2560×1600) — light variant
+All provided at 2560×1600 in `docs/screenshots/`. Suggested upload order (dark first):
+- `appstore-01-empty-dark.png` — empty drop zone ("Drop your sample pack here")
+- `appstore-02-analysis-dark.png` — analysis, plain-language reasons per file (hero)
+- `appstore-03-done-dark.png` — after conversion ("3 converted · 3 already OK · 0 failed")
+- `appstore-04-empty-light.png`, `appstore-05-analysis-light.png`, `appstore-06-done-light.png` — light variants
 
-Regenerate/extend with the DEBUG demo hook: build, then run
-`Its404Yo.app/Contents/MacOS/Its404Yo -DemoMode` and capture the window.
+Regenerate with the DEBUG demo hook. Build, then launch via `open` so the app gets a
+real window and prints `ITS404_WINDOW=<id>`, and capture that window:
+```
+open --stdout /tmp/o.txt -n <built>/Its404Yo.app --args -DemoMode
+screencapture -o -x -l$(grep -o '[0-9]*' /tmp/o.txt) raw.png
+```
+Scenes: `-DemoEmpty` (drop zone), `-DemoMode`/`-DemoAnalysis` (populated, default), `-DemoDone`
+(populated + report). Add `-DemoLight` for light mode. Raw window is 2240×1480; composite it
+centered on a 2560×1600 canvas (bg `#000` dark / `rgb(242,242,242)` light). Raws kept in
+`docs/screenshots/raw/`.
