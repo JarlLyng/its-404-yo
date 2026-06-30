@@ -141,7 +141,6 @@ footer { border-top: 1px solid var(--border); padding: var(--sp-3xl) 0; color: v
 .footer-links { display: flex; gap: var(--sp-2xl); flex-wrap: wrap; }
 .footer-links a { text-decoration: none; color: var(--text-2); }
 .footer-links a:hover { color: var(--text); }
-.footer-badge img { height: 28px; display: block; }
 .trademark { margin-top: var(--sp-lg); font-size: 12px; color: var(--text-3); max-width: 720px; }
 
 @media (max-width: 720px) {

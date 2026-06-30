@@ -1,6 +1,6 @@
 # It's 404, yo!
 
-[![Made by Human](https://madebyhuman.iamjarl.com/badges/made-white.svg)](https://madebyhuman.iamjarl.com)
+[![Co-created with AI](https://madebyhuman.iamjarl.com/badges/co-created-white.svg)](https://madebyhuman.iamjarl.com)
 [![CI](https://github.com/JarlLyng/its-404-yo/actions/workflows/ci.yml/badge.svg)](https://github.com/JarlLyng/its-404-yo/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Platform: macOS 13+](https://img.shields.io/badge/platform-macOS%2013%2B-blue.svg)](#requirements)
@@ -13,7 +13,7 @@ A tiny, native macOS drag-and-drop utility that batch-converts a whole sample pa
 format the Roland SP-404 MkII accepts on SD-card import — preserving your folder structure.
 A sibling to [_It's mono, yo!_](https://itsmonoyo.iamjarl.com/).
 
-![It's 404, yo! analyzing a sample pack](docs/screenshots/appstore-01-analysis-dark.png)
+![It's 404, yo! analyzing a sample pack](docs/screenshots/plain/appstore-02-analysis-dark.png)
 
 ---
 
@@ -93,7 +93,7 @@ A small SwiftUI app over a Core Audio conversion engine. See
 ## Credits
 
 - Design tokens: [iamjarl-design](https://github.com/JarlLyng/iamjarl-design)
-- Made by a human — [madebyhuman.iamjarl.com](https://madebyhuman.iamjarl.com)
+- Co-created with AI — [madebyhuman.iamjarl.com](https://madebyhuman.iamjarl.com)
 - Format research draws on Roland’s official SP-404 MkII manuals and the community converters by
   [pkMinhas](https://github.com/pkMinhas/SP404WavConvertor),
   [seb-patron](https://github.com/seb-patron/SP404mk2-wav-converter), and others.
