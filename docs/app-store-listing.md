@@ -62,10 +62,10 @@ First release. Drag in a sample pack, make it SP-404 MkII-ready in one click.
 - **Age rating:** 4+ (no objectionable content).
 - **Privacy:** "Data Not Collected" — matches `PrivacyInfo.xcprivacy`. No tracking.
 - **Export compliance:** Uses no non-exempt encryption → answer **No**.
-- **Support URL:** https://its404yo.iamjarl.com/  (or https://github.com/JarlLyng/its-404-yo/issues)
+- **Support URL:** https://github.com/JarlLyng/its-404-yo/issues  (a real support/contact channel — Connect requires this, not just the marketing site)
 - **Marketing URL (optional):** https://its404yo.iamjarl.com/
 - **Privacy policy URL:** https://its404yo.iamjarl.com/privacy.html  (states the app collects no data; required even for no-data apps).
-- **Copyright:** © 2026 Jarl Lyng
+- **Copyright:** © 2026 IAMJARL
 
 ## Screenshots
 macOS requires at least one screenshot at a supported size (1280×800, 1440×900, 2560×1600, or 2880×1800).
