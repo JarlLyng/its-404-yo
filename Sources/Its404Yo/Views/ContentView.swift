@@ -5,6 +5,7 @@ import IAMJARLDesignTokens
 struct ContentView: View {
     @EnvironmentObject private var state: AppState
     @Environment(\.colorScheme) private var scheme
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
         VStack(spacing: 0) {
@@ -19,7 +20,7 @@ struct ContentView: View {
             }
         }
         .background(DesignTokens.Common.Background.app(scheme))
-        .animation(DesignTokens.Motion.Easing.standard(), value: state.items.isEmpty)
+        .animation(reduceMotion ? nil : DesignTokens.Motion.Easing.standard(), value: state.items.isEmpty)
     }
 }
 

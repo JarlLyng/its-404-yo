@@ -8,6 +8,7 @@ struct DropZoneView: View {
     let onDrop: ([URL]) -> Void
 
     @Environment(\.colorScheme) private var scheme
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var isTargeted = false
 
     var body: some View {
@@ -16,6 +17,7 @@ struct DropZoneView: View {
                 .font(.system(size: 56, weight: .light))
                 .foregroundStyle(DesignTokens.Common.primary(scheme))
                 .opacity(isAnalyzing ? 0.6 : 1)
+                .accessibilityHidden(true)
 
             Text(isAnalyzing ? "Analyzing…" : "Drop your sample pack here")
                 .font(.system(size: DesignTokens.Typography.Size.xl, weight: DesignTokens.Typography.Weight.semibold))
@@ -46,7 +48,7 @@ struct DropZoneView: View {
             onDrop(urls)
             return true
         } isTargeted: { targeted in
-            withAnimation(DesignTokens.Motion.Easing.standard()) { isTargeted = targeted }
+            withAnimation(reduceMotion ? nil : DesignTokens.Motion.Easing.standard()) { isTargeted = targeted }
         }
     }
 

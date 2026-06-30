@@ -57,6 +57,25 @@ private struct FileRow: View {
             reasonBadges
         }
         .padding(.vertical, DesignTokens.Spacing.xs)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(accessibilityDescription)
+    }
+
+    /// One coherent VoiceOver sentence per row instead of icon/name/badges read separately.
+    private var accessibilityDescription: String {
+        var parts = [item.fileName]
+        switch item.status {
+        case .compatible:
+            parts.append("already compatible")
+        case let .needsConversion(reasons):
+            parts.append("needs conversion")
+            parts.append(contentsOf: reasons)
+        case .unreadable:
+            parts.append("unreadable")
+        }
+        if let detail = detailLine { parts.append(detail) }
+        parts.append(contentsOf: item.warnings)
+        return parts.joined(separator: ", ")
     }
 
     @ViewBuilder private var statusIcon: some View {
