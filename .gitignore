@@ -34,3 +34,7 @@ Package.resolved
 .env
 secrets/
 ExportOptions.plist
+
+# Coverage artifacts
+*.profraw
+*.profdata
