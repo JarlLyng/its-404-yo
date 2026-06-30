@@ -14,3 +14,4 @@ All notable changes to this project are documented here. The format is based on
 - Edge-case warnings (>16 min, ~185 MB, <100 ms).
 - Integration with the [IAMJARL design tokens](https://github.com/JarlLyng/iamjarl-design).
 - Unit tests for the converter and format inspector; GitHub Actions CI.
+- macOS app icon (dark artwork) and a privacy manifest declaring no tracking / no data collection.

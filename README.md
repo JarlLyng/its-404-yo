@@ -81,7 +81,7 @@ A small SwiftUI app over a Core Audio conversion engine. See
 
 ## Roadmap
 
-- [ ] App icon
+- [x] App icon (dark)
 - [ ] Optional split for files over the 16 min / 185 MB limit
 - [ ] Additional device profiles (Akai MPC, 1010music Blackbox/Bitbox)
 - [ ] App Store release
