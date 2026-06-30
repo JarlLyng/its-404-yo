@@ -1,0 +1,71 @@
+name: Its404Yo
+
+options:
+  bundleIdPrefix: com.iamjarl
+  deploymentTarget:
+    macOS: "13.0"
+  createIntermediateGroups: true
+  groupSortPosition: top
+
+packages:
+  IAMJARLDesignTokens:
+    url: https://github.com/JarlLyng/iamjarl-design
+    from: "1.1.0"
+
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "0.1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    CODE_SIGN_STYLE: Automatic
+    DEVELOPMENT_TEAM: ""
+
+targets:
+  Its404Yo:
+    type: application
+    platform: macOS
+    sources:
+      - path: Sources/Its404Yo
+        excludes:
+          - "**/*.entitlements"
+    settings:
+      base:
+        PRODUCT_NAME: Its404Yo
+        PRODUCT_BUNDLE_IDENTIFIER: com.iamjarl.its404yo
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_CFBundleDisplayName: "It's 404, yo!"
+        INFOPLIST_KEY_LSApplicationCategoryType: "public.app-category.music"
+        INFOPLIST_KEY_NSHumanReadableCopyright: "© 2026 Jarl Lyng. MIT-licensed."
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        CODE_SIGN_ENTITLEMENTS: Sources/Its404Yo/Its404Yo.entitlements
+        ENABLE_HARDENED_RUNTIME: YES
+        COMBINE_HIDPI_IMAGES: YES
+    dependencies:
+      - package: IAMJARLDesignTokens
+        product: IAMJARLDesignTokens
+
+  Its404YoTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - Tests/Its404YoTests
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.iamjarl.its404yo.tests
+        GENERATE_INFOPLIST_FILE: YES
+    dependencies:
+      - target: Its404Yo
+
+schemes:
+  Its404Yo:
+    build:
+      targets:
+        Its404Yo: all
+        Its404YoTests: [test]
+    run:
+      config: Debug
+    test:
+      config: Debug
+      gatherCoverageData: true
+      targets:
+        - Its404YoTests
