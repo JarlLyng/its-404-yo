@@ -69,11 +69,17 @@ First release. Drag in a sample pack, make it SP-404 MkII-ready in one click.
 
 ## Screenshots
 macOS requires at least one screenshot at a supported size (1280×800, 1440×900, 2560×1600, or 2880×1800).
-All provided at 2560×1600 in `docs/screenshots/`. Suggested upload order (dark first):
-- `appstore-01-empty-dark.png` — empty drop zone ("Drop your sample pack here")
-- `appstore-02-analysis-dark.png` — analysis, plain-language reasons per file (hero)
-- `appstore-03-done-dark.png` — after conversion ("3 converted · 3 already OK · 0 failed")
+All provided at 2560×1600 in `docs/screenshots/`. The `appstore-*` files carry a caption
+overlay (headline + subtitle, accent in the app's own theme color — lime on dark, purple on
+light). Un-captioned composites are in `docs/screenshots/plain/` if you'd rather upload clean shots.
+Suggested upload order (dark first):
+- `appstore-01-empty-dark.png` — "Drop the **whole pack**" — empty drop zone
+- `appstore-02-analysis-dark.png` — "See every fix, **explained**" — per-file analysis (hero)
+- `appstore-03-done-dark.png` — "One click. **SP-404 ready.**" — after conversion
 - `appstore-04-empty-light.png`, `appstore-05-analysis-light.png`, `appstore-06-done-light.png` — light variants
+
+Captions/overlays are generated from the raws (`docs/screenshots/raw/`) — re-run the overlay step
+to change wording; no need to re-capture the app.
 
 Regenerate with the DEBUG demo hook. Build, then launch via `open` so the app gets a
 real window and prints `ITS404_WINDOW=<id>`, and capture that window:
