@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>It's 404, yo! — Make any sample pack SP-404 MkII-ready</title>
+  <meta name="description" content="A tiny native macOS app that batch-converts sample packs into the format the Roland SP-404 MkII accepts — fixing the cryptic 'Unsupported File' error. No DAW, no Terminal." />
+  <meta name="theme-color" content="#000000" />
+  <link rel="icon" href="assets/icon.png" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="It's 404, yo!" />
+  <meta property="og:description" content="Make any sample pack SP-404 MkII-ready. No DAW, no Terminal, no 'Unsupported File.'" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/screenshot-dark.png" />
+  <meta property="og:url" content="https://its404yo.iamjarl.com/" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="wrap">
+      <a class="brand" href="#top"><img src="assets/icon.png" alt="It's 404, yo! icon" /> It's 404, yo!</a>
+      <div class="nav-links">
+        <a href="#how">How it works</a>
+        <a href="#features">Features</a>
+        <a href="#spec">The fix</a>
+        <a href="#faq">FAQ</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="wrap">
+      <span class="eyebrow">macOS · for the Roland SP-404 MkII</span>
+      <h1>Make any sample pack<br />SP-404 ready.</h1>
+      <p class="lede">Drop a whole pack. Get it back in exactly the format your SP-404 MkII accepts.
+        No DAW, no Terminal, no cryptic <em>“Unsupported File.”</em></p>
+      <div class="cta-row">
+        <!-- TODO: replace with the real App Store URL once published -->
+        <a class="btn btn-primary" href="https://apps.apple.com/" target="_blank" rel="noopener">Download on the Mac App Store</a>
+        <a class="btn btn-ghost" href="#how">See how it works</a>
+      </div>
+      <p class="note">One-time purchase · works offline · your samples never leave your Mac</p>
+
+      <div class="shot wrap" style="padding:0">
+        <img src="assets/screenshot-dark.png" alt="It's 404, yo! analyzing a sample pack and showing what each file needs" />
+      </div>
+    </div>
+  </header>
+
+  <section id="problem">
+    <div class="wrap section-head">
+      <h2>The “Unsupported File” problem</h2>
+      <p>Pro and Splice packs are usually 32-bit float WAVs — often 96 kHz, sometimes FLAC. The SP-404 MkII
+        rejects them with a cryptic error and no explanation. Fixing them by hand in a DAW, one file at a time,
+        is miserable across hundreds of samples.</p>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Three steps. That’s it.</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="num">01</div>
+          <h3>Drop your pack</h3>
+          <p>Drag in a folder or files — your whole sample pack at once.</p>
+        </div>
+        <div class="step">
+          <div class="num">02</div>
+          <h3>See what changes</h3>
+          <p>Every file is analyzed with a plain-language reason: “32-bit float → 16-bit”, “96 kHz resampled”, “FLAC → WAV”.</p>
+        </div>
+        <div class="step">
+          <div class="num">03</div>
+          <h3>Make it SP-404 ready</h3>
+          <p>One click. Converted files land in a new folder, your structure preserved, ready for the SD card.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Simple by design</h2>
+        <p>One job, done well.</p>
+      </div>
+      <div class="grid">
+        <div class="card"><div class="ic">🗂️</div><h3>Whole-pack batch</h3><p>Hundreds of samples in one drag — not file by file in a DAW.</p></div>
+        <div class="card"><div class="ic">💬</div><h3>Plain-language reasons</h3><p>It tells you exactly why each file would fail — something the SP-404 never does.</p></div>
+        <div class="card"><div class="ic">📁</div><h3>Structure preserved</h3><p>Your folders come out the same way they went in.</p></div>
+        <div class="card"><div class="ic">✅</div><h3>No needless re-encoding</h3><p>Files that already work are copied untouched.</p></div>
+        <div class="card"><div class="ic">🔒</div><h3>Fully offline</h3><p>No account, no cloud. Your samples never leave your Mac.</p></div>
+        <div class="card"><div class="ic">⚡</div><h3>Native &amp; fast</h3><p>Built with Core Audio. No Terminal, no ffmpeg, no fuss.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="spec">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>The fix, precisely</h2>
+        <p>The documented format the SP-404 MkII accepts on SD-card import.</p>
+      </div>
+      <div class="spec">
+        <table>
+          <tr><td>Codec</td><td><code>Linear PCM WAV</code></td></tr>
+          <tr><td>Bit depth</td><td><code>16-bit</code> — fixes 32-bit float, 24-bit, …</td></tr>
+          <tr><td>Sample rate</td><td><code>48 kHz</code> (or 44.1 kHz) — resamples anything else</td></tr>
+          <tr><td>Channels</td><td>Mono / stereo preserved</td></tr>
+          <tr><td>Metadata</td><td>Exotic chunks stripped via a clean re-write</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <div class="section-head"><h2>FAQ</h2></div>
+      <div class="faq">
+        <details open>
+          <summary>Why does my SP-404 MkII say “Unsupported File”?</summary>
+          <p>Most often the file is 32-bit float (common in pro/Splice packs), an unusual sample rate, or a format like FLAC.
+            The SD-card import only accepts 16-bit linear WAV/AIFF/MP3 — so anything else is rejected without explanation.</p>
+        </details>
+        <details>
+          <summary>Will it change files that are already fine?</summary>
+          <p>No. Files that already import cleanly are copied untouched — no quality loss, no needless re-encoding.</p>
+        </details>
+        <details>
+          <summary>48 kHz or 44.1 kHz?</summary>
+          <p>48 kHz matches the SP-404 MkII’s internal rate (zero on-device resampling). 44.1 kHz is also accepted.
+            You choose; the app handles the rest.</p>
+        </details>
+        <details>
+          <summary>Does it send my samples anywhere?</summary>
+          <p>Never. Everything runs offline on your Mac. There’s no account, no cloud, no tracking.</p>
+        </details>
+        <details>
+          <summary>Which devices does it target?</summary>
+          <p>Today it’s tuned for the Roland SP-404 MkII. More device profiles may follow.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-grid">
+        <a class="footer-badge" href="https://madebyhuman.iamjarl.com" target="_blank" rel="noopener">
+          <picture>
+            <source media="(prefers-color-scheme: light)" srcset="https://madebyhuman.iamjarl.com/badges/made-black.svg" />
+            <img src="https://madebyhuman.iamjarl.com/badges/made-white.svg" alt="Made by Human" />
+          </picture>
+        </a>
+        <div class="footer-links">
+          <a href="https://iamjarl.com" target="_blank" rel="noopener">More apps</a>
+          <a href="https://itsmonoyo.iamjarl.com" target="_blank" rel="noopener">It's mono, yo!</a>
+          <a href="https://github.com/JarlLyng/its-404-yo" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+      <p class="trademark">© 2026 Jarl Lyng. An independent tool — not affiliated with or endorsed by Roland.
+        Roland and SP-404 are trademarks of their respective owners.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

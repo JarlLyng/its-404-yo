@@ -5,6 +5,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Platform: macOS 13+](https://img.shields.io/badge/platform-macOS%2013%2B-blue.svg)](#requirements)
 
+🌐 **Website:** [its404yo.iamjarl.com](https://its404yo.iamjarl.com) (deployed from [`site/`](site) via GitHub Pages)
+
 **Make any sample pack SP-404 MkII–ready. No DAW, no terminal, no “Unsupported File.”**
 
 A tiny, native macOS drag-and-drop utility that batch-converts a whole sample pack into the

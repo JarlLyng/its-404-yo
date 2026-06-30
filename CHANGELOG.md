@@ -17,3 +17,4 @@ All notable changes to this project are documented here. The format is based on
 - macOS app icon (dark artwork) and a privacy manifest declaring no tracking / no data collection.
 - App Store listing copy (`docs/app-store-listing.md`) and framed screenshots (`docs/screenshots/`).
 - DEBUG-only `-DemoMode` launch hook for generating demo/screenshot data.
+- Marketing site under `site/` (its404yo.iamjarl.com) with a GitHub Pages deploy workflow.
