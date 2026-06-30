@@ -7,13 +7,74 @@
   <meta name="description" content="A tiny native macOS app that batch-converts sample packs into the format the Roland SP-404 MkII accepts — fixing the cryptic 'Unsupported File' error. No DAW, no Terminal." />
   <meta name="theme-color" content="#000000" />
   <link rel="icon" href="assets/icon.png" />
+  <link rel="canonical" href="https://its404yo.iamjarl.com/" />
 
   <!-- Open Graph -->
-  <meta property="og:title" content="It's 404, yo!" />
+  <meta property="og:title" content="It's 404, yo! — Make any sample pack SP-404 MkII-ready" />
   <meta property="og:description" content="Make any sample pack SP-404 MkII-ready. No DAW, no Terminal, no 'Unsupported File.'" />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="assets/screenshot-dark.png" />
+  <meta property="og:site_name" content="It's 404, yo!" />
+  <meta property="og:locale" content="en_US" />
   <meta property="og:url" content="https://its404yo.iamjarl.com/" />
+  <meta property="og:image" content="https://its404yo.iamjarl.com/assets/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="It's 404, yo! — make any sample pack SP-404 MkII-ready: 16-bit linear PCM WAV, 44.1 / 48 kHz." />
+
+  <!-- Twitter / X card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="It's 404, yo! — Make any sample pack SP-404 MkII-ready" />
+  <meta name="twitter:description" content="Make any sample pack SP-404 MkII-ready. No DAW, no Terminal, no 'Unsupported File.'" />
+  <meta name="twitter:image" content="https://its404yo.iamjarl.com/assets/og.png" />
+
+  <!-- Structured data: app + FAQ (helps Google rich results and AI answer engines) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "It's 404, yo!",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "macOS",
+        "url": "https://its404yo.iamjarl.com/",
+        "image": "https://its404yo.iamjarl.com/assets/og.png",
+        "description": "A native macOS app that batch-converts sample packs into the format the Roland SP-404 MkII accepts (16-bit linear PCM WAV at 44.1 or 48 kHz), fixing the 'Unsupported File' error. No DAW, no Terminal; runs fully offline.",
+        "author": { "@type": "Person", "name": "Jarl Lyng", "url": "https://iamjarl.com" }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Why does my SP-404 MkII say “Unsupported File”?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Most often the file is 32-bit float (common in pro/Splice packs), an unusual sample rate, or a format like FLAC. The SD-card import only accepts 16-bit linear WAV/AIFF/MP3 — so anything else is rejected without explanation." }
+          },
+          {
+            "@type": "Question",
+            "name": "Will it change files that are already fine?",
+            "acceptedAnswer": { "@type": "Answer", "text": "No. Files that already import cleanly are copied untouched — no quality loss, no needless re-encoding." }
+          },
+          {
+            "@type": "Question",
+            "name": "48 kHz or 44.1 kHz?",
+            "acceptedAnswer": { "@type": "Answer", "text": "48 kHz matches the SP-404 MkII’s internal rate (zero on-device resampling). 44.1 kHz is also accepted. You choose; the app handles the rest." }
+          },
+          {
+            "@type": "Question",
+            "name": "Does it send my samples anywhere?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Never. Everything runs offline on your Mac. There’s no account, no cloud, no tracking." }
+          },
+          {
+            "@type": "Question",
+            "name": "Which devices does it target?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Today it’s tuned for the Roland SP-404 MkII. More device profiles may follow." }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 
   <link rel="stylesheet" href="styles.css" />
 </head>
