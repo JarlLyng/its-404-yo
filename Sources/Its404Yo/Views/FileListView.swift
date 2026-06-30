@@ -20,7 +20,7 @@ struct FileListView: View {
     private var summaryHeader: some View {
         HStack(spacing: DesignTokens.Spacing.lg) {
             Text("\(state.items.count) files")
-                .font(.system(size: DesignTokens.Typography.Size.base, weight: DesignTokens.Typography.Weight.semibold))
+                .scaledFont(size: DesignTokens.Typography.Size.base, weight: DesignTokens.Typography.Weight.semibold)
             Text("\(state.convertCount) to convert")
                 .foregroundStyle(DesignTokens.Common.primary(scheme))
             Text("\(state.compatibleCount) already OK")
@@ -31,7 +31,7 @@ struct FileListView: View {
             }
             Spacer()
         }
-        .font(.system(size: DesignTokens.Typography.Size.sm))
+        .scaledFont(size: DesignTokens.Typography.Size.sm)
         .padding(DesignTokens.Spacing.lg)
     }
 }
@@ -45,11 +45,11 @@ private struct FileRow: View {
             statusIcon
             VStack(alignment: .leading, spacing: DesignTokens.Spacing.xs) {
                 Text(item.fileName)
-                    .font(.system(size: DesignTokens.Typography.Size.sm, weight: DesignTokens.Typography.Weight.semibold))
+                    .scaledFont(size: DesignTokens.Typography.Size.sm, weight: DesignTokens.Typography.Weight.semibold)
                     .foregroundStyle(DesignTokens.Common.Text.primary(scheme))
                 if let detail = detailLine {
                     Text(detail)
-                        .font(.system(size: DesignTokens.Typography.Size.xs))
+                        .scaledFont(size: DesignTokens.Typography.Size.xs)
                         .foregroundStyle(DesignTokens.Common.Text.tertiary(scheme))
                 }
             }
@@ -106,7 +106,7 @@ private struct FileRow: View {
             if case let .needsConversion(reasons) = item.status {
                 ForEach(reasons, id: \.self) { reason in
                     Text(reason)
-                        .font(.system(size: DesignTokens.Typography.Size.xs))
+                        .scaledFont(size: DesignTokens.Typography.Size.xs)
                         .padding(.horizontal, DesignTokens.Spacing.sm)
                         .padding(.vertical, 2)
                         .background(DesignTokens.Common.primarySubtle(scheme))
@@ -115,7 +115,7 @@ private struct FileRow: View {
             }
             ForEach(item.warnings, id: \.self) { warning in
                 Text(warning)
-                    .font(.system(size: DesignTokens.Typography.Size.xs))
+                    .scaledFont(size: DesignTokens.Typography.Size.xs)
                     .foregroundStyle(DesignTokens.Common.State.warning(scheme))
             }
         }

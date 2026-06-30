@@ -20,11 +20,11 @@ struct DropZoneView: View {
                 .accessibilityHidden(true)
 
             Text(isAnalyzing ? "Analyzing…" : "Drop your sample pack here")
-                .font(.system(size: DesignTokens.Typography.Size.xl, weight: DesignTokens.Typography.Weight.semibold))
+                .scaledFont(size: DesignTokens.Typography.Size.xl, weight: DesignTokens.Typography.Weight.semibold)
                 .foregroundStyle(DesignTokens.Common.Text.primary(scheme))
 
             Text("Folders or files · WAV, AIFF, MP3, M4A, AAC, FLAC")
-                .font(.system(size: DesignTokens.Typography.Size.sm))
+                .scaledFont(size: DesignTokens.Typography.Size.sm)
                 .foregroundStyle(DesignTokens.Common.Text.secondary(scheme))
 
             Button("Choose files…") { chooseFiles() }

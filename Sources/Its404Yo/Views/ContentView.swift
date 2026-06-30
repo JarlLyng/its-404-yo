@@ -38,7 +38,7 @@ private struct ActionBar: View {
             if state.isConverting {
                 ProgressView(value: state.progress) {
                     Text("Converting… \(Int(state.progress * 100))%")
-                        .font(.system(size: DesignTokens.Typography.Size.sm))
+                        .scaledFont(size: DesignTokens.Typography.Size.sm)
                 }
                 .tint(DesignTokens.Common.primary(scheme))
             }
@@ -117,7 +117,7 @@ private struct ReportView: View {
                     ? DesignTokens.Common.State.success(scheme)
                     : DesignTokens.Common.State.warning(scheme))
             Text("\(report.converted) converted · \(report.copied) already OK · \(report.failed) failed")
-                .font(.system(size: DesignTokens.Typography.Size.sm))
+                .scaledFont(size: DesignTokens.Typography.Size.sm)
             Spacer()
             Button("Reveal in Finder") {
                 NSWorkspace.shared.activateFileViewerSelecting([report.outputDirectory])
