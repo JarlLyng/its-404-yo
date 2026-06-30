@@ -91,4 +91,34 @@ final class AppState: ObservableObject {
         lastReport = nil
         progress = 0
     }
+
+    /// Populate the list with representative mock data for screenshots/demos.
+    /// Triggered by the `-DemoMode` launch argument; never used in normal operation.
+    func seedDemoData() {
+        func item(_ name: String, _ props: AudioProperties, _ status: FileStatus, _ warnings: [String] = []) -> AudioFileItem {
+            AudioFileItem(
+                url: URL(fileURLWithPath: "/Samples/DemoPack/\(name)"),
+                relativePath: "DemoPack/\(name)",
+                properties: props, status: status, warnings: warnings
+            )
+        }
+        func p(_ sr: Double, _ ch: UInt32, _ bits: UInt32, float: Bool, pcm: Bool, mp3: Bool, _ dur: Double) -> AudioProperties {
+            AudioProperties(sampleRate: sr, channels: ch, bitsPerChannel: bits,
+                            isFloat: float, isLinearPCM: pcm, isMP3: mp3, durationSeconds: dur)
+        }
+
+        items = [
+            item("Kick_01.wav",     p(44100, 2, 16, float: false, pcm: true,  mp3: false, 1.1), .compatible),
+            item("Snare_punch.wav", p(96000, 2, 32, float: true,  pcm: true,  mp3: false, 0.8),
+                 .needsConversion(["32-bit float → 16-bit", "96 kHz resampled"])),
+            item("Vox_chop.flac",   p(48000, 2, 24, float: false, pcm: false, mp3: false, 2.4),
+                 .needsConversion(["24-bit → 16-bit", "FLAC → WAV"])),
+            item("Riser_fx.mp3",    p(44100, 2,  0, float: false, pcm: false, mp3: true,  3.0), .compatible),
+            item("Texture_pad.wav", p(88200, 1, 32, float: true,  pcm: true,  mp3: false, 17 * 60 + 4),
+                 .needsConversion(["32-bit float → 16-bit", "88.2 kHz resampled"]),
+                 ["Over 16 min — exceeds SP-404 limit"]),
+            item("Hat_closed.aif",  p(48000, 1, 16, float: false, pcm: true,  mp3: false, 0.3), .compatible)
+        ]
+        outputDirectory = URL(fileURLWithPath: "/Users/jarl/Desktop/SP-404 Ready")
+    }
 }

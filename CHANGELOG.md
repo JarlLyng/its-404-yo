@@ -15,3 +15,5 @@ All notable changes to this project are documented here. The format is based on
 - Integration with the [IAMJARL design tokens](https://github.com/JarlLyng/iamjarl-design).
 - Unit tests for the converter and format inspector; GitHub Actions CI.
 - macOS app icon (dark artwork) and a privacy manifest declaring no tracking / no data collection.
+- App Store listing copy (`docs/app-store-listing.md`) and framed screenshots (`docs/screenshots/`).
+- DEBUG-only `-DemoMode` launch hook for generating demo/screenshot data.

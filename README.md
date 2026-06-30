@@ -11,6 +11,8 @@ A tiny, native macOS drag-and-drop utility that batch-converts a whole sample pa
 format the Roland SP-404 MkII accepts on SD-card import — preserving your folder structure.
 A sibling to [_It's mono, yo!_](https://itsmonoyo.iamjarl.com/).
 
+![It's 404, yo! analyzing a sample pack](docs/screenshots/appstore-01-analysis-dark.png)
+
 ---
 
 ## The problem
