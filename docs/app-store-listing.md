@@ -62,9 +62,9 @@ First release. Drag in a sample pack, make it SP-404 MkII-ready in one click.
 - **Age rating:** 4+ (no objectionable content).
 - **Privacy:** "Data Not Collected" — matches `PrivacyInfo.xcprivacy`. No tracking.
 - **Export compliance:** Uses no non-exempt encryption → answer **No**.
-- **Support URL:** e.g. https://iamjarl.com/  (or a dedicated page)
-- **Marketing URL (optional):** https://iamjarl.com/
-- **Privacy policy URL:** a simple page stating the app collects no data (required even for no-data apps).
+- **Support URL:** https://its404yo.iamjarl.com/  (or https://github.com/JarlLyng/its-404-yo/issues)
+- **Marketing URL (optional):** https://its404yo.iamjarl.com/
+- **Privacy policy URL:** https://its404yo.iamjarl.com/privacy.html  (states the app collects no data; required even for no-data apps).
 - **Copyright:** © 2026 Jarl Lyng
 
 ## Screenshots
