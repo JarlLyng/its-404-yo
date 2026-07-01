@@ -1,10 +1,10 @@
-# Build-spec: "SP-404 Ready" (arbejdstitel)
+# Build-spec: It's 404, yo!
 
 En simpel macOS drag-drop-app der gør vilkårlige sample-packs SP-404 MkII-kompatible
 og fjerner den kryptiske "Unsupported File"-fejl. Engangskøb, ingen backend.
 
-> Navneforslag i din stil: **"It's 404, yo!"**, **"Make It 404"**, **"404 Ready"**, **"Pack It, 404!"**.
-> Anbefaling: et navn der indeholder "SP-404" for ASO (se §8).
+> Navnet blev **"It's 404, yo!"** — søster til "It's mono, yo!". (Denne fil er det oprindelige
+> planlægnings-/kildebelæg-dokument; format-specen i §4 er fortsat sandhedskilden, jf. `CLAUDE.md`.)
 
 ---
 

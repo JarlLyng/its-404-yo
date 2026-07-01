@@ -85,10 +85,13 @@ A small SwiftUI app over a Core Audio conversion engine. See
 
 ## Roadmap
 
-- [x] App icon (dark)
-- [ ] Optional split for files over the 16 min / 185 MB limit
-- [ ] Additional device profiles (Akai MPC, 1010music Blackbox/Bitbox)
-- [ ] App Store release
+v1.0 has been submitted to the Mac App Store. Planned work is tracked in
+[**GitHub Issues**](https://github.com/JarlLyng/its-404-yo/issues) — highlights:
+
+- In-app review prompt and remembered preferences ([#5](https://github.com/JarlLyng/its-404-yo/issues/5), [#8](https://github.com/JarlLyng/its-404-yo/issues/8))
+- Splitting files over the 16 min / 185 MB limit ([#6](https://github.com/JarlLyng/its-404-yo/issues/6))
+- Accessibility: in-app text size and a contrast audit ([#9](https://github.com/JarlLyng/its-404-yo/issues/9), [#10](https://github.com/JarlLyng/its-404-yo/issues/10))
+- Exploring additional device profiles ([#15](https://github.com/JarlLyng/its-404-yo/issues/15))
 
 ## Credits
 

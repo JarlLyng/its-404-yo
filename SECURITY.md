@@ -23,4 +23,4 @@ _It's 404, yo!_ is a fully offline, sandboxed macOS utility:
 
 ## Supported versions
 
-This project is pre-1.0; only the latest `main` is supported.
+The latest released version (currently **1.0**) and the `main` branch are supported.
