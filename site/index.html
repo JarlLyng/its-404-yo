@@ -62,6 +62,21 @@
           },
           {
             "@type": "Question",
+            "name": "Which file types can I drop in?",
+            "acceptedAnswer": { "@type": "Answer", "text": "WAV, AIFF, MP3, M4A, AAC and FLAC — folders or individual files, your whole pack at once. Anything that isn’t already SP-404-safe is converted to 16-bit linear PCM WAV; files that already import cleanly are copied untouched." }
+          },
+          {
+            "@type": "Question",
+            "name": "Will converting to 16-bit hurt my audio quality?",
+            "acceptedAnswer": { "@type": "Answer", "text": "No. The SP-404 MkII runs internally at 16-bit / 48 kHz and conforms every import to that anyway — so a 32-bit float or 24-bit file gets reduced to 16-bit on the device regardless. Converting first just makes it import cleanly; 16-bit still carries about 96 dB of dynamic range, well beyond what a groovebox needs." }
+          },
+          {
+            "@type": "Question",
+            "name": "What’s the difference between SD-card import and the Roland SP-404MK2 app?",
+            "acceptedAnswer": { "@type": "Answer", "text": "They follow different rules. Direct SD-card import accepts only 16-bit linear WAV/AIFF/MP3 — anything else risks “Unsupported File.” The official SP-404MK2 app accepts more (it adds FLAC and M4A) and down-converts on its own. This app targets the stricter SD-card path, so your samples import cleanly either way." }
+          },
+          {
+            "@type": "Question",
             "name": "Does it send my samples anywhere?",
             "acceptedAnswer": { "@type": "Answer", "text": "Never. Everything runs offline on your Mac. There’s no account, no cloud, no tracking." }
           },
@@ -106,7 +121,7 @@
       <p class="note">One-time purchase · works offline · your samples never leave your Mac</p>
 
       <div class="shot wrap" style="padding:0">
-        <img src="assets/screenshot-dark.png" alt="It's 404, yo! analyzing a sample pack and showing what each file needs" />
+        <img src="assets/screenshot-dark.png" width="2240" height="1480" fetchpriority="high" alt="It's 404, yo! analyzing a sample pack and showing what each file needs" />
       </div>
     </div>
   </header>
@@ -197,6 +212,26 @@
           <summary>48 kHz or 44.1 kHz?</summary>
           <p>48 kHz matches the SP-404 MkII’s internal rate (zero on-device resampling). 44.1 kHz is also accepted.
             You choose; the app handles the rest.</p>
+        </details>
+        <details>
+          <summary>Which file types can I drop in?</summary>
+          <p>WAV, AIFF, MP3, M4A, AAC and FLAC — folders or individual files, your whole pack at once.
+            Anything that isn’t already SP-404-safe is converted to 16-bit linear PCM WAV; files that
+            already import cleanly are copied untouched.</p>
+        </details>
+        <details>
+          <summary>Will converting to 16-bit hurt my audio quality?</summary>
+          <p>No. The SP-404 MkII runs internally at 16-bit / 48 kHz and conforms <em>every</em> import to
+            that anyway — so a 32-bit float or 24-bit file gets reduced to 16-bit on the device regardless.
+            Converting first just makes it import cleanly; 16-bit still carries about 96 dB of dynamic
+            range, well beyond what a groovebox needs.</p>
+        </details>
+        <details>
+          <summary>What’s the difference between SD-card import and the Roland SP-404MK2 app?</summary>
+          <p>They follow different rules. Direct <strong>SD-card</strong> import accepts only 16-bit linear
+            <strong>WAV/AIFF/MP3</strong> — anything else risks “Unsupported File.” The official
+            <strong>SP-404MK2 app</strong> accepts more (it adds FLAC and M4A) and down-converts on its
+            own. This app targets the stricter SD-card path, so your samples import cleanly either way.</p>
         </details>
         <details>
           <summary>Does it send my samples anywhere?</summary>
