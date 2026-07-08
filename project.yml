@@ -18,7 +18,13 @@ settings:
     MARKETING_VERSION: "1.0.0"
     CURRENT_PROJECT_VERSION: "4"
     CODE_SIGN_STYLE: Automatic
-    DEVELOPMENT_TEAM: ""
+    DEVELOPMENT_TEAM: "KDWZ3WNLDK"
+    # Xcode "Validate Project Settings" recommendations — kept here so XcodeGen
+    # doesn't reset them on every `make generate` (which is why the dialog kept
+    # reappearing after "Perform Changes").
+    DEAD_CODE_STRIPPING: YES
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+    STRING_CATALOG_GENERATE_SYMBOLS: YES
 
 targets:
   Its404Yo:
