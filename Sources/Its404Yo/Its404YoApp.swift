@@ -4,6 +4,7 @@ import AppKit
 @main
 struct Its404YoApp: App {
     @StateObject private var state = AppState()
+    @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
 
     // Screenshot/demo hook — DEBUG only, inert without a `-Demo…` launch argument.
     // Scenes: -DemoMode / -DemoAnalysis (populated, default), -DemoEmpty (drop zone),
@@ -39,6 +40,13 @@ struct Its404YoApp: App {
             CommandGroup(replacing: .newItem) {} // single-window utility
         }
     }
+}
+
+/// Single-window utility: quit when the main window is closed, so there's no
+/// windowless-but-running state. (App Store Guideline 4 — Design.) There is no
+/// document/unsaved state to preserve; conversions write to disk as they run.
+final class AppDelegate: NSObject, NSApplicationDelegate {
+    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool { true }
 }
 
 /// In demo mode, size + center the window and print its window number to stdout
