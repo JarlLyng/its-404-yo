@@ -42,6 +42,9 @@ targets:
         INFOPLIST_KEY_CFBundleDisplayName: "It's 404, yo!"
         INFOPLIST_KEY_LSApplicationCategoryType: "public.app-category.music"
         INFOPLIST_KEY_NSHumanReadableCopyright: "© 2026 IAMJARL. MIT-licensed."
+        # Uses no non-exempt encryption → declare it so App Store Connect stops
+        # asking the export-compliance question on every upload.
+        INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         CODE_SIGN_ENTITLEMENTS: Sources/Its404Yo/Its404Yo.entitlements
