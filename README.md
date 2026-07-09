@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Platform: macOS 13+](https://img.shields.io/badge/platform-macOS%2013%2B-blue.svg)](#requirements)
 
-🌐 **Website:** [its404yo.iamjarl.com](https://its404yo.iamjarl.com) (deployed from [`site/`](site) via GitHub Pages)
+📥 **Download:** [Mac App Store](https://apps.apple.com/app/id6785918261) · 🌐 **Website:** [its404yo.iamjarl.com](https://its404yo.iamjarl.com) (deployed from [`site/`](site) via GitHub Pages)
 
 **Make any sample pack SP-404 MkII–ready. No DAW, no terminal, no “Unsupported File.”**
 

@@ -58,7 +58,7 @@ First release. Drag in a sample pack, make it SP-404 MkII-ready in one click.
 
 ## Connect metadata
 - **Category:** Music (primary). Secondary: Utilities (optional).
-- **Price:** Paid, one-time (suggested Tier ~$4.99). No in-app purchases.
+- **Price:** Paid, one-time — **$0.99** (live). No in-app purchases.
 - **Age rating:** 4+ (no objectionable content).
 - **Privacy:** "Data Not Collected" — matches `PrivacyInfo.xcprivacy`. No tracking.
 - **Export compliance:** Uses no non-exempt encryption → answer **No**.
