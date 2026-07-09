@@ -3,20 +3,15 @@
 En simpel macOS drag-drop-app der gør vilkårlige sample-packs SP-404 MkII-kompatible
 og fjerner den kryptiske "Unsupported File"-fejl. Engangskøb, ingen backend.
 
-> Navnet blev **"It's 404, yo!"** — søster til "It's mono, yo!". (Denne fil er det oprindelige
-> planlægnings-/kildebelæg-dokument; format-specen i §4 er fortsat sandhedskilden, jf. `CLAUDE.md`.)
+> Dette er format-/kildebelæg-dokumentet. **§4 er sandhedskilden** for accepterede/target-formater
+> (jf. `CLAUDE.md`). Målgruppe, prissætning/ASO, krydssalg og risiko-analyse (de tidligere §2, §8, §9,
+> §11) ligger i det private strategi-repo, ikke her — derfor hullerne i nummereringen.
 
 ---
 
 ## 1. Positionering (one-liner)
 "Træk din sample-pack ind → få den tilbage klar til SP-404 MkII. Ingen DAW, ingen terminal,
 ingen 'Unsupported File'."
-
-## 2. Målgruppe & job-to-be-done
-- **Hvem:** SP-404 MkII-beatmakere (bevidst hands-on, ikke-tekniske brugere). Samme publikum
-  som "It's mono, yo!" allerede nævner og sælger til.
-- **Jobbet:** "Jeg har downloadet en pro/Splice-pack, smidt den på SD-kortet, og SP'en siger
-  'Unsupported File' uden at forklare hvorfor. Fix det for hele mappen på én gang."
 
 ## 3. Kerneproblemet (verificeret mod Roland primær-kilder)
 - SP-404 MkII kører internt **16-bit lineær PCM / 48 kHz**; alt importeret konformeres hertil.
@@ -27,7 +22,7 @@ ingen 'Unsupported File'."
   pro/Splice-packs). Enheden afviser uden at forklare hvorfor.
 - **Hullet vi udfylder:** Den gratis Roland-app auto-konverterer kun *legacy-projekter*, ikke
   vilkårlige løse packs. DigiChain (gratis) har **ingen SP-404-preset**. Folk konverterer i dag
-  fil-for-fil i en DAW eller via CLI (FFmpeg/SOX) — klodset for "hundreder/tusinder af samples".
+  fil-for-fil i en DAW eller via CLI (FFmpeg/SOX) — klodset for hundreder af samples.
 
 ## 4. Konverterings-target-spec (det app'en SKAL ramme)
 Disse regler maksimerer SD-kort-kompatibilitet:
@@ -76,37 +71,10 @@ med advarsler — de er sjældne ift. format-problemet.
 - Skæve filnavne (double-byte/meget lange): overvej valgfri sanitering i v2.
 - Allerede-kompatible filer: spring over eller kopiér uændret (ikke gen-encode unødigt).
 
-## 8. Monetisering & ASO
-- **Pris:** **$4.99 engangskøb, betalt up-front (hard paywall).** Højere end mono yo ($0.99) fordi
-  den løser et større, mere irriterende problem. Præcedens i nichen: Easy Wav Converter $3.99,
-  DigiChain native-binaries $3-8.
-- **Ingen abonnement** (nichen er for lille; engangskøb matcher dit mønster og tidligere research).
-- **Mac App Store** (evt. også direkte salg via din side, som mono yo).
-- **ASO-keywords:** "SP-404", "SP404 MK2", "SP-404 sample converter", "unsupported file",
-  "16 bit wav converter", "sample pack converter", "roland sampler". Long-tail + lav konkurrence.
-- **Apple 4.3(b)-differentiering** (vigtigt i 2026): device-specifik (SP-404 MkII) + batch +
-  bevaret mappestruktur + "forklar hvorfor den fejlede"-rapport = meningsfuldt mere end en generisk
-  konverter. Det passerer review.
-
-## 9. Krydssalg
-- "It's mono, yo!" nævner allerede SP-404 og kan importere en hel pack med bevaret struktur —
-  **samme UX, samme kunder, samme kodearkitektur.** Cross-promote begge veje (in-app + din side).
-- Mulig fremtidig produktlinje: "sampler-prep" til devices **uden** gratis transfer-tooling
-  (Akai MPC standalone, 1010music Blackbox/Bitbox) — se v2.
-
 ## 10. Scope & tidslinje
-- **MVP (1-3 uger):** drop → analyse-liste → batch-konvér til 16-bit/48k(eller 44.1) WAV, bevar
+- **MVP:** drop → analyse-liste → batch-konvér til 16-bit/48k(eller 44.1) WAV, bevar
   struktur, færdig-rapport. Det er hele appen.
 - Stor genbrug fra mono yo (drag-drop, mappe-import, progress, light/dark) → lav byggerisiko.
-
-## 11. Risici (vær ærlig)
-- **Primær risiko:** Værdien er en **ikke-teknisk GUI** over funktionalitet der findes gratis i CLI +
-  to GitHub-konvertere. Hvis SP-404-folk er FFmpeg-komfortable, smuldrer betalingsviljen.
-  *Modargument:* SP-404 MkII er bevidst en hands-on groovebox for beatmakere, ikke programmører —
-  præcis et publikum der betaler $5 for at undgå terminalen.
-- **Lille marked:** forvent hundreder, ikke tusinder, af salg. Behandl som portefølje-tilføjelse +
-  ASO der compounder, ikke en jackpot.
-- **Firmware-drift:** accepterede formater kan ændre sig med firmware-opdateringer.
 
 ## 12. Åbne spørgsmål at teste på hardware før/under build
 1. Accepterer SD-kort-import reelt 32-bit **integer**, eller kun 16-bit? (Down-konvér uanset.)
