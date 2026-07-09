@@ -1,0 +1,43 @@
+name: Feature request
+description: Suggest an improvement that fits the single-purpose scope of It's 404, yo!
+title: '[Feature] '
+labels: ['enhancement']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the suggestion. It's 404, yo! is deliberately focused on making sample packs SP-404 MkII-ready, so the clearer the job you're trying to do, the easier it is to evaluate. "Not right now" is a normal answer.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem / job to be done
+      description: Describe the situation or pain point. Skip the solution here.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution (optional)
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Does it fit the scope?
+      description: This app makes sample packs SP-404 MkII-ready. How does this serve that job (or a clearly scoped additional device profile)?
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: alignment
+    attributes:
+      label: Alignment checks
+      description: These keep requests inside the IAMJARL product DNA (private, focused, no accounts/tracking).
+      options:
+        - label: This does not require an account, cloud sync, or sending data off-device
+          required: true
+        - label: This does not involve subscriptions, in-app purchases, or ad revenue
+          required: true
+        - label: I searched existing issues and didn't find a duplicate
+          required: true

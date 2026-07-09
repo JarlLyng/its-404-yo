@@ -1,0 +1,82 @@
+name: Bug report
+description: A file that should convert/import but doesn't, or any other bug in It's 404, yo!
+title: '[Bug] '
+labels: ['bug']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. For conversion bugs, the source-file details below matter a lot.
+        For security vulnerabilities, **do not file a public issue** — see [SECURITY.md](https://github.com/JarlLyng/its-404-yo/blob/main/SECURITY.md).
+
+  - type: input
+    id: summary
+    attributes:
+      label: Summary
+      description: One line on what's wrong.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Where did this happen?
+      options:
+        - App
+        - Marketing website (its404yo.iamjarl.com)
+        - Both
+        - Other / unsure
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: What actually happened?
+    validations:
+      required: true
+
+  - type: textarea
+    id: source_file
+    attributes:
+      label: Source file format (important for conversion bugs)
+      description: The file that failed to convert/import.
+      value: |
+        - Container: (WAV / AIFF / FLAC / M4A / MP3)
+        - Bit depth: (16 / 24 / 32-bit float)
+        - Sample rate: (e.g. 96 kHz)
+        - Channels: (mono / stereo)
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+    validations:
+      required: true
+
+  - type: input
+    id: app_version
+    attributes:
+      label: App version
+
+  - type: input
+    id: macos_version
+    attributes:
+      label: macOS version
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Pre-submit checks
+      options:
+        - label: I searched existing issues and didn't find a duplicate
+          required: true
+        - label: This is a public bug report (security issues go to SECURITY.md)
+          required: true

@@ -1,0 +1,9 @@
+# Copy to <repo>/.github/ISSUE_TEMPLATE/config.yml and replace It's 404, yo! / JarlLyng/its-404-yo / its404yo.iamjarl.com.
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Support / general help
+    url: https://its404yo.iamjarl.com/support
+    about: For general questions or anything that isn't a bug, feature, or marketing idea.
+  - name: 🔒 Security vulnerability
+    url: https://github.com/JarlLyng/its-404-yo/security/policy
+    about: Please report security issues privately, not as a public issue.
