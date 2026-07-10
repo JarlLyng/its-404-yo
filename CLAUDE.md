@@ -33,3 +33,16 @@ Do **not** commit `Its404Yo.xcodeproj` — it is generated from `project.yml`.
 - `Sources/Its404Yo/Views` — SwiftUI views
 - `Tests/Its404YoTests` — unit + end-to-end conversion tests
 - `docs/` — build spec, architecture
+
+## Strategy & marketing → private hub
+
+Anything **non-public** about this app lives in the PRIVATE repo
+`github.com/JarlLyng/iamjarl-strategy` (folder `Its404Yo/`): target audience / ICP, positioning,
+pricing reasoning, marketing/SEO/ASO playbooks, launch plans, analytics readouts. **None of that
+goes in this public repo or in public GitHub issues.** Public issues are fine for bugs, features,
+and general marketing tasks (`marketing` label).
+
+Before any strategy / audience / pricing / marketing-planning work: clone or pull that repo and
+read `CONVENTIONS.md` (+ `SEO_GUIDANCE.md` for SEO, `DATA_ACCESS.md` to pull GSC/Umami/App Store
+numbers), work in the `Its404Yo/` folder, tag claims `[fact]`/`[signal]`/`[inference]`, and commit
+results **there**, not here.
