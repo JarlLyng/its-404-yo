@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Convert 32-bit float WAV to 16-bit for the SP-404 MkII</title>
+  <meta name="description" content="Splice and pro packs are 32-bit float, which the SP-404 MkII rejects. Here's why 32-bit float fails, whether converting to 16-bit hurts quality, and how to batch-convert a whole pack." />
+  <meta name="theme-color" content="#000000" />
+  <link rel="icon" href="assets/icon.png" />
+  <link rel="canonical" href="https://its404yo.iamjarl.com/convert-32-bit-float-wav-sp-404.html" />
+
+  <meta property="og:title" content="Convert 32-bit float WAV to 16-bit for the SP-404 MkII" />
+  <meta property="og:description" content="Why 32-bit float fails on the SP-404, whether 16-bit loses quality, and how to batch-convert a whole pack." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://its404yo.iamjarl.com/convert-32-bit-float-wav-sp-404.html" />
+  <meta property="og:image" content="https://its404yo.iamjarl.com/assets/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "headline": "Convert 32-bit float WAV to 16-bit for the SP-404 MkII",
+        "description": "The SP-404 MkII's SD-card import rejects 32-bit float WAVs. Converting to 16-bit linear PCM is safe because the device already runs at 16-bit internally.",
+        "author": { "@type": "Organization", "name": "IAMJARL", "url": "https://iamjarl.com" },
+        "mainEntityOfPage": "https://its404yo.iamjarl.com/convert-32-bit-float-wav-sp-404.html"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "Why does the SP-404 MkII reject 32-bit float WAV?", "acceptedAnswer": { "@type": "Answer", "text": "The SP-404 MkII's SD-card import only reads 16-bit linear PCM audio. 32-bit float is a different sample format, so it is rejected with “Unsupported File.” 32-bit float is the default render format in many pro and Splice packs, which is why the error is so common." } },
+          { "@type": "Question", "name": "Does converting 32-bit float to 16-bit lose quality?", "acceptedAnswer": { "@type": "Answer", "text": "In practice, no. The SP-404 MkII runs internally at 16-bit / 48 kHz and conforms every import to that anyway, so a 32-bit float file is reduced to 16-bit on the device regardless. 16-bit carries about 96 dB of dynamic range, well beyond what a groovebox needs." } },
+          { "@type": "Question", "name": "How do I convert a whole pack of 32-bit float files?", "acceptedAnswer": { "@type": "Answer", "text": "Batch-convert the folder to 16-bit linear WAV at 48 or 44.1 kHz. It's 404, yo! does this in one drag and preserves the folder structure, converting only the files that need it." } }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="https://umami-iamjarl.vercel.app/script.js" data-website-id="848fd3dc-4424-4b03-8d98-2750cad6e6c3"></script>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="wrap">
+      <a class="brand" href="/"><img src="assets/icon.png" alt="It's 404, yo! icon" /> It's 404, yo!</a>
+      <div class="nav-links">
+        <a href="/#how">How it works</a>
+        <a href="/#faq">FAQ</a>
+      </div>
+    </div>
+  </nav>
+
+  <section>
+    <div class="wrap section-head" style="text-align:left">
+      <span class="eyebrow">Roland SP-404 MkII</span>
+      <h1>Convert 32-bit float WAV to 16-bit for the SP-404 MkII</h1>
+      <p class="lede">32-bit float is the single most common reason the SP-404 MkII throws
+        &ldquo;Unsupported File.&rdquo; Here&rsquo;s why it fails, whether converting costs you any
+        quality, and how to fix a whole pack.</p>
+
+      <h2>What is 32-bit float, and why does it fail?</h2>
+      <p>32-bit float is a high-headroom sample format used by DAWs and most modern sample packs
+        (Splice included) because it&rsquo;s forgiving during production &mdash; it can hold levels well
+        past 0&nbsp;dBFS without clipping. But it is a <em>different</em> format from the 16-bit integer
+        audio the SP-404 MkII expects.</p>
+      <p>The SP-404 MkII&rsquo;s direct <strong>SD-card import reads only 16-bit linear PCM</strong>
+        (WAV/AIFF/MP3). A 32-bit float file isn&rsquo;t &ldquo;too high quality&rdquo; for it &mdash;
+        it&rsquo;s simply a format the SD-card importer doesn&rsquo;t parse, so you get
+        &ldquo;Unsupported File&rdquo; with no hint as to why.</p>
+
+      <h2>Does 16-bit lose quality?</h2>
+      <p>No, not in any way that matters here. The SP-404 MkII runs internally at
+        <strong>16-bit / 48&nbsp;kHz</strong> and conforms <em>every</em> import to that rate and depth
+        anyway. So a 32-bit float file is going to become 16-bit on the device no matter what &mdash;
+        converting first just makes it import cleanly. 16-bit still gives roughly <strong>96&nbsp;dB</strong>
+        of dynamic range, far more than a sampler and its monitoring will ever expose.</p>
+
+      <h2>The target you&rsquo;re converting to</h2>
+      <div class="spec">
+        <table>
+          <tr><td>Bit depth</td><td><code>16-bit integer</code> (from 32-bit float)</td></tr>
+          <tr><td>Codec</td><td><code>Linear PCM WAV</code></td></tr>
+          <tr><td>Sample rate</td><td><code>48 kHz</code> (or 44.1 kHz)</td></tr>
+          <tr><td>Channels</td><td>Mono / stereo preserved</td></tr>
+        </table>
+      </div>
+
+      <h2>How to convert a whole pack</h2>
+      <p><strong>By hand:</strong> in a DAW, set the export bit depth to 16-bit and render each file &mdash;
+        or script <code>ffmpeg -i in.wav -c:a pcm_s16le -ar 48000 out.wav</code>. Both work, both are
+        tedious across hundreds of samples.</p>
+      <p><strong>The fast way:</strong> <a href="/">It&rsquo;s 404, yo!</a> takes the whole folder at once,
+        converts every 32-bit float (and 24-bit) file to 16-bit, resamples odd rates, and leaves
+        already-compatible files untouched &mdash; folder structure preserved, fully offline.</p>
+
+      <p style="margin-top:24px">
+        <a class="btn btn-primary" href="https://apps.apple.com/app/id6785918261" target="_blank" rel="noopener">Get It&rsquo;s 404, yo! &middot; $0.99</a>
+      </p>
+
+      <p class="note" style="margin-top:32px">Related:
+        <a href="/sp-404-unsupported-file.html">Why the SP-404 says &ldquo;Unsupported File&rdquo;</a> &middot;
+        <a href="/flac-to-wav-sp-404.html">FLAC to WAV for the SP-404</a></p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="footer-links">
+          <a href="/">Home</a>
+          <a href="https://github.com/JarlLyng/its-404-yo" target="_blank" rel="noopener">GitHub</a>
+          <a href="/privacy.html">Privacy</a>
+        </div>
+      </div>
+      <p class="trademark">&copy; 2026 IAMJARL. An independent tool &mdash; not affiliated with or endorsed by Roland.
+        Roland and SP-404 are trademarks of their respective owners.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

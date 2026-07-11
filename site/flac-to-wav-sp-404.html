@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FLAC on the SP-404 MkII: convert FLAC to WAV</title>
+  <meta name="description" content="The SP-404 MkII's SD-card import doesn't accept FLAC. Here's why, and how to batch-convert FLAC samples to the 16-bit WAV the SP-404 accepts, folder structure intact." />
+  <meta name="theme-color" content="#000000" />
+  <link rel="icon" href="assets/icon.png" />
+  <link rel="canonical" href="https://its404yo.iamjarl.com/flac-to-wav-sp-404.html" />
+
+  <meta property="og:title" content="FLAC on the SP-404 MkII: convert FLAC to WAV" />
+  <meta property="og:description" content="The SD-card import rejects FLAC. Here's how to batch-convert FLAC samples to the 16-bit WAV the SP-404 MkII accepts." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://its404yo.iamjarl.com/flac-to-wav-sp-404.html" />
+  <meta property="og:image" content="https://its404yo.iamjarl.com/assets/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "headline": "FLAC on the SP-404 MkII: convert FLAC to WAV",
+        "description": "The SP-404 MkII's SD-card import does not accept FLAC. Convert FLAC samples to 16-bit linear PCM WAV to import them.",
+        "author": { "@type": "Organization", "name": "IAMJARL", "url": "https://iamjarl.com" },
+        "mainEntityOfPage": "https://its404yo.iamjarl.com/flac-to-wav-sp-404.html"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "Does the SP-404 MkII support FLAC?", "acceptedAnswer": { "@type": "Answer", "text": "Not via SD-card import. Direct SD-card import accepts only 16-bit linear WAV, AIFF, or MP3 — FLAC is rejected with “Unsupported File.” The official SP-404MK2 desktop app does accept FLAC and down-converts it, but for loose sample packs it's simplest to convert FLAC to WAV first." } },
+          { "@type": "Question", "name": "How do I convert FLAC to WAV for the SP-404?", "acceptedAnswer": { "@type": "Answer", "text": "Decode the FLAC to 16-bit linear PCM WAV at 48 or 44.1 kHz. It's 404, yo! batch-converts a whole folder of FLAC (and other formats) to SP-404-ready WAV in one drag, preserving the folder structure." } },
+          { "@type": "Question", "name": "Will converting FLAC to WAV lose quality?", "acceptedAnswer": { "@type": "Answer", "text": "No. FLAC is lossless, so decoding it to 16-bit PCM WAV preserves the audio exactly — you're just changing the container to one the SP-404 accepts." } }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="https://umami-iamjarl.vercel.app/script.js" data-website-id="848fd3dc-4424-4b03-8d98-2750cad6e6c3"></script>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="wrap">
+      <a class="brand" href="/"><img src="assets/icon.png" alt="It's 404, yo! icon" /> It's 404, yo!</a>
+      <div class="nav-links">
+        <a href="/#how">How it works</a>
+        <a href="/#faq">FAQ</a>
+      </div>
+    </div>
+  </nav>
+
+  <section>
+    <div class="wrap section-head" style="text-align:left">
+      <span class="eyebrow">Roland SP-404 MkII</span>
+      <h1>FLAC on the SP-404 MkII: convert FLAC to WAV</h1>
+      <p class="lede">Downloaded a pack full of <strong>.flac</strong> files and the SP-404 MkII
+        won&rsquo;t take them? The direct SD-card import doesn&rsquo;t accept FLAC at all. Here&rsquo;s
+        the fix.</p>
+
+      <h2>Does the SP-404 MkII support FLAC?</h2>
+      <p>Not on SD-card import. The direct SD-card path accepts only <strong>16-bit linear
+        WAV/AIFF/MP3</strong>. FLAC is a compressed container, so it&rsquo;s rejected with
+        &ldquo;Unsupported File.&rdquo;</p>
+      <p>The <strong>official SP-404MK2 desktop app</strong> <em>does</em> read FLAC (and M4A) and
+        down-converts on its own &mdash; but it&rsquo;s built around project transfer, not batch-prepping
+        arbitrary packs. For a folder of loose FLAC samples, converting to WAV first is simpler and
+        works with either import path.</p>
+
+      <h2>Converting FLAC to WAV is lossless</h2>
+      <p>FLAC is a <strong>lossless</strong> format, so decoding it to 16-bit linear PCM WAV preserves the
+        audio exactly &mdash; you&rsquo;re only swapping the container for one the SP-404 accepts. No
+        quality is lost in the conversion.</p>
+
+      <h2>The target the SP-404 MkII accepts</h2>
+      <div class="spec">
+        <table>
+          <tr><td>Codec</td><td><code>Linear PCM WAV</code> (from FLAC)</td></tr>
+          <tr><td>Bit depth</td><td><code>16-bit</code></td></tr>
+          <tr><td>Sample rate</td><td><code>48 kHz</code> (or 44.1 kHz)</td></tr>
+          <tr><td>Channels</td><td>Mono / stereo preserved</td></tr>
+        </table>
+      </div>
+
+      <h2>How to convert a whole pack of FLAC</h2>
+      <p><strong>By hand:</strong> <code>ffmpeg -i in.flac -c:a pcm_s16le -ar 48000 out.wav</code> per file,
+        or decode in a DAW/audio editor. Works, but slow across a big pack.</p>
+      <p><strong>The fast way:</strong> <a href="/">It&rsquo;s 404, yo!</a> converts a whole folder of FLAC
+        (mixed with WAV, AIFF, MP3, M4A) to SP-404-ready 16-bit WAV in one drag, resampling odd rates and
+        preserving your folder structure. Native macOS, fully offline.</p>
+
+      <p style="margin-top:24px">
+        <a class="btn btn-primary" href="https://apps.apple.com/app/id6785918261" target="_blank" rel="noopener">Get It&rsquo;s 404, yo! &middot; $0.99</a>
+      </p>
+
+      <p class="note" style="margin-top:32px">Related:
+        <a href="/sp-404-unsupported-file.html">Why the SP-404 says &ldquo;Unsupported File&rdquo;</a> &middot;
+        <a href="/convert-32-bit-float-wav-sp-404.html">Convert 32-bit float WAV for the SP-404</a></p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="footer-links">
+          <a href="/">Home</a>
+          <a href="https://github.com/JarlLyng/its-404-yo" target="_blank" rel="noopener">GitHub</a>
+          <a href="/privacy.html">Privacy</a>
+        </div>
+      </div>
+      <p class="trademark">&copy; 2026 IAMJARL. An independent tool &mdash; not affiliated with or endorsed by Roland.
+        Roland and SP-404 are trademarks of their respective owners.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

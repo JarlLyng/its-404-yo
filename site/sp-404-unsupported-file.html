@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SP-404 MkII "Unsupported File" — why it happens and how to fix it</title>
+  <meta name="description" content="Your Roland SP-404 MkII says 'Unsupported File' when you load a sample pack? It's almost always 32-bit float WAVs. Here's why, and how to fix a whole pack at once." />
+  <meta name="theme-color" content="#000000" />
+  <link rel="icon" href="assets/icon.png" />
+  <link rel="canonical" href="https://its404yo.iamjarl.com/sp-404-unsupported-file.html" />
+
+  <meta property="og:title" content="SP-404 MkII 'Unsupported File' — why it happens and how to fix it" />
+  <meta property="og:description" content="It's almost always 32-bit float WAVs. Here's the real cause and the fastest fix for a whole sample pack." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://its404yo.iamjarl.com/sp-404-unsupported-file.html" />
+  <meta property="og:image" content="https://its404yo.iamjarl.com/assets/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "headline": "Why the SP-404 MkII says “Unsupported File”, and how to fix it",
+        "description": "The SP-404 MkII rejects most downloaded sample packs with “Unsupported File” because they are 32-bit float WAVs, unusual sample rates, or FLAC. Its SD-card import only accepts 16-bit linear WAV/AIFF/MP3.",
+        "author": { "@type": "Organization", "name": "IAMJARL", "url": "https://iamjarl.com" },
+        "mainEntityOfPage": "https://its404yo.iamjarl.com/sp-404-unsupported-file.html"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "Why does the SP-404 MkII say “Unsupported File”?", "acceptedAnswer": { "@type": "Answer", "text": "The most common cause is 32-bit float WAV files, which are standard in pro and Splice sample packs. Unusual sample rates (96 kHz, 88.2 kHz) and formats like FLAC also trigger it. The SP-404 MkII's SD-card import only accepts 16-bit linear WAV, AIFF, or MP3, so anything else is rejected without explanation." } },
+          { "@type": "Question", "name": "What format does the SP-404 MkII accept?", "acceptedAnswer": { "@type": "Answer", "text": "For SD-card import: 16-bit linear PCM WAV (or AIFF/MP3), ideally at 48 kHz (the device's internal rate) or 44.1 kHz. Mono or stereo are both fine." } },
+          { "@type": "Question", "name": "How do I fix a whole pack at once?", "acceptedAnswer": { "@type": "Answer", "text": "Convert the entire folder to 16-bit linear WAV. Doing it by hand in a DAW is slow across hundreds of files; It's 404, yo! batch-converts a whole pack in one drag and preserves the folder structure." } }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="https://umami-iamjarl.vercel.app/script.js" data-website-id="848fd3dc-4424-4b03-8d98-2750cad6e6c3"></script>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="wrap">
+      <a class="brand" href="/"><img src="assets/icon.png" alt="It's 404, yo! icon" /> It's 404, yo!</a>
+      <div class="nav-links">
+        <a href="/#how">How it works</a>
+        <a href="/#faq">FAQ</a>
+      </div>
+    </div>
+  </nav>
+
+  <section>
+    <div class="wrap section-head" style="text-align:left">
+      <span class="eyebrow">Roland SP-404 MkII</span>
+      <h1>Why your SP-404 MkII says &ldquo;Unsupported File&rdquo;</h1>
+      <p class="lede">Short answer: the file is almost certainly a <strong>32-bit float WAV</strong> &mdash;
+        the standard in pro and Splice packs. The SP-404 MkII rejects it on SD-card import with no
+        explanation. Here&rsquo;s the full picture, and how to fix a whole pack at once.</p>
+
+      <h2>The three real causes</h2>
+      <p><strong>1. 32-bit float WAV.</strong> By far the most common. Professional and Splice packs are
+        usually rendered as 32-bit float. The SP-404 MkII only reads <strong>16-bit</strong> integer audio
+        on SD-card import, so a 32-bit file is rejected outright.</p>
+      <p><strong>2. Unusual sample rates.</strong> Packs at 96&nbsp;kHz or 88.2&nbsp;kHz can fail. The
+        device runs at 48&nbsp;kHz internally; anything else needs resampling first.</p>
+      <p><strong>3. FLAC and other containers.</strong> FLAC, M4A/AAC and similar compressed formats are
+        not accepted by the direct SD-card import at all. (See
+        <a href="/flac-to-wav-sp-404.html">converting FLAC to WAV for the SP-404</a>.)</p>
+
+      <h2>Why the error is so cryptic: two import paths</h2>
+      <p>The SP-404 MkII has <strong>two ways in, with different rules</strong>:</p>
+      <ul>
+        <li><strong>Direct SD-card import</strong> &mdash; strict. Accepts only <strong>16-bit linear
+          WAV/AIFF/MP3</strong>. Everything else is &ldquo;Unsupported File.&rdquo;</li>
+        <li><strong>The official SP-404MK2 desktop app</strong> &mdash; broader. It also takes FLAC and
+          M4A and down-converts on its own, but it&rsquo;s built around transferring projects, not
+          batch-prepping arbitrary loose packs.</li>
+      </ul>
+      <p>The device runs everything at <strong>16-bit / 48&nbsp;kHz</strong> internally and conforms
+        imports to it &mdash; so the cleanest approach is to convert to that target <em>before</em> the
+        SD card ever sees the files.</p>
+
+      <h2>The format the SP-404 MkII accepts</h2>
+      <div class="spec">
+        <table>
+          <tr><td>Codec</td><td><code>Linear PCM WAV</code></td></tr>
+          <tr><td>Bit depth</td><td><code>16-bit</code> (fixes 32-bit float, 24-bit)</td></tr>
+          <tr><td>Sample rate</td><td><code>48 kHz</code> (or 44.1 kHz)</td></tr>
+          <tr><td>Channels</td><td>Mono / stereo preserved</td></tr>
+        </table>
+      </div>
+
+      <h2>How to fix it</h2>
+      <p><strong>By hand:</strong> open each file in a DAW (or use <code>ffmpeg</code>/<code>sox</code> in
+        the Terminal), convert to 16-bit linear WAV at 48&nbsp;kHz, and re-export. Fine for a few files,
+        miserable across a whole pack.</p>
+      <p><strong>The fast way:</strong> <a href="/">It&rsquo;s 404, yo!</a> batch-converts an entire pack
+        in one drag &mdash; it tells you in plain language why each file would fail
+        (&ldquo;32-bit float &rarr; 16-bit&rdquo;, &ldquo;96&nbsp;kHz resampled&rdquo;,
+        &ldquo;FLAC &rarr; WAV&rdquo;), converts only what needs it, and preserves your folder structure
+        for the SD card. Native macOS, fully offline.</p>
+
+      <p style="margin-top:24px">
+        <a class="btn btn-primary" href="https://apps.apple.com/app/id6785918261" target="_blank" rel="noopener">Get It&rsquo;s 404, yo! &middot; $0.99</a>
+      </p>
+
+      <p class="note" style="margin-top:32px">Related:
+        <a href="/convert-32-bit-float-wav-sp-404.html">Convert 32-bit float WAV for the SP-404</a> &middot;
+        <a href="/flac-to-wav-sp-404.html">FLAC to WAV for the SP-404</a></p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="footer-links">
+          <a href="/">Home</a>
+          <a href="https://github.com/JarlLyng/its-404-yo" target="_blank" rel="noopener">GitHub</a>
+          <a href="/privacy.html">Privacy</a>
+        </div>
+      </div>
+      <p class="trademark">&copy; 2026 IAMJARL. An independent tool &mdash; not affiliated with or endorsed by Roland.
+        Roland and SP-404 are trademarks of their respective owners.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
