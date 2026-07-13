@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SP-404 MkII "Unsupported File" — why it happens and how to fix it</title>
+  <title>SP-404 MkII "Unsupported File" (why it happens and how to fix it)</title>
   <meta name="description" content="Your Roland SP-404 MkII says 'Unsupported File' when you load a sample pack? It's almost always 32-bit float WAVs. Here's why, and how to fix a whole pack at once." />
   <meta name="theme-color" content="#000000" />
   <link rel="icon" href="assets/icon.png" />
   <link rel="canonical" href="https://its404yo.iamjarl.com/sp-404-unsupported-file.html" />
 
-  <meta property="og:title" content="SP-404 MkII 'Unsupported File' — why it happens and how to fix it" />
+  <meta property="og:title" content="SP-404 MkII 'Unsupported File' (why it happens and how to fix it)" />
   <meta property="og:description" content="It's almost always 32-bit float WAVs. Here's the real cause and the fastest fix for a whole sample pack." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://its404yo.iamjarl.com/sp-404-unsupported-file.html" />
@@ -58,8 +58,7 @@
     <div class="wrap section-head" style="text-align:left">
       <span class="eyebrow">Roland SP-404 MkII</span>
       <h1>Why your SP-404 MkII says &ldquo;Unsupported File&rdquo;</h1>
-      <p class="lede">Short answer: the file is almost certainly a <strong>32-bit float WAV</strong> &mdash;
-        the standard in pro and Splice packs. The SP-404 MkII rejects it on SD-card import with no
+      <p class="lede">Short answer: the file is almost certainly a <strong>32-bit float WAV</strong>, the standard in pro and Splice packs. The SP-404 MkII rejects it on SD-card import with no
         explanation. Here&rsquo;s the full picture, and how to fix a whole pack at once.</p>
 
       <h2>The three real causes</h2>
@@ -73,16 +72,13 @@
         <a href="/flac-to-wav-sp-404.html">converting FLAC to WAV for the SP-404</a>.)</p>
 
       <h2>Why the error is so cryptic: two import paths</h2>
-      <p>The SP-404 MkII has <strong>two ways in, with different rules</strong>:</p>
-      <ul>
-        <li><strong>Direct SD-card import</strong> &mdash; strict. Accepts only <strong>16-bit linear
-          WAV/AIFF/MP3</strong>. Everything else is &ldquo;Unsupported File.&rdquo;</li>
-        <li><strong>The official SP-404MK2 desktop app</strong> &mdash; broader. It also takes FLAC and
-          M4A and down-converts on its own, but it&rsquo;s built around transferring projects, not
-          batch-prepping arbitrary loose packs.</li>
-      </ul>
+      <p>The SP-404 MkII has two ways in, with different rules. <strong>Direct SD-card import</strong>
+        is strict, accepting only <strong>16-bit linear WAV/AIFF/MP3</strong>; everything else comes
+        back as &ldquo;Unsupported File.&rdquo; <strong>The official SP-404MK2 desktop app</strong> is
+        broader, taking FLAC and M4A and down-converting on its own, but it&rsquo;s built around
+        transferring projects, not batch-prepping arbitrary loose packs.</p>
       <p>The device runs everything at <strong>16-bit / 48&nbsp;kHz</strong> internally and conforms
-        imports to it &mdash; so the cleanest approach is to convert to that target <em>before</em> the
+        imports to it, so the cleanest approach is to convert to that target <em>before</em> the
         SD card ever sees the files.</p>
 
       <h2>The format the SP-404 MkII accepts</h2>
@@ -100,7 +96,7 @@
         the Terminal), convert to 16-bit linear WAV at 48&nbsp;kHz, and re-export. Fine for a few files,
         miserable across a whole pack.</p>
       <p><strong>The fast way:</strong> <a href="/">It&rsquo;s 404, yo!</a> batch-converts an entire pack
-        in one drag &mdash; it tells you in plain language why each file would fail
+        in one drag, it tells you in plain language why each file would fail
         (&ldquo;32-bit float &rarr; 16-bit&rdquo;, &ldquo;96&nbsp;kHz resampled&rdquo;,
         &ldquo;FLAC &rarr; WAV&rdquo;), converts only what needs it, and preserves your folder structure
         for the SD card. Native macOS, fully offline.</p>
@@ -124,7 +120,7 @@
           <a href="/privacy.html">Privacy</a>
         </div>
       </div>
-      <p class="trademark">&copy; 2026 IAMJARL. An independent tool &mdash; not affiliated with or endorsed by Roland.
+      <p class="trademark">&copy; 2026 IAMJARL. An independent tool, not affiliated with or endorsed by Roland.
         Roland and SP-404 are trademarks of their respective owners.</p>
     </div>
   </footer>

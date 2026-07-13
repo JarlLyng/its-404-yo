@@ -7,10 +7,10 @@
 
 📥 **Download:** [Mac App Store](https://apps.apple.com/app/id6785918261) · 🌐 **Website:** [its404yo.iamjarl.com](https://its404yo.iamjarl.com) (deployed from [`site/`](site) via GitHub Pages)
 
-**Make any sample pack SP-404 MkII–ready. No DAW, no terminal, no “Unsupported File.”**
+**Make any sample pack SP-404 MkII-ready. No DAW, no terminal, no “Unsupported File.”**
 
 A tiny, native macOS drag-and-drop utility that batch-converts a whole sample pack into the
-format the Roland SP-404 MkII accepts on SD-card import — preserving your folder structure.
+format the Roland SP-404 MkII accepts on SD-card import, preserving your folder structure.
 A sibling to [_It's mono, yo!_](https://itsmonoyo.iamjarl.com/).
 
 ![It's 404, yo! analyzing a sample pack](docs/screenshots/plain/appstore-02-analysis-dark.png)
@@ -21,8 +21,8 @@ A sibling to [_It's mono, yo!_](https://itsmonoyo.iamjarl.com/).
 
 Professional sample packs are often **32-bit float** WAVs (and sometimes odd sample rates or
 FLAC/M4A). When you drop them on an SD card, the SP-404 MkII rejects them with a cryptic
-**“Unsupported File”** error and no explanation. The usual fixes — converting file by file in a
-DAW, or wrangling `ffmpeg`/`sox` on the command line — are tedious across hundreds of samples.
+**“Unsupported File”** error and no explanation. The usual fixes, converting file by file in a
+DAW, or wrangling `ffmpeg`/`sox` on the command line, are tedious across hundreds of samples.
 
 ## What it does
 
@@ -33,7 +33,7 @@ Drop a folder (or files) → see exactly what will change, in plain language →
   `96 kHz resampled`, `FLAC → WAV`).
 - **Converts** to the documented safe target: **16-bit linear PCM WAV**, **48 kHz** (or 44.1),
   channels preserved, exotic metadata chunks stripped.
-- **Copies** already-compatible files unchanged — no needless re-encoding.
+- **Copies** already-compatible files unchanged, no needless re-encoding.
 - **Preserves** your folder structure in the output.
 - **Warns** about edge cases (over 16 min / ~185 MB, or under 100 ms).
 
@@ -80,13 +80,13 @@ A small SwiftUI app over a Core Audio conversion engine. See
 [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 
 - **UI:** SwiftUI, styled with the [IAMJARL design tokens](https://github.com/JarlLyng/iamjarl-design) Swift package.
-- **Engine:** `ExtAudioFile` (AudioToolbox) — decode → 16-bit PCM → WAV, with sample-rate conversion.
+- **Engine:** `ExtAudioFile` (AudioToolbox), decode → 16-bit PCM → WAV, with sample-rate conversion.
 - **No backend, no third-party runtime dependencies** beyond the design tokens.
 
 ## Roadmap
 
 v1.0 has been submitted to the Mac App Store. Planned work is tracked in
-[**GitHub Issues**](https://github.com/JarlLyng/its-404-yo/issues) — highlights:
+[**GitHub Issues**](https://github.com/JarlLyng/its-404-yo/issues), highlights:
 
 - In-app review prompt and remembered preferences ([#5](https://github.com/JarlLyng/its-404-yo/issues/5), [#8](https://github.com/JarlLyng/its-404-yo/issues/8))
 - Splitting files over the 16 min / 185 MB limit ([#6](https://github.com/JarlLyng/its-404-yo/issues/6))
@@ -96,7 +96,7 @@ v1.0 has been submitted to the Mac App Store. Planned work is tracked in
 ## Credits
 
 - Design tokens: [iamjarl-design](https://github.com/JarlLyng/iamjarl-design)
-- Co-created with AI — [madebyhuman.iamjarl.com](https://madebyhuman.iamjarl.com)
+- Co-created with AI, [madebyhuman.iamjarl.com](https://madebyhuman.iamjarl.com)
 - Format research draws on Roland’s official SP-404 MkII manuals and the community converters by
   [pkMinhas](https://github.com/pkMinhas/SP404WavConvertor),
   [seb-patron](https://github.com/seb-patron/SP404mk2-wav-converter), and others.

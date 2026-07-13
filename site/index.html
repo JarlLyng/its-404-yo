@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>It's 404, yo! — Make any sample pack SP-404 MkII-ready</title>
-  <meta name="description" content="A tiny native macOS app that batch-converts sample packs into the format the Roland SP-404 MkII accepts — fixing the cryptic 'Unsupported File' error. No DAW, no Terminal." />
+  <title>It's 404, yo! Make any sample pack SP-404 MkII-ready</title>
+  <meta name="description" content="A tiny native macOS app that batch-converts sample packs into the format the Roland SP-404 MkII accepts, fixing the cryptic 'Unsupported File' error. No DAW, no Terminal." />
   <meta name="theme-color" content="#000000" />
   <link rel="icon" href="assets/icon.png" />
   <link rel="canonical" href="https://its404yo.iamjarl.com/" />
 
   <!-- Open Graph -->
-  <meta property="og:title" content="It's 404, yo! — Make any sample pack SP-404 MkII-ready" />
+  <meta property="og:title" content="It's 404, yo! Make any sample pack SP-404 MkII-ready" />
   <meta property="og:description" content="Make any sample pack SP-404 MkII-ready. No DAW, no Terminal, no 'Unsupported File.'" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="It's 404, yo!" />
@@ -19,11 +19,11 @@
   <meta property="og:image" content="https://its404yo.iamjarl.com/assets/og.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="It's 404, yo! — make any sample pack SP-404 MkII-ready: 16-bit linear PCM WAV, 44.1 / 48 kHz." />
+  <meta property="og:image:alt" content="It's 404, yo! Make any sample pack SP-404 MkII-ready: 16-bit linear PCM WAV, 44.1 / 48 kHz." />
 
   <!-- Twitter / X card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="It's 404, yo! — Make any sample pack SP-404 MkII-ready" />
+  <meta name="twitter:title" content="It's 404, yo! Make any sample pack SP-404 MkII-ready" />
   <meta name="twitter:description" content="Make any sample pack SP-404 MkII-ready. No DAW, no Terminal, no 'Unsupported File.'" />
   <meta name="twitter:image" content="https://its404yo.iamjarl.com/assets/og.png" />
 
@@ -51,12 +51,12 @@
           {
             "@type": "Question",
             "name": "Why does my SP-404 MkII say “Unsupported File”?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Most often the file is 32-bit float (common in pro/Splice packs), an unusual sample rate, or a format like FLAC. The SD-card import only accepts 16-bit linear WAV/AIFF/MP3 — so anything else is rejected without explanation." }
+            "acceptedAnswer": { "@type": "Answer", "text": "Most often the file is 32-bit float (common in pro/Splice packs), an unusual sample rate, or a format like FLAC. The SD-card import only accepts 16-bit linear WAV/AIFF/MP3, so anything else is rejected without explanation." }
           },
           {
             "@type": "Question",
             "name": "Will it change files that are already fine?",
-            "acceptedAnswer": { "@type": "Answer", "text": "No. Files that already import cleanly are copied untouched — no quality loss, no needless re-encoding." }
+            "acceptedAnswer": { "@type": "Answer", "text": "No. Files that already import cleanly are copied untouched, no quality loss, no needless re-encoding." }
           },
           {
             "@type": "Question",
@@ -66,17 +66,17 @@
           {
             "@type": "Question",
             "name": "Which file types can I drop in?",
-            "acceptedAnswer": { "@type": "Answer", "text": "WAV, AIFF, MP3, M4A, AAC and FLAC — folders or individual files, your whole pack at once. Anything that isn’t already SP-404-safe is converted to 16-bit linear PCM WAV; files that already import cleanly are copied untouched." }
+            "acceptedAnswer": { "@type": "Answer", "text": "WAV, AIFF, MP3, M4A, AAC and FLAC, folders or individual files, your whole pack at once. Anything that isn’t already SP-404-safe is converted to 16-bit linear PCM WAV; files that already import cleanly are copied untouched." }
           },
           {
             "@type": "Question",
             "name": "Will converting to 16-bit hurt my audio quality?",
-            "acceptedAnswer": { "@type": "Answer", "text": "No. The SP-404 MkII runs internally at 16-bit / 48 kHz and conforms every import to that anyway — so a 32-bit float or 24-bit file gets reduced to 16-bit on the device regardless. Converting first just makes it import cleanly; 16-bit still carries about 96 dB of dynamic range, well beyond what a groovebox needs." }
+            "acceptedAnswer": { "@type": "Answer", "text": "No. The SP-404 MkII runs internally at 16-bit / 48 kHz and conforms every import to that anyway, so a 32-bit float or 24-bit file gets reduced to 16-bit on the device regardless. Converting first just makes it import cleanly; 16-bit still carries about 96 dB of dynamic range, well beyond what a groovebox needs." }
           },
           {
             "@type": "Question",
             "name": "What’s the difference between SD-card import and the Roland SP-404MK2 app?",
-            "acceptedAnswer": { "@type": "Answer", "text": "They follow different rules. Direct SD-card import accepts only 16-bit linear WAV/AIFF/MP3 — anything else risks “Unsupported File.” The official SP-404MK2 app accepts more (it adds FLAC and M4A) and down-converts on its own. This app targets the stricter SD-card path, so your samples import cleanly either way." }
+            "acceptedAnswer": { "@type": "Answer", "text": "They follow different rules. Direct SD-card import accepts only 16-bit linear WAV/AIFF/MP3. Anything else risks “Unsupported File.” The official SP-404MK2 app accepts more (it adds FLAC and M4A) and down-converts on its own. This app targets the stricter SD-card path, so your samples import cleanly either way." }
           },
           {
             "@type": "Question",
@@ -134,7 +134,7 @@
   <section id="problem">
     <div class="wrap section-head">
       <h2>The “Unsupported File” problem</h2>
-      <p>Pro and Splice packs are usually 32-bit float WAVs — often 96 kHz, sometimes FLAC. The SP-404 MkII
+      <p>Pro and Splice packs are usually 32-bit float WAVs, often 96 kHz, sometimes FLAC. The SP-404 MkII
         rejects them with a cryptic error and no explanation. Fixing them by hand in a DAW, one file at a time,
         is miserable across hundreds of samples.</p>
       <p class="note">Guides:
@@ -153,7 +153,7 @@
         <div class="step">
           <div class="num">01</div>
           <h3>Drop your pack</h3>
-          <p>Drag in a folder or files — your whole sample pack at once.</p>
+          <p>Drag in a folder or files, your whole sample pack at once.</p>
         </div>
         <div class="step">
           <div class="num">02</div>
@@ -176,8 +176,8 @@
         <p>One job, done well.</p>
       </div>
       <div class="grid">
-        <div class="card"><div class="ic">🗂️</div><h3>Whole-pack batch</h3><p>Hundreds of samples in one drag — not file by file in a DAW.</p></div>
-        <div class="card"><div class="ic">💬</div><h3>Plain-language reasons</h3><p>It tells you exactly why each file would fail — something the SP-404 never does.</p></div>
+        <div class="card"><div class="ic">🗂️</div><h3>Whole-pack batch</h3><p>Hundreds of samples in one drag, not file by file in a DAW.</p></div>
+        <div class="card"><div class="ic">💬</div><h3>Plain-language reasons</h3><p>It tells you exactly why each file would fail, something the SP-404 never does.</p></div>
         <div class="card"><div class="ic">📁</div><h3>Structure preserved</h3><p>Your folders come out the same way they went in.</p></div>
         <div class="card"><div class="ic">✅</div><h3>No needless re-encoding</h3><p>Files that already work are copied untouched.</p></div>
         <div class="card"><div class="ic">🔒</div><h3>Fully offline</h3><p>No account, no cloud. Your samples never leave your Mac.</p></div>
@@ -195,8 +195,8 @@
       <div class="spec">
         <table>
           <tr><td>Codec</td><td><code>Linear PCM WAV</code></td></tr>
-          <tr><td>Bit depth</td><td><code>16-bit</code> — fixes 32-bit float, 24-bit, …</td></tr>
-          <tr><td>Sample rate</td><td><code>48 kHz</code> (or 44.1 kHz) — resamples anything else</td></tr>
+          <tr><td>Bit depth</td><td><code>16-bit</code>, fixes 32-bit float, 24-bit, …</td></tr>
+          <tr><td>Sample rate</td><td><code>48 kHz</code> (or 44.1 kHz), resamples anything else</td></tr>
           <tr><td>Channels</td><td>Mono / stereo preserved</td></tr>
           <tr><td>Metadata</td><td>Exotic chunks stripped via a clean re-write</td></tr>
         </table>
@@ -211,12 +211,12 @@
         <details open>
           <summary>Why does my SP-404 MkII say “Unsupported File”?</summary>
           <p>Most often the file is 32-bit float (common in pro/Splice packs), an unusual sample rate, or a format like FLAC.
-            The SD-card import only accepts 16-bit linear WAV/AIFF/MP3 — so anything else is rejected without explanation.
+            The SD-card import only accepts 16-bit linear WAV/AIFF/MP3, so anything else is rejected without explanation.
             <a href="/sp-404-unsupported-file.html">Full explanation →</a></p>
         </details>
         <details>
           <summary>Will it change files that are already fine?</summary>
-          <p>No. Files that already import cleanly are copied untouched — no quality loss, no needless re-encoding.</p>
+          <p>No. Files that already import cleanly are copied untouched, no quality loss, no needless re-encoding.</p>
         </details>
         <details>
           <summary>48 kHz or 44.1 kHz?</summary>
@@ -225,21 +225,21 @@
         </details>
         <details>
           <summary>Which file types can I drop in?</summary>
-          <p>WAV, AIFF, MP3, M4A, AAC and FLAC — folders or individual files, your whole pack at once.
+          <p>WAV, AIFF, MP3, M4A, AAC and FLAC, folders or individual files, your whole pack at once.
             Anything that isn’t already SP-404-safe is converted to 16-bit linear PCM WAV; files that
             already import cleanly are copied untouched.</p>
         </details>
         <details>
           <summary>Will converting to 16-bit hurt my audio quality?</summary>
           <p>No. The SP-404 MkII runs internally at 16-bit / 48 kHz and conforms <em>every</em> import to
-            that anyway — so a 32-bit float or 24-bit file gets reduced to 16-bit on the device regardless.
+            that anyway, so a 32-bit float or 24-bit file gets reduced to 16-bit on the device regardless.
             Converting first just makes it import cleanly; 16-bit still carries about 96 dB of dynamic
             range, well beyond what a groovebox needs.</p>
         </details>
         <details>
           <summary>What’s the difference between SD-card import and the Roland SP-404MK2 app?</summary>
           <p>They follow different rules. Direct <strong>SD-card</strong> import accepts only 16-bit linear
-            <strong>WAV/AIFF/MP3</strong> — anything else risks “Unsupported File.” The official
+            <strong>WAV/AIFF/MP3</strong>, anything else risks “Unsupported File.” The official
             <strong>SP-404MK2 app</strong> accepts more (it adds FLAC and M4A) and down-converts on its
             own. This app targets the stricter SD-card path, so your samples import cleanly either way.</p>
         </details>
@@ -265,7 +265,7 @@
           <a href="https://github.com/JarlLyng/its-404-yo" target="_blank" rel="noopener">GitHub</a>
         </div>
       </div>
-      <p class="trademark">© 2026 IAMJARL. An independent tool — not affiliated with or endorsed by Roland.
+      <p class="trademark">© 2026 IAMJARL. An independent tool, not affiliated with or endorsed by Roland.
         Roland and SP-404 are trademarks of their respective owners.</p>
     </div>
   </footer>

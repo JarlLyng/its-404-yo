@@ -64,19 +64,17 @@
 
       <h2>What is 32-bit float, and why does it fail?</h2>
       <p>32-bit float is a high-headroom sample format used by DAWs and most modern sample packs
-        (Splice included) because it&rsquo;s forgiving during production &mdash; it can hold levels well
+        (Splice included) because it&rsquo;s forgiving during production, it can hold levels well
         past 0&nbsp;dBFS without clipping. But it is a <em>different</em> format from the 16-bit integer
         audio the SP-404 MkII expects.</p>
       <p>The SP-404 MkII&rsquo;s direct <strong>SD-card import reads only 16-bit linear PCM</strong>
-        (WAV/AIFF/MP3). A 32-bit float file isn&rsquo;t &ldquo;too high quality&rdquo; for it &mdash;
-        it&rsquo;s simply a format the SD-card importer doesn&rsquo;t parse, so you get
+        (WAV/AIFF/MP3). A 32-bit float file isn&rsquo;t &ldquo;too high quality&rdquo; for it. It&rsquo;s simply a format the SD-card importer doesn&rsquo;t parse, so you get
         &ldquo;Unsupported File&rdquo; with no hint as to why.</p>
 
       <h2>Does 16-bit lose quality?</h2>
       <p>No, not in any way that matters here. The SP-404 MkII runs internally at
         <strong>16-bit / 48&nbsp;kHz</strong> and conforms <em>every</em> import to that rate and depth
-        anyway. So a 32-bit float file is going to become 16-bit on the device no matter what &mdash;
-        converting first just makes it import cleanly. 16-bit still gives roughly <strong>96&nbsp;dB</strong>
+        anyway. So a 32-bit float file is going to become 16-bit on the device no matter what. Converting first just makes it import cleanly. 16-bit still gives roughly <strong>96&nbsp;dB</strong>
         of dynamic range, far more than a sampler and its monitoring will ever expose.</p>
 
       <h2>The target you&rsquo;re converting to</h2>
@@ -90,12 +88,11 @@
       </div>
 
       <h2>How to convert a whole pack</h2>
-      <p><strong>By hand:</strong> in a DAW, set the export bit depth to 16-bit and render each file &mdash;
-        or script <code>ffmpeg -i in.wav -c:a pcm_s16le -ar 48000 out.wav</code>. Both work, both are
+      <p><strong>By hand:</strong> in a DAW, set the export bit depth to 16-bit and render each file, or script <code>ffmpeg -i in.wav -c:a pcm_s16le -ar 48000 out.wav</code>. Both work, both are
         tedious across hundreds of samples.</p>
       <p><strong>The fast way:</strong> <a href="/">It&rsquo;s 404, yo!</a> takes the whole folder at once,
         converts every 32-bit float (and 24-bit) file to 16-bit, resamples odd rates, and leaves
-        already-compatible files untouched &mdash; folder structure preserved, fully offline.</p>
+        already-compatible files untouched, folder structure preserved, fully offline.</p>
 
       <p style="margin-top:24px">
         <a class="btn btn-primary" href="https://apps.apple.com/app/id6785918261" target="_blank" rel="noopener">Get It&rsquo;s 404, yo! &middot; $0.99</a>
@@ -116,7 +113,7 @@
           <a href="/privacy.html">Privacy</a>
         </div>
       </div>
-      <p class="trademark">&copy; 2026 IAMJARL. An independent tool &mdash; not affiliated with or endorsed by Roland.
+      <p class="trademark">&copy; 2026 IAMJARL. An independent tool, not affiliated with or endorsed by Roland.
         Roland and SP-404 are trademarks of their respective owners.</p>
     </div>
   </footer>
