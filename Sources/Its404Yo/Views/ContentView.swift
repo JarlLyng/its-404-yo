@@ -61,6 +61,10 @@ private struct ActionBar: View {
                 .pickerStyle(.menu)
                 .frame(maxWidth: 220)
 
+                Toggle("Sanitize names", isOn: $state.settings.sanitizeFilenames)
+                    .toggleStyle(.checkbox)
+                    .help("Rewrite file names to a safe subset for SD-card import. Removes odd characters and keeps your folder structure.")
+
                 OutputFolderButton()
 
                 Spacer()
@@ -113,13 +117,19 @@ private struct ReportView: View {
     let report: ConversionReport
     @Environment(\.colorScheme) private var scheme
 
+    private var summary: String {
+        var s = "\(report.converted) converted · \(report.copied) already OK · \(report.failed) failed"
+        if report.renamed > 0 { s += " · \(report.renamed) renamed" }
+        return s
+    }
+
     var body: some View {
         HStack(spacing: DesignTokens.Spacing.lg) {
             Image(systemName: report.failed == 0 ? "checkmark.circle.fill" : "exclamationmark.triangle.fill")
                 .foregroundStyle(report.failed == 0
                     ? DesignTokens.Common.State.success(scheme)
                     : DesignTokens.Common.State.warning(scheme))
-            Text("\(report.converted) converted · \(report.copied) already OK · \(report.failed) failed")
+            Text(summary)
                 .scaledFont(size: DesignTokens.Typography.Size.sm)
             Spacer()
             Button("Reveal in Finder") {

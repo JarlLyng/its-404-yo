@@ -36,6 +36,7 @@ Drop a folder (or files) → see exactly what will change, in plain language →
 - **Copies** already-compatible files unchanged, no needless re-encoding.
 - **Preserves** your folder structure in the output.
 - **Warns** about edge cases (over 16 min / ~185 MB, or under 100 ms).
+- **Optionally sanitizes** file names for SD-card import (off by default), keeping structure.
 
 Everything runs **offline, on-device**. No network, no account, no data leaves your Mac.
 
