@@ -12,3 +12,8 @@ brew install xcodegen
 
 cd "$CI_PRIMARY_REPOSITORY_PATH"
 xcodegen generate
+
+# The generated .xcodeproj (and its Package.resolved) is not committed, and Xcode Cloud runs
+# with automatic package resolution disabled. Resolve here so Package.resolved exists before
+# Xcode Cloud's own dependency-resolution step.
+xcodebuild -resolvePackageDependencies -project Its404Yo.xcodeproj -scheme Its404Yo
