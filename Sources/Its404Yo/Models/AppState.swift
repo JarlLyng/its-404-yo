@@ -5,8 +5,12 @@ import SwiftUI
 @MainActor
 final class AppState: ObservableObject {
     @Published var items: [AudioFileItem] = []
-    @Published var settings = ConversionSettings()
-    @Published var outputDirectory: URL?
+    @Published var settings = ConversionSettings() {
+        didSet { if !isRestoring { persistSettings() } }
+    }
+    @Published var outputDirectory: URL? {
+        didSet { if !isRestoring { persistOutputBookmark() } }
+    }
     @Published var isAnalyzing = false
     @Published var isConverting = false
     @Published var progress: Double = 0
@@ -21,7 +25,50 @@ final class AppState: ObservableObject {
     var unreadableCount: Int {
         items.filter { if case .unreadable = $0.status { return true }; return false }.count
     }
+    var hasWarnings: Bool { items.contains { !$0.warnings.isEmpty } }
     var canConvert: Bool { !items.isEmpty && outputDirectory != nil && !isConverting && !isAnalyzing }
+
+    // MARK: - Persistence (remember settings + output folder across launches)
+
+    private static let rateKey = "settings.targetSampleRate"
+    private static let sanitizeKey = "settings.sanitizeFilenames"
+    private static let bookmarkKey = "outputDirectoryBookmark"
+    private var isRestoring = false
+
+    init() {
+        isRestoring = true
+        defer { isRestoring = false }
+        let defaults = UserDefaults.standard
+        if let raw = defaults.object(forKey: Self.rateKey) as? Double,
+           let rate = ConversionSettings.TargetSampleRate(rawValue: raw) {
+            settings.targetSampleRate = rate
+        }
+        settings.sanitizeFilenames = defaults.bool(forKey: Self.sanitizeKey)
+        if let data = defaults.data(forKey: Self.bookmarkKey) {
+            var stale = false
+            if let url = try? URL(resolvingBookmarkData: data, options: [.withSecurityScope],
+                                  relativeTo: nil, bookmarkDataIsStale: &stale),
+               url.startAccessingSecurityScopedResource() {
+                outputDirectory = url
+            }
+        }
+    }
+
+    private func persistSettings() {
+        let defaults = UserDefaults.standard
+        defaults.set(settings.targetSampleRate.rawValue, forKey: Self.rateKey)
+        defaults.set(settings.sanitizeFilenames, forKey: Self.sanitizeKey)
+    }
+
+    /// Save a security-scoped bookmark so the chosen folder is remembered next launch.
+    /// Fails silently for non-real paths (e.g. demo data).
+    private func persistOutputBookmark() {
+        guard let url = outputDirectory,
+              let data = try? url.bookmarkData(options: [.withSecurityScope],
+                                               includingResourceValuesForKeys: nil, relativeTo: nil)
+        else { return }
+        UserDefaults.standard.set(data, forKey: Self.bookmarkKey)
+    }
 
     /// Analyze dropped files/folders off the main thread.
     func handleDrop(urls: [URL]) {
@@ -175,7 +222,7 @@ final class AppState: ObservableObject {
             item("Riser_fx.mp3",    p(44100, 2,  0, float: false, pcm: false, mp3: true,  3.0), .compatible),
             item("Texture_pad.wav", p(88200, 1, 32, float: true,  pcm: true,  mp3: false, 17 * 60 + 4),
                  .needsConversion(["32-bit float → 16-bit", "88.2 kHz resampled"]),
-                 ["Over 16 min — exceeds SP-404 limit"]),
+                 ["Over 16 min, may exceed the SP-404 limit"]),
             item("Hat_closed.aif",  p(48000, 1, 16, float: false, pcm: true,  mp3: false, 0.3), .compatible)
         ]
         outputDirectory = URL(fileURLWithPath: "/Users/jarl/Desktop/SP-404 Ready")

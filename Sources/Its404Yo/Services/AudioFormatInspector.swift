@@ -79,15 +79,15 @@ enum AudioFormatInspector {
     static func warnings(for props: AudioProperties) -> [String] {
         var w: [String] = []
         if props.durationSeconds > maxDuration {
-            w.append("Over 16 min — exceeds SP-404 limit")
+            w.append("Over 16 min, may exceed the SP-404 limit")
         }
         if props.durationSeconds < minDuration {
-            w.append("Very short (<0.1s) — may fail to import")
+            w.append("Very short (<0.1s), may fail to import")
         }
         // Estimated size of the 48 kHz/16-bit output.
         let estBytes = props.durationSeconds * 48000 * Double(max(1, props.channels)) * 2
         if estBytes > maxBytes {
-            w.append("Over ~185 MB — exceeds SP-404 limit")
+            w.append("Over ~185 MB, may exceed the SP-404 limit")
         }
         return w
     }
