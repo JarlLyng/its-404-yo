@@ -20,4 +20,8 @@ struct ConversionSettings: Equatable {
     }
 
     var targetSampleRate: TargetSampleRate = .fortyEight
+
+    /// Rewrite output file names to a safe subset for SD-card import (off by default).
+    /// See `FilenameSanitizer`.
+    var sanitizeFilenames: Bool = false
 }
