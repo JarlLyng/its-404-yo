@@ -12,6 +12,9 @@ final class AppState: ObservableObject {
     @Published var progress: Double = 0
     @Published var lastReport: ConversionReport?
 
+    /// Bumped at natural milestones to ask the view to show the App Store review prompt.
+    @Published var requestReviewTrigger = 0
+
     // Derived counts for the summary header.
     var convertCount: Int { items.filter { $0.willConvert }.count }
     var compatibleCount: Int { items.filter { $0.status == .compatible }.count }
@@ -99,6 +102,7 @@ final class AppState: ObservableObject {
             await MainActor.run {
                 self.isConverting = false
                 self.lastReport = report
+                self.maybeRequestReview(report: report)
             }
         }
     }
@@ -107,6 +111,27 @@ final class AppState: ObservableObject {
         items = []
         lastReport = nil
         progress = 0
+    }
+
+    // MARK: - Review prompt
+
+    private static let successfulConversionsKey = "successfulConversionCount"
+
+    /// Ask at a couple of natural, well-spaced moments, never on the first success or at launch.
+    /// StoreKit throttles further (about three times a year, and never if already reviewed).
+    nonisolated static func shouldAskForReview(afterSuccessfulCount count: Int) -> Bool {
+        count == 2 || count == 5
+    }
+
+    /// After a clean conversion, tick the success counter and trigger the review prompt at a milestone.
+    private func maybeRequestReview(report: ConversionReport) {
+        guard report.failed == 0, report.converted + report.copied > 0 else { return }
+        let defaults = UserDefaults.standard
+        let count = defaults.integer(forKey: Self.successfulConversionsKey) + 1
+        defaults.set(count, forKey: Self.successfulConversionsKey)
+        if Self.shouldAskForReview(afterSuccessfulCount: count) {
+            requestReviewTrigger += 1
+        }
     }
 
     /// Return a destination that doesn't collide with one already used this run, appending
