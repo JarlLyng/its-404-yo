@@ -1,11 +1,13 @@
 import SwiftUI
 import UniformTypeIdentifiers
+import StoreKit
 import IAMJARLDesignTokens
 
 struct ContentView: View {
     @EnvironmentObject private var state: AppState
     @Environment(\.colorScheme) private var scheme
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.requestReview) private var requestReview
 
     var body: some View {
         VStack(spacing: 0) {
@@ -21,6 +23,7 @@ struct ContentView: View {
         }
         .background(DesignTokens.Common.Background.app(scheme))
         .animation(reduceMotion ? nil : DesignTokens.Motion.Easing.standard(), value: state.items.isEmpty)
+        .onChange(of: state.requestReviewTrigger) { _ in requestReview() }
     }
 }
 

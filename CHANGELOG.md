@@ -6,6 +6,10 @@ All notable changes to this project are documented here. The format is based on
 
 ## [Unreleased]
 
+### Added
+- Ask for an App Store review at a natural moment (the 2nd and 5th successful conversion), never
+  on launch or first use. Uses StoreKit's `requestReview`, which throttles the actual prompt.
+
 ## [1.0.0] - 2026-06-30
 
 First public release — submitted to the Mac App Store.
