@@ -40,15 +40,33 @@ final class AppState: ObservableObject {
         guard let outDir = outputDirectory else { return }
         let items = self.items
         let rate = self.settings.targetSampleRate.rawValue
+        let sanitize = self.settings.sanitizeFilenames
         isConverting = true
         progress = 0
 
         Task.detached(priority: .userInitiated) {
-            var converted = 0, copied = 0, failed = 0, warned = 0
+            var converted = 0, copied = 0, failed = 0, warned = 0, renamed = 0
+            var usedPaths = Set<String>()
             let total = max(1, items.count)
 
             for (index, item) in items.enumerated() {
-                let destination = outDir.appendingPathComponent(item.relativePath)
+                // Build the output path. When sanitizing, clean each path component and resolve
+                // any collisions the cleaning introduces (case-insensitive, like the SD card).
+                let relativePath = sanitize
+                    ? item.relativePath.split(separator: "/").map { FilenameSanitizer.sanitize(String($0)) }.joined(separator: "/")
+                    : item.relativePath
+                var destination = outDir.appendingPathComponent(relativePath)
+                if case .needsConversion = item.status {
+                    destination = destination.deletingPathExtension().appendingPathExtension("wav")
+                }
+                if sanitize {
+                    var original = outDir.appendingPathComponent(item.relativePath)
+                    if case .needsConversion = item.status {
+                        original = original.deletingPathExtension().appendingPathExtension("wav")
+                    }
+                    destination = Self.uniqueDestination(destination, used: &usedPaths)
+                    if destination.lastPathComponent != original.lastPathComponent { renamed += 1 }
+                }
                 do {
                     try FileManager.default.createDirectory(
                         at: destination.deletingLastPathComponent(),
@@ -60,8 +78,7 @@ final class AppState: ObservableObject {
                         try FileManager.default.copyItem(at: item.url, to: destination)
                         copied += 1
                     case .needsConversion:
-                        let wavDestination = destination.deletingPathExtension().appendingPathExtension("wav")
-                        try AudioConverter.convert(source: item.url, destination: wavDestination, targetSampleRate: rate)
+                        try AudioConverter.convert(source: item.url, destination: destination, targetSampleRate: rate)
                         converted += 1
                     case .unreadable:
                         failed += 1
@@ -77,7 +94,7 @@ final class AppState: ObservableObject {
 
             let report = ConversionReport(
                 converted: converted, copied: copied, failed: failed,
-                warnings: warned, outputDirectory: outDir
+                warnings: warned, renamed: renamed, outputDirectory: outDir
             )
             await MainActor.run {
                 self.isConverting = false
@@ -90,6 +107,23 @@ final class AppState: ObservableObject {
         items = []
         lastReport = nil
         progress = 0
+    }
+
+    /// Return a destination that doesn't collide with one already used this run, appending
+    /// " (2)", " (3)", … Comparison is case-insensitive to match the SD card's filesystem.
+    private nonisolated static func uniqueDestination(_ url: URL, used: inout Set<String>) -> URL {
+        let dir = url.deletingLastPathComponent()
+        let ext = url.pathExtension
+        let base = url.deletingPathExtension().lastPathComponent
+        var candidate = url
+        var n = 2
+        while used.contains(candidate.path.lowercased()) {
+            let name = ext.isEmpty ? "\(base) (\(n))" : "\(base) (\(n)).\(ext)"
+            candidate = dir.appendingPathComponent(name)
+            n += 1
+        }
+        used.insert(candidate.path.lowercased())
+        return candidate
     }
 
     /// Populate the list with representative mock data for screenshots/demos.

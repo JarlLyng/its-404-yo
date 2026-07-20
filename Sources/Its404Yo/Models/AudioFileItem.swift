@@ -33,6 +33,7 @@ struct ConversionReport: Equatable {
     var copied: Int
     var failed: Int
     var warnings: Int
+    var renamed: Int = 0
     var outputDirectory: URL
 
     var total: Int { converted + copied + failed }

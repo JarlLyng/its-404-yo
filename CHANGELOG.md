@@ -6,6 +6,11 @@ All notable changes to this project are documented here. The format is based on
 
 ## [Unreleased]
 
+### Added
+- Optional file-name sanitization for SD-card import (off by default): folds diacritics to
+  ASCII, replaces characters outside a safe subset, de-duplicates any resulting collisions, and
+  preserves folder structure. Report shows how many files were renamed.
+
 ## [1.0.0] - 2026-06-30
 
 First public release — submitted to the Mac App Store.
