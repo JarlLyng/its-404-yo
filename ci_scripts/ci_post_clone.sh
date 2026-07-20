@@ -13,7 +13,13 @@ brew install xcodegen
 cd "$CI_PRIMARY_REPOSITORY_PATH"
 xcodegen generate
 
-# The generated .xcodeproj (and its Package.resolved) is not committed, and Xcode Cloud runs
-# with automatic package resolution disabled. Resolve here so Package.resolved exists before
-# Xcode Cloud's own dependency-resolution step.
-xcodebuild -resolvePackageDependencies -project Its404Yo.xcodeproj -scheme Its404Yo
+# Xcode Cloud runs with automatic package resolution disabled and requires a committed
+# Package.resolved. Ours lives inside the generated (uncommitted) .xcodeproj, so we keep a tracked
+# baseline (ci_scripts/Package.resolved.baseline) and drop it into place after generating the
+# project. Xcode Cloud's resolve step then uses the pinned versions instead of re-resolving.
+# Maintenance: when a dependency changes, re-resolve locally and refresh the baseline:
+#   xcodebuild -resolvePackageDependencies -project Its404Yo.xcodeproj -scheme Its404Yo
+#   cp Its404Yo.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved ci_scripts/Package.resolved.baseline
+SWIFTPM_DIR="Its404Yo.xcodeproj/project.xcworkspace/xcshareddata/swiftpm"
+mkdir -p "$SWIFTPM_DIR"
+cp ci_scripts/Package.resolved.baseline "$SWIFTPM_DIR/Package.resolved"
