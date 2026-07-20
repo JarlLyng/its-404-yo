@@ -18,20 +18,28 @@ struct FileListView: View {
     }
 
     private var summaryHeader: some View {
-        HStack(spacing: DesignTokens.Spacing.lg) {
-            Text("\(state.items.count) files")
-                .scaledFont(size: DesignTokens.Typography.Size.base, weight: DesignTokens.Typography.Weight.semibold)
-            Text("\(state.convertCount) to convert")
-                .foregroundStyle(DesignTokens.Common.primary(scheme))
-            Text("\(state.compatibleCount) already OK")
-                .foregroundStyle(DesignTokens.Common.Text.secondary(scheme))
-            if state.unreadableCount > 0 {
-                Text("\(state.unreadableCount) unreadable")
-                    .foregroundStyle(DesignTokens.Common.State.error(scheme))
+        VStack(alignment: .leading, spacing: DesignTokens.Spacing.xs) {
+            HStack(spacing: DesignTokens.Spacing.lg) {
+                Text("\(state.items.count) files")
+                    .scaledFont(size: DesignTokens.Typography.Size.base, weight: DesignTokens.Typography.Weight.semibold)
+                Text("\(state.convertCount) to convert")
+                    .foregroundStyle(DesignTokens.Common.primary(scheme))
+                Text("\(state.compatibleCount) already OK")
+                    .foregroundStyle(DesignTokens.Common.Text.secondary(scheme))
+                if state.unreadableCount > 0 {
+                    Text("\(state.unreadableCount) unreadable")
+                        .foregroundStyle(DesignTokens.Common.State.error(scheme))
+                }
+                Spacer()
             }
-            Spacer()
+            .scaledFont(size: DesignTokens.Typography.Size.sm)
+
+            if state.hasWarnings {
+                Text("Files with warnings are still converted. Only unreadable files are skipped.")
+                    .scaledFont(size: DesignTokens.Typography.Size.xs)
+                    .foregroundStyle(DesignTokens.Common.Text.tertiary(scheme))
+            }
         }
-        .scaledFont(size: DesignTokens.Typography.Size.sm)
         .padding(DesignTokens.Spacing.lg)
     }
 }

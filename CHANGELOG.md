@@ -6,12 +6,19 @@ All notable changes to this project are documented here. The format is based on
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-07-20
+
 ### Added
 - Optional file-name sanitization for SD-card import (off by default): folds diacritics to
   ASCII, replaces characters outside a safe subset, de-duplicates any resulting collisions, and
   preserves folder structure. Report shows how many files were renamed.
 - Ask for an App Store review at a natural moment (the 2nd and 5th successful conversion), never
   on launch or first use. Uses StoreKit's `requestReview`, which throttles the actual prompt.
+- Remember the last output folder and target sample rate between launches.
+
+### Changed
+- Clarified that files with warnings are still converted; only unreadable files are skipped.
+  Warning wording tidied.
 
 ## [1.0.0] - 2026-06-30
 
