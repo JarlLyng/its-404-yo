@@ -2,8 +2,22 @@
 .DS_Store
 *.swp
 
-# Local agent / editor config
+# Local agent / editor config. The repo is indifferent to which AI is used and should not
+# smell of tooling: AGENTS.md is the one tracked agent-context file, everything a specific
+# editor or agent writes stays local. (.claude/launch.json describes one machine, not the project.)
 .claude/
+CLAUDE.md
+CLAUDE.local.md
+.cursor/
+.cursorrules
+.windsurfrules
+.clinerules
+.aider*
+.continue/
+.codex/
+.mcp.json
+GEMINI.md
+.github/copilot-instructions.md
 
 # Xcode
 xcuserdata/
