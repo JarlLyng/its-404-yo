@@ -18,6 +18,18 @@ to _It's mono, yo!_
 - **Status:** Launched on the Mac App Store, [app id 6785918261](https://apps.apple.com/app/id6785918261). Current release 1.1.0.
 - **Sister app:** [It's mono, yo!](https://itsmonoyo.iamjarl.com)
 
+## Boundaries: work only in this repo
+
+- Commit, push and open pull requests **only in this repo**. Never edit, commit to, push to or
+  open a pull request in another IAMJARL repo, and that includes `iamjarl-design`.
+- To ask another repo for something, **open an issue there**. Public repos get findings, never
+  measured numbers. If it is strategic, or not safe in public, it goes to the hub instead.
+- The one place outside this repo you write is this app's own folder in the private hub
+  (`Its404Yo/`). Shared hub files (`PORTFOLIO.md`, the standards, `tools/`) are changed from inside
+  the hub; if one needs changing, open an issue there.
+- If a task seems to need a change in another repo, stop, open the issue, and carry on with what
+  this repo can do.
+
 ## Strategy lives in the private hub
 
 Target audience, positioning, pricing reasoning, SEO/ASO playbooks, analytics readouts and
