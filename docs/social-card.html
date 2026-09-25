@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>It's 404, yo! social card</title>
+<!--
+  Source for the shared social card. One image does two jobs: the site's og:image and the
+  repo's GitHub social preview.
+
+  Rendered at 2x and downsampled, so edit here and re-run rather than retouching the PNG.
+  That is the point of this file existing: the previous og.png had no source, so when the
+  site's hero copy was corrected the image silently kept the old wording.
+
+  Render:  make social   (writes docs/social-preview.png and site/assets/og.png)
+  Sizes:   1280x640 (GitHub's preferred) and 1200x630 (og:image), both from this one card.
+-->
+<style>
+  :root {
+    --primary: #D0FF00;
+    --bg: #000000;
+    --text: #FFFFFF;
+    --text-2: rgba(255,255,255,0.75);
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { background: var(--bg); }
+
+  /* The card is authored at 1280x640 and scaled up for capture, so one source serves
+     both output sizes and the type stays crisp after downsampling. */
+  .card {
+    width: var(--w, 1280px); height: var(--h, 640px);
+    position: relative; overflow: hidden;
+    background: var(--bg);
+    font-family: var(--font);
+    color: var(--text);
+    padding: 72px 80px;
+    display: flex; flex-direction: column;
+  }
+  /* Accent glow, top right. Kept well inside the frame so any platform crop is safe. */
+  .card::after {
+    content: ""; position: absolute; top: -220px; right: -180px;
+    width: 720px; height: 720px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(208,255,0,0.17) 0%, rgba(208,255,0,0) 68%);
+  }
+  .inner { position: relative; z-index: 1; display: flex; flex-direction: column; height: 100%; }
+
+  .brand { display: flex; align-items: center; gap: 18px; }
+  .brand svg { width: 64px; height: 40px; flex: none; }
+  .brand span { font-size: 30px; font-weight: 700; letter-spacing: -0.01em; }
+
+  .eyebrow {
+    font-family: var(--mono); font-size: 21px; color: var(--primary);
+    letter-spacing: 0.06em; margin-top: 26px;
+  }
+
+  h1 {
+    font-size: 78px; line-height: 1.02; letter-spacing: -0.025em;
+    font-weight: 800; margin-top: 30px;
+  }
+  h1 .accent { color: var(--primary); }
+
+  .lede {
+    font-size: 27px; line-height: 1.42; color: var(--text-2);
+    margin-top: 30px; max-width: 1100px;
+  }
+  .lede em { font-style: italic; color: var(--text); }
+
+  .foot {
+    margin-top: auto; display: flex; align-items: center;
+    justify-content: space-between; gap: 24px;
+  }
+  .url { font-family: var(--mono); font-size: 24px; color: var(--primary); }
+  .spec {
+    font-family: var(--mono); font-size: 19px; color: var(--text-2);
+    border: 1px solid rgba(255,255,255,0.22); border-radius: 999px;
+    padding: 12px 26px; white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+  <script>
+    // #og renders the og:image size; no hash renders GitHub's preferred 1280x640.
+    if (location.hash === '#og') document.documentElement.style.cssText = '--w:1200px;--h:630px';
+  </script>
+  <div class="card">
+    <div class="inner">
+      <div class="brand">
+        <!-- the site's sine-wave mark, drawn inline so the card has no external asset -->
+        <svg viewBox="0 0 64 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M4 20 C 12 -2, 22 -2, 30 20 S 48 42, 60 20"
+                stroke="#D0FF00" stroke-width="5" stroke-linecap="round"/>
+        </svg>
+        <span>It's 404, yo!</span>
+      </div>
+
+      <p class="eyebrow">MACOS &middot; ROLAND SP-404 MKII</p>
+
+      <h1>Make any sample pack<br /><span class="accent">SP-404 ready.</span></h1>
+
+      <p class="lede">Drop a whole pack. Get it back in exactly the format your SP-404 MkII
+        accepts.<br />No DAW, no Terminal, no cryptic <em>&ldquo;Unsupported File.&rdquo;</em></p>
+
+      <div class="foot">
+        <span class="url">its404yo.iamjarl.com</span>
+        <span class="spec">16-bit linear PCM WAV &middot; 44.1 / 48 kHz</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

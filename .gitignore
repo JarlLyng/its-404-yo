@@ -52,3 +52,6 @@ ExportOptions.plist
 # Coverage artifacts
 *.profraw
 *.profdata
+
+# make social scratch output
+.build-social/
