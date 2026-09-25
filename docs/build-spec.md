@@ -78,8 +78,20 @@ med advarsler — de er sjældne ift. format-problemet.
 
 ## 12. Åbne spørgsmål at teste på hardware før/under build
 1. Accepterer SD-kort-import reelt 32-bit **integer**, eller kun 16-bit? (Down-konvér uanset.)
+   **Stadig uafklaret.** sp404-import (se kildebelæg) tvangs-konverterer på samme måde alt der
+   ikke matcher target bit-depth, uden selv at isolere integer vs. float — det bekræfter kun
+   strategien ("down-konvér uanset"), ikke enhedens rå accept af 32-bit integer.
 2. Præcis min-længde-tærskel der fejler (~100 ms?) — og gælder den SD-kort eller kun app'en?
+   **Bekræftet for SD-/CF-kort-import, alle tre hardware-generationer.** sp404-import bruger
+   100 ms som skip-tærskel specifikt for direkte kort-import (MKII IMPORT, SX/A FUNC+pad 3,
+   original CANCEL+RESAMPLE) — ikke den officielle desktop-app — og har kørt uden rapporterede
+   import-fejl på den tærskel i produktion.
 3. Filnavn/sti-begrænsninger (double-byte, længde, mappedybde) på SD-kort-import?
+   **Bekræftet på tværs af generationer.** MKII bevarer og browser undermapper on-device og
+   accepterer navne op til 60 tegn; SX/A/original kræver flad struktur (ingen undermapper —
+   sp404-import bruger numeriske `001_`-præfikser til at styre rækkefølgen i stedet) og
+   trunkerer til 40 tegn. Alle tre generationer viser double-byte/accenterede navne dårligt,
+   så sp404-import NFKD-normaliserer og strip'er til ren ASCII før kopiering.
 4. Down-konverterer den officielle app stille 24/32-bit (inkl. float) korrekt? (Så kunne app'en
    alternativt anbefale "brug Roland-app'en" for de filer — men vores pre-konvertering er mere robust.)
 
@@ -90,5 +102,8 @@ med advarsler — de er sjældne ift. format-problemet.
 - Roland support 4408189989147 ("converted to 48 kHz/16-bit on import")
 - Roland app-manual v4 (SD-import = 16-bit lineær WAV/AIFF/MP3; app = + FLAC/M4A)
 - Roland support 4408196941851 (16 min / ~185 MB pr. sample)
+- sp404-import (github.com/NPCmillionaire/sp404-tools, open source CLI/GUI til
+  MKII/SX/A/original): produktionstestet på tværs af alle fire varianter — kilde til svar på
+  §12 Q2-Q3 (min-længde-tærskel gælder kort-import; navnelængde/mappedybde-grænser per model)
 - sebpatron.com + GitHub (pkMinhas, seb-patron, ConorCorp, haoranzhang929): 32-bit float = dominant
   "Unsupported File"-årsag; 16-bit PCM-target virker
