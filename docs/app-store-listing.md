@@ -40,6 +40,7 @@ WHAT IT DOES
 • Convert to the SP-404-safe target: 16-bit linear PCM WAV at 48 kHz (or 44.1 kHz)
 • Already-compatible files are copied untouched: no needless re-encoding
 • Your folder structure is preserved in the output
+• Optional file-name cleanup for names the SP-404 struggles with (accents, odd characters)
 • Warns about edge cases (over 16 min / ~185 MB, or under 100 ms)
 
 SIMPLE BY DESIGN
