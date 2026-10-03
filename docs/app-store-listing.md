@@ -67,6 +67,8 @@ be edited live, so a voice slip ships for the life of that version. Check before
 - [ ] Description and "What's New" checked against it. `grep "—"` on this file's copy blocks.
 - [ ] Feature list matches what actually shipped. Cross-check `AGENTS.md`, including its
       "features that do NOT exist" section.
+- [ ] **Support URL** is `https://its404yo.iamjarl.com/support.html`, not the GitHub issues page.
+      Version-locked like the description, so set it while preparing the version.
 - [ ] Promotional text is *not* version-locked, so it can be corrected any time. It is also not
       readable by `tools/appstore_listing.py` (an ASC-only field), so verify it in Connect by eye.
 
@@ -76,7 +78,10 @@ be edited live, so a voice slip ships for the life of that version. Check before
 - **Age rating:** 4+ (no objectionable content).
 - **Privacy:** "Data Not Collected" — matches `PrivacyInfo.xcprivacy`. No tracking.
 - **Export compliance:** Uses no non-exempt encryption → answer **No**.
-- **Support URL:** https://github.com/JarlLyng/its-404-yo/issues  (a real support/contact channel — Connect requires this, not just the marketing site)
+- **Support URL:** https://its404yo.iamjarl.com/support.html  (shows support@iamjarl.com, the portfolio's one
+  support address, plus the Elektronauts thread and GitHub issues. Was the GitHub issues page.
+  **Version-locked:** it can only be changed while preparing a new version, so it goes in with the next
+  release, alongside the Send Feedback menu item)
 - **Marketing URL (optional):** https://its404yo.iamjarl.com/
 - **Privacy policy URL:** https://its404yo.iamjarl.com/privacy.html  (states the app collects no data; required even for no-data apps).
 - **Copyright:** © 2026 IAMJARL

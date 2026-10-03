@@ -84,14 +84,21 @@ A small SwiftUI app over a Core Audio conversion engine. See
 - **Engine:** `ExtAudioFile` (AudioToolbox), decode → 16-bit PCM → WAV, with sample-rate conversion.
 - **No backend, no third-party runtime dependencies** beyond the design tokens.
 
+## Support
+
+Email **[support@iamjarl.com](mailto:support@iamjarl.com)**, or use **Help › Send Feedback…** in the
+app, which fills in your app and macOS version. The maker also reads the
+[Elektronauts thread](https://www.elektronauts.com/t/its-404-yo-a-small-mac-app-that-makes-any-sample-pack-sp-404-mkii-ready/253645).
+GitHub issues are welcome too. More on the [support page](https://its404yo.iamjarl.com/support.html).
+
 ## Roadmap
 
-v1.0 has been submitted to the Mac App Store. Planned work is tracked in
+Live on the Mac App Store. Open work is tracked in
 [**GitHub Issues**](https://github.com/JarlLyng/its-404-yo/issues), highlights:
 
-- In-app review prompt and remembered preferences ([#5](https://github.com/JarlLyng/its-404-yo/issues/5), [#8](https://github.com/JarlLyng/its-404-yo/issues/8))
 - Splitting files over the 16 min / 185 MB limit ([#6](https://github.com/JarlLyng/its-404-yo/issues/6))
-- Accessibility: in-app text size and a contrast audit ([#9](https://github.com/JarlLyng/its-404-yo/issues/9), [#10](https://github.com/JarlLyng/its-404-yo/issues/10))
+- Optional level normalization ([#18](https://github.com/JarlLyng/its-404-yo/issues/18))
+- In-app text size ([#9](https://github.com/JarlLyng/its-404-yo/issues/9))
 - Exploring additional device profiles ([#15](https://github.com/JarlLyng/its-404-yo/issues/15))
 
 ## Credits

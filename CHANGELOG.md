@@ -6,6 +6,11 @@ All notable changes to this project are documented here. The format is based on
 
 ## [Unreleased]
 
+### Added
+- **Help › Send Feedback…** opens a draft email to support@iamjarl.com with the app and macOS
+  version filled in. Replaces the default Help item, which only said help wasn't available.
+  Nothing is sent by the app.
+
 ## [1.1.0] - 2026-07-20
 
 ### Added

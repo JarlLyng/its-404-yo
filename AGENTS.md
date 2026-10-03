@@ -73,6 +73,9 @@ build on what it says.
   characters outside a safe subset, and de-duplicates collisions it creates.
 - Remembers the last output folder (security-scoped bookmark) and target sample rate across launches.
 - Asks for an App Store review after the 2nd and 5th fully successful conversion, never at launch.
+- **Help › Send Feedback…** opens a draft email to `support@iamjarl.com` in the user's own mail
+  app, with the app and macOS version prefilled. The app sends nothing itself; the user sees and
+  sends (or discards) the draft. Built by `FeedbackMail` in `Services`.
 
 ### Features that do NOT exist (common hallucination targets)
 
@@ -86,6 +89,7 @@ These are open issues or deliberate exclusions, not shipped behaviour. Do not de
   SP-404's project format. It writes converted files to a folder you choose; moving them to the
   card is manual.
 - **No network, no backend, no cloud, no accounts, and no telemetry or analytics in the app.**
+  "Send Feedback" is not an exception: it hands a `mailto:` draft to the user's mail app.
 - **macOS only.** No iOS, iPadOS or command-line build.
 
 ## Requirements
@@ -122,9 +126,9 @@ changes, refresh that baseline in the same commit** or the cloud build silently 
 
 ## Where things are
 
-- `Sources/Its404Yo/Services` — `AudioConverter`, `AudioFormatInspector`, `AudioFormat`, `SampleScanner`, `FilenameSanitizer`
+- `Sources/Its404Yo/Services` — `AudioConverter`, `AudioFormatInspector`, `AudioFormat`, `SampleScanner`, `FilenameSanitizer`, `FeedbackMail`
 - `Sources/Its404Yo/Models` — `AppState`, `AudioFileItem`, `ConversionSettings`
 - `Sources/Its404Yo/Views` — SwiftUI views
 - `Tests/Its404YoTests` — unit + end-to-end conversion tests
-- `site/` — the marketing site source, deployed to GitHub Pages
+- `site/` — the marketing site source, deployed to GitHub Pages. Support: `site/support.html`, `support@iamjarl.com`
 - `docs/` — build spec, architecture, App Store listing copy
