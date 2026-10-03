@@ -23,7 +23,10 @@ final class FeedbackMailTests: XCTestCase {
     /// `queryItems` would leave these raw and split the query on them.
     func testReservedCharactersAreEncoded() {
         let url = FeedbackMail.url(appVersion: "1&2=3+4", build: "b?#", osVersion: "x y")
-        let query = url.query ?? ""
+        // Read the raw query via URLComponents: URL.query returns nil for non-hierarchical
+        // URLs like mailto: on older Foundation (the CI runner), but not on newer macOS.
+        let query = URLComponents(url: url, resolvingAgainstBaseURL: false)?.percentEncodedQuery ?? ""
+        XCTAssertFalse(query.isEmpty)
         XCTAssertEqual(query.components(separatedBy: "&").count, 2, "exactly subject and body")
         XCTAssertFalse(query.contains("+"))
         XCTAssertFalse(query.contains(" "))
