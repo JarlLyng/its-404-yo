@@ -136,15 +136,27 @@ section { padding: clamp(48px, 8vw, 96px) 0; }
 .faq p { color: var(--text-2); margin-top: var(--sp-md); }
 
 /* Footer */
-footer { border-top: 1px solid var(--border); padding: var(--sp-3xl) 0; color: var(--text-3); font-size: 14px; }
-.footer-grid { display: flex; justify-content: space-between; align-items: center; gap: var(--sp-2xl); flex-wrap: wrap; }
-.footer-links { display: flex; gap: var(--sp-2xl); flex-wrap: wrap; }
-.footer-links a { text-decoration: none; color: var(--text-2); }
-.footer-links a:hover { color: var(--text); }
-/* Guide links sit tighter than the top-level footer links so they read as one group. */
-.footer-guides { gap: var(--sp-lg); }
-.footer-label { color: var(--text-3); }
-.trademark { margin-top: var(--sp-lg); font-size: 12px; color: var(--text-3); max-width: 720px; }
+/* The site keeps its full-width top rule; <ij-footer> draws its own inside the content width,
+   so that one is switched off below rather than showing two lines. */
+footer { border-top: 1px solid var(--border); padding: var(--sp-sm) 0 var(--sp-3xl); color: var(--text-3); font-size: 14px; }
+/* Bind the shared footer to this site's palette. It reads --ij-* tokens when the page has them
+   and falls back to the system defaults otherwise; mapping them here means it follows the site's
+   own colours and light/dark switch exactly. */
+ij-footer {
+  display: block;
+  --ij-color-text-primary: var(--text);
+  --ij-color-text-secondary: var(--text-2);
+  --ij-color-primary: var(--primary);
+  --ij-color-border-subtle: transparent;
+  --ij-spacing-sm: var(--sp-sm);
+  --ij-spacing-lg: var(--sp-lg);
+  --ij-spacing-xxl: var(--sp-2xl);
+}
+ij-footer [slot="fineprint"] { font-size: 12px; max-width: 720px; }
+/* Before the component upgrades (or if its script never loads) the links render as plain
+   children. Keep that fallback readable rather than a run of touching words. */
+ij-footer:not(:defined) a { color: var(--text-2); text-decoration: none; margin-right: var(--sp-lg); }
+ij-footer:not(:defined) [slot="fineprint"] { margin-top: var(--sp-lg); color: var(--text-3); }
 
 @media (max-width: 720px) {
   .steps, .grid { grid-template-columns: 1fr; }

@@ -105,6 +105,7 @@
   </script>
 
   <link rel="stylesheet" href="styles.css" />
+  <script type="module" src="assets/ij-footer.js"></script>
 
   <!-- Privacy-friendly, cookieless analytics (Umami) -->
   <script defer src="https://umami-iamjarl.vercel.app/script.js" data-website-id="848fd3dc-4424-4b03-8d98-2750cad6e6c3"></script>
@@ -284,22 +285,26 @@
 
   <footer>
     <div class="wrap">
-      <div class="footer-grid">
-        <div class="footer-links">
-          <a href="https://iamjarl.com" target="_blank" rel="noopener">More apps</a>
-          <a href="https://itsmonoyo.iamjarl.com" target="_blank" rel="noopener">It's mono, yo!</a>
-          <a href="/privacy.html">Privacy</a>
-          <a href="https://github.com/JarlLyng/its-404-yo" target="_blank" rel="noopener">GitHub</a>
-        </div>
-        <div class="footer-links footer-guides">
-          <span class="footer-label">Guides</span>
-          <a href="/sp-404-unsupported-file.html">“Unsupported File”</a>
-          <a href="/convert-32-bit-float-wav-sp-404.html">32-bit float WAV</a>
-          <a href="/flac-to-wav-sp-404.html">FLAC to WAV</a>
-        </div>
-      </div>
-      <p class="trademark">© 2026 IAMJARL. An independent tool, not affiliated with or endorsed by Roland.
-        Roland and SP-404 are trademarks of their respective owners.</p>
+      <ij-footer app="its-404-yo">
+        <a slot="links" href="/sp-404-unsupported-file.html">Fix &ldquo;Unsupported File&rdquo;</a>
+        <a slot="links" href="/convert-32-bit-float-wav-sp-404.html">Convert 32-bit float</a>
+        <a slot="links" href="/flac-to-wav-sp-404.html">FLAC to WAV</a>
+        <a slot="links" href="/privacy.html">Privacy</a>
+        <a slot="links" href="https://github.com/JarlLyng/its-404-yo" target="_blank" rel="noopener">GitHub</a>
+        <!-- ij-footer:cross-links -->
+        <!-- IAMJARL cross-links for It's 404, yo! — generated, do not edit -->
+        <!-- design system v1.13.0, registry updated 2026-09-20 -->
+        <!-- Paste inside <ij-footer app="its-404-yo">. Rebuild to refresh. -->
+        <a slot="cross-links" href="https://echolume.iamjarl.com">Echolume</a>
+        <a slot="cross-links" href="https://itsmonoyo.iamjarl.com">It's mono, yo!</a>
+        <a slot="cross-links" href="https://patternaut.iamjarl.com">Patternaut</a>
+        <a slot="cross-links" href="https://tonvault.iamjarl.com">TonVault</a>
+        <a slot="cross-links" href="https://madebyhuman.iamjarl.com">Made by Human</a>
+        <a slot="cross-links" href="https://iamjarl.com">All projects</a>
+        <!-- /ij-footer:cross-links -->
+        <p slot="fineprint">&copy; 2026 IAMJARL. An independent tool, not affiliated with or endorsed by Roland.
+          Roland and SP-404 are trademarks of their respective owners.</p>
+      </ij-footer>
     </div>
   </footer>
 
