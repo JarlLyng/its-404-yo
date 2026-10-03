@@ -51,10 +51,15 @@ Built for the same hardware-sampler workflow by an indie developer who uses this
 Roland and SP-404 are trademarks of their respective owners. This app is independent and not affiliated with or endorsed by Roland.
 ```
 
-## What's New (for v1.0.0)
+## What's New (for v1.2.0, version-locked once submitted)
 ```
-First release. Drag in a sample pack, make it SP-404 MkII-ready in one click.
+Two small changes.
+
+Send Feedback. Help › Send Feedback… opens an email to support with your app and macOS version already filled in. Nothing is sent until you send it, so if a pack won't convert or something looks off, that's the quickest way to tell me.
+
+Clearer drop zone. The outline around the drop area is easier to see in light and dark mode.
 ```
+Earlier versions' notes live in `CHANGELOG.md` and in the store's version history.
 
 ## Before shipping a release
 
@@ -77,6 +82,9 @@ be edited live, so a voice slip ships for the life of that version. Check before
 - **Price:** Paid, one-time — **$0.99** (live). No in-app purchases.
 - **Age rating:** 4+ (no objectionable content).
 - **Privacy:** "Data Not Collected" — matches `PrivacyInfo.xcprivacy`. No tracking.
+  Send Feedback (1.2.0) does not change this: the app only opens a draft in the user's own mail
+  app, and a support request the user writes and sends is Apple's own example of data that is
+  optional to disclose ([App privacy details](https://developer.apple.com/app-store/app-privacy-details/), "Optional disclosure").
 - **Export compliance:** Uses no non-exempt encryption → answer **No**.
 - **Support URL:** https://its404yo.iamjarl.com/support.html  (shows support@iamjarl.com, the portfolio's one
   support address, plus the Elektronauts thread and GitHub issues. Was the GitHub issues page.

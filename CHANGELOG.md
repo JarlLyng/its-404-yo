@@ -6,10 +6,19 @@ All notable changes to this project are documented here. The format is based on
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-10-03
+
 ### Added
 - **Help › Send Feedback…** opens a draft email to support@iamjarl.com with the app and macOS
   version filled in. Replaces the default Help item, which only said help wasn't available.
   Nothing is sent by the app.
+
+### Changed
+- The drop zone's dashed outline is easier to see in both light and dark mode. It was drawn in a
+  decorative-divider colour at about 1.25:1, well under the 3:1 WCAG asks of a UI boundary, and
+  it is the only thing marking the drop target before anything is dropped. Contrast audit in
+  `docs/accessibility.md`.
+- Design tokens updated to iamjarl-design 1.2.1. No colour or size values changed.
 
 ## [1.1.0] - 2026-07-20
 
