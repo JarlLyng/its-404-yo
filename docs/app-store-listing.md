@@ -14,9 +14,9 @@ SP-404 sample pack converter
 ```
 (28 chars) — alternative: `Make sample packs SP-404 ready` (30)
 
-## Promotional text (≤170, editable any time)
+## Promotional text (≤170). Editable any time: not version-locked, so it can be fixed in Connect without waiting for a release.
 ```
-Drop a whole sample pack and get it back ready for your SP-404 MkII — no DAW, no Terminal, no "Unsupported File." Fixes 32-bit float, odd sample rates, FLAC and more.
+"Unsupported File" on your SP-404 MkII? Drop a sample pack in, get clean 16-bit WAVs out. Batch, offline, folders kept.
 ```
 
 ## Keywords (≤100, comma-separated, no spaces between terms)
@@ -29,21 +29,21 @@ SP404,SP-404,sampler,sample pack,converter,WAV,16-bit,32-bit float,unsupported f
 ```
 Drop a sample pack. Get it back ready for your SP-404 MkII. No DAW, no Terminal, no cryptic "Unsupported File."
 
-It's 404, yo! is a tiny, native macOS utility that batch-converts an entire sample pack into exactly the format the Roland SP-404 MkII accepts on SD-card import — and tells you, in plain language, what it changed.
+It's 404, yo! is a tiny, native macOS utility that batch-converts an entire sample pack into exactly the format the Roland SP-404 MkII accepts on SD-card import, and tells you in plain language what it changed.
 
 WHY YOU NEED IT
-Pro and Splice sample packs are usually 32-bit float WAVs (often 96 kHz, sometimes FLAC). The SP-404 MkII rejects them with "Unsupported File" and no explanation. Fixing them by hand in a DAW — one file at a time — is miserable across hundreds of samples.
+Pro and Splice sample packs are usually 32-bit float WAVs (often 96 kHz, sometimes FLAC). The SP-404 MkII rejects them with "Unsupported File" and no explanation. Fixing them by hand in a DAW, one file at a time, is miserable across hundreds of samples.
 
 WHAT IT DOES
-• Drag in a folder (or files) — your whole pack at once
+• Drag in a folder (or files): your whole pack at once
 • See every file analyzed, with a clear reason for each change ("32-bit float → 16-bit", "96 kHz resampled", "FLAC → WAV")
 • Convert to the SP-404-safe target: 16-bit linear PCM WAV at 48 kHz (or 44.1 kHz)
-• Already-compatible files are copied untouched — no needless re-encoding
+• Already-compatible files are copied untouched: no needless re-encoding
 • Your folder structure is preserved in the output
 • Warns about edge cases (over 16 min / ~185 MB, or under 100 ms)
 
 SIMPLE BY DESIGN
-One job, done well. No accounts, no subscriptions, no cloud. Everything runs offline on your Mac — your samples never leave your computer.
+One job, done well. No accounts, no subscriptions, no cloud. Everything runs offline on your Mac. Your samples never leave your computer.
 
 FROM THE MAKER OF "It's mono, yo!"
 Built for the same hardware-sampler workflow by an indie developer who uses this gear.
@@ -51,18 +51,45 @@ Built for the same hardware-sampler workflow by an indie developer who uses this
 Roland and SP-404 are trademarks of their respective owners. This app is independent and not affiliated with or endorsed by Roland.
 ```
 
-## What's New (for v1.0.0)
+## What's New (for v1.2.0, version-locked once submitted)
 ```
-First release. Drag in a sample pack, make it SP-404 MkII-ready in one click.
+Two small changes.
+
+Send Feedback. Help › Send Feedback… opens an email to support with your app and macOS version already filled in. Nothing is sent until you send it, so if a pack won't convert or something looks off, that's the quickest way to tell me.
+
+Clearer drop zone. The outline around the drop area is easier to see in light and dark mode.
 ```
+Earlier versions' notes live in `CHANGELOG.md` and in the store's version history.
+
+## Before shipping a release
+
+The description and release notes are **version-locked**: once a version is submitted they cannot
+be edited live, so a voice slip ships for the life of that version. Check before submitting:
+
+- [ ] Read `VOICE.md` in the private hub. The rules that bite here: **no em-dashes** anywhere
+      (the App Store carve-out covers feature *lists*, not punctuation), bullet labels take a
+      **colon**, and never frame a paid app as "free".
+- [ ] Description and "What's New" checked against it. `grep "—"` on this file's copy blocks.
+- [ ] Feature list matches what actually shipped. Cross-check `AGENTS.md`, including its
+      "features that do NOT exist" section.
+- [ ] **Support URL** is `https://its404yo.iamjarl.com/support.html`, not the GitHub issues page.
+      Version-locked like the description, so set it while preparing the version.
+- [ ] Promotional text is *not* version-locked, so it can be corrected any time. It is also not
+      readable by `tools/appstore_listing.py` (an ASC-only field), so verify it in Connect by eye.
 
 ## Connect metadata
 - **Category:** Music (primary). Secondary: Utilities (optional).
 - **Price:** Paid, one-time — **$0.99** (live). No in-app purchases.
 - **Age rating:** 4+ (no objectionable content).
 - **Privacy:** "Data Not Collected" — matches `PrivacyInfo.xcprivacy`. No tracking.
+  Send Feedback (1.2.0) does not change this: the app only opens a draft in the user's own mail
+  app, and a support request the user writes and sends is Apple's own example of data that is
+  optional to disclose ([App privacy details](https://developer.apple.com/app-store/app-privacy-details/), "Optional disclosure").
 - **Export compliance:** Uses no non-exempt encryption → answer **No**.
-- **Support URL:** https://github.com/JarlLyng/its-404-yo/issues  (a real support/contact channel — Connect requires this, not just the marketing site)
+- **Support URL:** https://its404yo.iamjarl.com/support.html  (shows support@iamjarl.com, the portfolio's one
+  support address, plus the Elektronauts thread and GitHub issues. Was the GitHub issues page.
+  **Version-locked:** it can only be changed while preparing a new version, so it goes in with the next
+  release, alongside the Send Feedback menu item)
 - **Marketing URL (optional):** https://its404yo.iamjarl.com/
 - **Privacy policy URL:** https://its404yo.iamjarl.com/privacy.html  (states the app collects no data; required even for no-data apps).
 - **Copyright:** © 2026 IAMJARL

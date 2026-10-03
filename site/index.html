@@ -80,6 +80,16 @@
           },
           {
             "@type": "Question",
+            "name": "How is this different from Roland’s SP-404MKII app?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Roland’s app is built around loading samples onto pads inside a project, and it needs Roland Cloud Manager running. This works one level down, on the raw files: point it at a whole pack (or a folder of packs) and it batch-converts everything to the SD-import format, folder structure preserved, so the output drops straight onto the card or stays as a clean library. It also reports per file what is wrong and why before it touches anything. If you are happy importing through Roland’s app, you may not need this." }
+          },
+          {
+            "@type": "Question",
+            "name": "Why not just use ffmpeg, fre:ac or Audacity?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Those all work, and they are worth having for general conversion. The difference is that you have to know and set the exact target yourself: 16-bit linear PCM WAV at 44.1 or 48 kHz. This already knows the SP-404 target, flags per file what would fail and why, and needs no configuration. If you are comfortable on the command line, ffmpeg is an honest answer." }
+          },
+          {
+            "@type": "Question",
             "name": "Does it send my samples anywhere?",
             "acceptedAnswer": { "@type": "Answer", "text": "Never. Everything runs offline on your Mac. There’s no account, no cloud, no tracking." }
           },
@@ -95,6 +105,7 @@
   </script>
 
   <link rel="stylesheet" href="styles.css" />
+  <script type="module" src="assets/ij-footer.js"></script>
 
   <!-- Privacy-friendly, cookieless analytics (Umami) -->
   <script defer src="https://umami-iamjarl.vercel.app/script.js" data-website-id="848fd3dc-4424-4b03-8d98-2750cad6e6c3"></script>
@@ -120,7 +131,7 @@
       <p class="lede">Drop a whole pack. Get it back in exactly the format your SP-404 MkII accepts.
         No DAW, no Terminal, no cryptic <em>“Unsupported File.”</em></p>
       <div class="cta-row">
-        <a class="btn btn-primary" href="https://apps.apple.com/app/id6785918261" target="_blank" rel="noopener">Download on the Mac App Store</a>
+        <a class="btn btn-primary" href="https://apps.apple.com/app/id6785918261?pt=128512007&ct=site&mt=12" data-umami-event="store-click" data-umami-event-store="mac-app-store" data-umami-event-placement="hero" data-umami-event-locale="en" target="_blank" rel="noopener">Download on the Mac App Store</a>
         <a class="btn btn-ghost" href="#how">See how it works</a>
       </div>
       <p class="note">One-time purchase · works offline · your samples never leave your Mac</p>
@@ -244,6 +255,23 @@
             own. This app targets the stricter SD-card path, so your samples import cleanly either way.</p>
         </details>
         <details>
+          <summary>How is this different from Roland’s SP-404MKII app?</summary>
+          <p>Roland’s app is built around loading samples onto <strong>pads inside a project</strong>, and it
+            needs Roland Cloud Manager running. This works one level down, on the <strong>raw files</strong>:
+            point it at a whole pack (or a folder of packs) and it batch-converts everything to the
+            SD-import format, folder structure preserved, so the output drops straight onto the card or
+            stays as a clean library. It also reports, per file, what’s wrong and why before it touches
+            anything. If you’re happy importing through Roland’s app, you may not need this.</p>
+        </details>
+        <details>
+          <summary>Why not just use ffmpeg, fre:ac or Audacity?</summary>
+          <p>Those all work, and they’re worth having for general conversion. The difference is that you
+            have to know and set the exact target yourself: 16-bit linear PCM WAV at 44.1 or 48 kHz.
+            This already knows the SP-404 target, flags per file what would fail and why, and needs no
+            configuration. If you’re comfortable on the command line, <code>ffmpeg</code> is an honest
+            answer.</p>
+        </details>
+        <details>
           <summary>Does it send my samples anywhere?</summary>
           <p>Never. Everything runs offline on your Mac. There’s no account, no cloud, no tracking.</p>
         </details>
@@ -257,16 +285,27 @@
 
   <footer>
     <div class="wrap">
-      <div class="footer-grid">
-        <div class="footer-links">
-          <a href="https://iamjarl.com" target="_blank" rel="noopener">More apps</a>
-          <a href="https://itsmonoyo.iamjarl.com" target="_blank" rel="noopener">It's mono, yo!</a>
-          <a href="/privacy.html">Privacy</a>
-          <a href="https://github.com/JarlLyng/its-404-yo" target="_blank" rel="noopener">GitHub</a>
-        </div>
-      </div>
-      <p class="trademark">© 2026 IAMJARL. An independent tool, not affiliated with or endorsed by Roland.
-        Roland and SP-404 are trademarks of their respective owners.</p>
+      <ij-footer app="its-404-yo">
+        <a slot="links" href="/sp-404-unsupported-file.html">Fix &ldquo;Unsupported File&rdquo;</a>
+        <a slot="links" href="/convert-32-bit-float-wav-sp-404.html">Convert 32-bit float</a>
+        <a slot="links" href="/flac-to-wav-sp-404.html">FLAC to WAV</a>
+        <a slot="links" href="/support.html">Support</a>
+        <a slot="links" href="/privacy.html">Privacy</a>
+        <a slot="links" href="https://github.com/JarlLyng/its-404-yo" target="_blank" rel="noopener">GitHub</a>
+        <!-- ij-footer:cross-links -->
+        <!-- IAMJARL cross-links for It's 404, yo! — generated, do not edit -->
+        <!-- design system v1.13.0, registry updated 2026-09-20 -->
+        <!-- Paste inside <ij-footer app="its-404-yo">. Rebuild to refresh. -->
+        <a slot="cross-links" href="https://echolume.iamjarl.com">Echolume</a>
+        <a slot="cross-links" href="https://itsmonoyo.iamjarl.com">It's mono, yo!</a>
+        <a slot="cross-links" href="https://patternaut.iamjarl.com">Patternaut</a>
+        <a slot="cross-links" href="https://tonvault.iamjarl.com">TonVault</a>
+        <a slot="cross-links" href="https://madebyhuman.iamjarl.com">Made by Human</a>
+        <a slot="cross-links" href="https://iamjarl.com">All projects</a>
+        <!-- /ij-footer:cross-links -->
+        <p slot="fineprint">&copy; 2026 IAMJARL. An independent tool, not affiliated with or endorsed by Roland.
+          Roland and SP-404 are trademarks of their respective owners.</p>
+      </ij-footer>
     </div>
   </footer>
 

@@ -35,7 +35,10 @@ struct DropZoneView: View {
         .background(
             RoundedRectangle(cornerRadius: DesignTokens.Radius.lg)
                 .strokeBorder(
-                    isTargeted ? DesignTokens.Common.primary(scheme) : DesignTokens.Common.Border.subtle(scheme),
+                    // Border.subtle is a decorative-divider token (about 1.25:1) and this outline is
+                    // not decoration: it is the only thing marking the drop target, so WCAG 1.4.11
+                    // applies and it needs 3:1. Text.tertiary clears it in both schemes.
+                    isTargeted ? DesignTokens.Common.primary(scheme) : DesignTokens.Common.Text.tertiary(scheme),
                     style: StrokeStyle(lineWidth: 2, dash: [8, 6])
                 )
                 .background(

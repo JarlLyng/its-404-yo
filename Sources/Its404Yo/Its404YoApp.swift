@@ -38,6 +38,14 @@ struct Its404YoApp: App {
         .windowResizability(.contentSize)
         .commands {
             CommandGroup(replacing: .newItem) {} // single-window utility
+            // Replaces the default "It's 404, yo! Help" item, which only says help isn't available.
+            // The app collects no usage data, so what users choose to say is how we learn; this
+            // gives an unhappy user somewhere to go other than a review.
+            CommandGroup(replacing: .help) {
+                Button("Send Feedback\u{2026}") {
+                    NSWorkspace.shared.open(FeedbackMail.current())
+                }
+            }
         }
     }
 }

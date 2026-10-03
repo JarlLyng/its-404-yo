@@ -4,7 +4,7 @@ En simpel macOS drag-drop-app der gør vilkårlige sample-packs SP-404 MkII-komp
 og fjerner den kryptiske "Unsupported File"-fejl. Engangskøb, ingen backend.
 
 > Dette er format-/kildebelæg-dokumentet. **§4 er sandhedskilden** for accepterede/target-formater
-> (jf. `CLAUDE.md`). Målgruppe, prissætning/ASO, krydssalg og risiko-analyse (de tidligere §2, §8, §9,
+> (jf. `AGENTS.md`). Målgruppe, prissætning/ASO, krydssalg og risiko-analyse (de tidligere §2, §8, §9,
 > §11) ligger i det private strategi-repo, ikke her — derfor hullerne i nummereringen.
 
 ---
