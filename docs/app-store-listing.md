@@ -76,7 +76,9 @@ be edited live, so a voice slip ships for the life of that version. Check before
 - **Age rating:** 4+ (no objectionable content).
 - **Privacy:** "Data Not Collected" — matches `PrivacyInfo.xcprivacy`. No tracking.
 - **Export compliance:** Uses no non-exempt encryption → answer **No**.
-- **Support URL:** https://github.com/JarlLyng/its-404-yo/issues  (a real support/contact channel — Connect requires this, not just the marketing site)
+- **Support URL:** https://its404yo.iamjarl.com/support.html  (shows support@iamjarl.com, the portfolio's one
+  support address, plus the Elektronauts thread and GitHub issues. Was the GitHub issues page; update it in
+  Connect, it is not version-locked)
 - **Marketing URL (optional):** https://its404yo.iamjarl.com/
 - **Privacy policy URL:** https://its404yo.iamjarl.com/privacy.html  (states the app collects no data; required even for no-data apps).
 - **Copyright:** © 2026 IAMJARL
