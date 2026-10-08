@@ -1,0 +1,20 @@
+/* IAMJARL identity for It's 404, yo! — generated, do not edit */
+/* design system v1.17.0, family: music */
+/* Display face: JetBrains Mono (OFL-1.1). Self-host it — see design.md. */
+/* Primary is unchanged and still the brand thread; the accent is what this site may lean on. */
+
+:root {
+  --ij-color-accent-family: #177082;
+  --ij-color-accent-family-rgb: 23, 112, 130;
+  --ij-font-display: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --ij-color-accent-family: #23ACC7;
+    --ij-color-accent-family-rgb: 35, 172, 199;
+  }
+}
+
+.light { --ij-color-accent-family: #177082; --ij-color-accent-family-rgb: 23, 112, 130; }
+.dark { --ij-color-accent-family: #23ACC7; --ij-color-accent-family-rgb: 35, 172, 199; }

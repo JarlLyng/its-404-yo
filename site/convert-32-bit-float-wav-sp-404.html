@@ -39,6 +39,8 @@
   }
   </script>
 
+  <link rel="stylesheet" href="assets/design/jetbrains-mono.css" />
+  <link rel="stylesheet" href="assets/design/identity.css" />
   <link rel="stylesheet" href="styles.css" />
   <script type="module" src="assets/ij-footer.js"></script>
   <script defer src="https://umami-iamjarl.vercel.app/script.js" data-website-id="848fd3dc-4424-4b03-8d98-2750cad6e6c3"></script>
@@ -58,12 +60,12 @@
   <section>
     <div class="wrap section-head" style="text-align:left">
       <span class="eyebrow">Roland SP-404 MkII</span>
-      <h1>Convert 32-bit float WAV to 16-bit for the SP-404 MkII</h1>
+      <h1>Convert <span class="nw">32-bit</span> float WAV to <span class="nw">16-bit</span> for the <span class="nw">SP-404</span> MkII</h1>
       <p class="lede">32-bit float is the single most common reason the SP-404 MkII throws
         &ldquo;Unsupported File.&rdquo; Here&rsquo;s why it fails, whether converting costs you any
         quality, and how to fix a whole pack.</p>
 
-      <h2>What is 32-bit float, and why does it fail?</h2>
+      <h2>What is <span class="nw">32-bit</span> float, and why does it fail?</h2>
       <p>32-bit float is a high-headroom sample format used by DAWs and most modern sample packs
         (Splice included) because it&rsquo;s forgiving during production, it can hold levels well
         past 0&nbsp;dBFS without clipping. But it is a <em>different</em> format from the 16-bit integer
@@ -72,7 +74,7 @@
         (WAV/AIFF/MP3). A 32-bit float file isn&rsquo;t &ldquo;too high quality&rdquo; for it. It&rsquo;s simply a format the SD-card importer doesn&rsquo;t parse, so you get
         &ldquo;Unsupported File&rdquo; with no hint as to why.</p>
 
-      <h2>Does 16-bit lose quality?</h2>
+      <h2>Does <span class="nw">16-bit</span> lose quality?</h2>
       <p>No, not in any way that matters here. The SP-404 MkII runs internally at
         <strong>16-bit / 48&nbsp;kHz</strong> and conforms <em>every</em> import to that rate and depth
         anyway. So a 32-bit float file is going to become 16-bit on the device no matter what. Converting first just makes it import cleanly. 16-bit still gives roughly <strong>96&nbsp;dB</strong>
@@ -116,7 +118,7 @@
         <a slot="links" href="https://github.com/JarlLyng/its-404-yo" target="_blank" rel="noopener">GitHub</a>
         <!-- ij-footer:cross-links -->
         <!-- IAMJARL cross-links for It's 404, yo! — generated, do not edit -->
-        <!-- design system v1.13.0, registry updated 2026-09-20 -->
+        <!-- design system v1.17.0, registry updated 2026-10-04 -->
         <!-- Paste inside <ij-footer app="its-404-yo">. Rebuild to refresh. -->
         <a slot="cross-links" href="https://echolume.iamjarl.com">Echolume</a>
         <a slot="cross-links" href="https://itsmonoyo.iamjarl.com">It's mono, yo!</a>

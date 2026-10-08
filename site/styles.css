@@ -87,6 +87,15 @@ a { color: inherit; }
 .hero { text-align: center; padding: clamp(48px, 9vw, 110px) 0 var(--sp-3xl); }
 .eyebrow { display: inline-block; font-family: var(--mono); font-size: 13px;
   color: var(--primary); letter-spacing: .04em; margin-bottom: var(--sp-lg); }
+/* The music family's display face (iamjarl-design 1.16.0): headings and the wordmark carry the
+   voice, body copy stays system. --ij-font-display comes from assets/design/identity.css; if that
+   sheet is missing the headings fall back to the body font rather than to a browser default. */
+h1, h2, h3, .brand { font-family: var(--ij-font-display, var(--font)); }
+/* Mono is wider than the system face, so headings wrap more. Balance the lines, keep their line
+   height tight, and never split a compound like SP-404 or 32-bit at its hyphen. */
+h1, h2, h3 { text-wrap: balance; }
+.section-head h2, .section-head h3 { line-height: 1.15; }
+.nw { white-space: nowrap; }
 .hero h1 { font-size: clamp(40px, 8vw, 76px); line-height: 1.02; letter-spacing: -0.02em; }
 .hero .lede { font-size: clamp(18px, 2.6vw, 22px); color: var(--text-2);
   max-width: 640px; margin: var(--sp-2xl) auto 0; }
