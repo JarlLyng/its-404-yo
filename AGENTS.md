@@ -15,7 +15,7 @@ to _It's mono, yo!_
 - **Website:** [its404yo.iamjarl.com](https://its404yo.iamjarl.com)
 - **License:** [MIT](LICENSE) — open source.
 - **Price:** $0.99 USD one-time (no in-app purchases, no subscription, no ads)
-- **Status:** Launched on the Mac App Store, [app id 6785918261](https://apps.apple.com/app/id6785918261). Current release 1.1.0.
+- **Status:** Launched on the Mac App Store, [app id 6785918261](https://apps.apple.com/app/id6785918261). Current release 1.2.0.
 - **Sister app:** [It's mono, yo!](https://itsmonoyo.iamjarl.com)
 
 ## Boundaries: work only in this repo
