@@ -4,7 +4,7 @@ SCHEME := Its404Yo
 DEST := platform=macOS
 SPM_DIR := .build-spm
 
-.PHONY: footer social help generate open build test clean
+.PHONY: design footer social help generate open build test clean
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
@@ -39,10 +39,12 @@ social: ## Render the social card: GitHub preview (docs/) + og:image (site/asset
 	@echo "docs/social-preview.png  (1280x640, upload in GitHub: Settings > Social preview)"
 	@echo "site/assets/og.png       (2400x1260, served as og:image)"
 
-DESIGN_TAG ?= v1.13.0
+DESIGN_TAG ?= v1.17.0
 
-footer: ## Vendor <ij-footer> + this app's cross-links from iamjarl-design at DESIGN_TAG
-	python3 scripts/vendor_footer.py $(DESIGN_TAG)
+design: ## Vendor iamjarl-design at DESIGN_TAG: <ij-footer>, cross-links, identity + display font
+	python3 scripts/vendor_design.py $(DESIGN_TAG)
+
+footer: design ## Alias for `make design`
 
 clean: ## Remove generated project and build artifacts
 	rm -rf $(PROJECT) $(SPM_DIR) DerivedData build
