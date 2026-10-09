@@ -4,7 +4,7 @@ SCHEME := Its404Yo
 DEST := platform=macOS
 SPM_DIR := .build-spm
 
-.PHONY: design footer social help generate open build test clean
+.PHONY: sitemap design footer social help generate open build test clean
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
@@ -45,6 +45,9 @@ design: ## Vendor iamjarl-design at DESIGN_TAG: <ij-footer>, cross-links, identi
 	python3 scripts/vendor_design.py $(DESIGN_TAG)
 
 footer: design ## Alias for `make design`
+
+sitemap: ## Regenerate site/sitemap.xml with lastmod from git (the Pages deploy runs this too)
+	python3 scripts/sitemap.py
 
 clean: ## Remove generated project and build artifacts
 	rm -rf $(PROJECT) $(SPM_DIR) DerivedData build
