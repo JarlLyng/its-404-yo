@@ -6,3 +6,7 @@ updates:
       interval: "weekly"
     commit-message:
       prefix: "ci"
+    # Wait a week before proposing a new version. Malicious releases are usually caught and pulled
+    # within days. Security updates are not delayed by this.
+    cooldown:
+      default-days: 7
