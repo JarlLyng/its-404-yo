@@ -1,30 +1,41 @@
+<img src="docs/icons/app-icon-dark.png" alt="" width="80" height="80">
+
 # It's 404, yo!
 
-[![Co-created with AI](https://madebyhuman.iamjarl.com/badges/co-created-white.svg)](https://madebyhuman.iamjarl.com)
-[![CI](https://github.com/JarlLyng/its-404-yo/actions/workflows/ci.yml/badge.svg)](https://github.com/JarlLyng/its-404-yo/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Platform: macOS 13+](https://img.shields.io/badge/platform-macOS%2013%2B-blue.svg)](#requirements)
+SP-404 sample pack converter
 
-📥 **Download:** [Mac App Store](https://apps.apple.com/app/id6785918261) · 🌐 **Website:** [its404yo.iamjarl.com](https://its404yo.iamjarl.com) (deployed from [`site/`](site) via GitHub Pages)
+<!-- IAMJARL README store block for It's 404, yo! (en). Generated from apps.json, v1.34.0. Do not edit. -->
+<p>
+  <a href="https://apps.apple.com/app/id6785918261?pt=128512007&amp;ct=github&amp;mt=12"><picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/JarlLyng/iamjarl-design/v1.34.0/badges/mac-app-store-white-en-us.svg">
+    <img src="https://raw.githubusercontent.com/JarlLyng/iamjarl-design/v1.34.0/badges/mac-app-store-black-en-us.svg" alt="Download on the Mac App Store" width="156" height="40">
+  </picture></a>
+  <br>
+  $0.99 once · macOS 13 or later · <a href="https://its404yo.iamjarl.com">its404yo.iamjarl.com</a>
+</p>
 
-**Make any sample pack SP-404 MkII-ready. No DAW, no terminal, no “Unsupported File.”**
+<p>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/plain/appstore-02-analysis-dark.png">
+    <img src="docs/screenshots/plain/appstore-05-analysis-light.png" alt="It's 404, yo! with a sample pack of six files: three already OK, and three to convert, each with its reason, such as 32-bit float → 16-bit, 96 kHz resampled and FLAC → WAV." width="640">
+  </picture>
+</p>
 
-A tiny, native macOS drag-and-drop utility that batch-converts a whole sample pack into the
-format the Roland SP-404 MkII accepts on SD-card import, preserving your folder structure.
-A sibling to [_It's mono, yo!_](https://itsmonoyo.iamjarl.com/).
+It's 404, yo! batch-converts a whole sample pack into the format the Roland SP-404 MkII imports from an SD card: 16-bit linear PCM WAV at 48 kHz, or 44.1 kHz if you choose. It keeps your folder structure, copies files that already import cleanly untouched, and says in plain words what it changes in the rest, such as “32-bit float → 16-bit”, “96 kHz resampled” or “FLAC → WAV”. It is for SP-404 MkII owners whose downloaded packs come up as “Unsupported File”. It runs offline with no account, and your samples never leave your Mac.
 
-![It's 404, yo! analyzing a sample pack](docs/screenshots/plain/appstore-02-analysis-dark.png)
+## For developers
 
----
+<p>
+  <a href="https://madebyhuman.iamjarl.com"><picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://madebyhuman.iamjarl.com/badges/co-created-white.svg">
+    <img src="https://madebyhuman.iamjarl.com/badges/co-created-black.svg" alt="Co-created with AI" width="120" height="40"></picture></a>
+  <a href="https://github.com/JarlLyng/its-404-yo/actions/workflows/ci.yml"><img src="https://github.com/JarlLyng/its-404-yo/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/JarlLyng/its-404-yo" alt="MIT License"></a>
+</p>
 
-## The problem
+How the app behaves, why it targets the format it does, how to build it, and how it is put together.
 
-Professional sample packs are often **32-bit float** WAVs (and sometimes odd sample rates or
-FLAC/M4A). When you drop them on an SD card, the SP-404 MkII rejects them with a cryptic
-**“Unsupported File”** error and no explanation. The usual fixes, converting file by file in a
-DAW, or wrangling `ffmpeg`/`sox` on the command line, are tedious across hundreds of samples.
-
-## What it does
+### What it does
 
 Drop a folder (or files) → see exactly what will change, in plain language → click
 **Make SP-404 Ready** → get a converted copy that imports cleanly.
@@ -40,7 +51,7 @@ Drop a folder (or files) → see exactly what will change, in plain language →
 
 Everything runs **offline, on-device**. No network, no account, no data leaves your Mac.
 
-## The target format (why these choices)
+### The target format (why these choices)
 
 The SP-404 MkII processes audio internally at **16-bit linear PCM / 48 kHz** and conforms all
 imports to it. Direct SD-card import accepts only **16-bit linear WAV/AIFF/MP3**; anything else
@@ -55,12 +66,12 @@ source-cited specification.
 | Channels | Preserve mono/stereo |
 | Metadata | Dropped via a clean WAV re-write |
 
-## Requirements
+### Requirements
 
 - macOS 13 (Ventura) or newer
 - [Xcode](https://developer.apple.com/xcode/) 16+ and [XcodeGen](https://github.com/yonaskolb/XcodeGen) to build from source
 
-## Build from source
+### Build from source
 
 The Xcode project is **generated** from [`project.yml`](project.yml) (it is not committed).
 
@@ -75,7 +86,7 @@ make test
 
 See the [`Makefile`](Makefile) for the underlying commands.
 
-## Architecture
+### Architecture
 
 A small SwiftUI app over a Core Audio conversion engine. See
 [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
@@ -83,15 +94,16 @@ A small SwiftUI app over a Core Audio conversion engine. See
 - **UI:** SwiftUI, styled with the [IAMJARL design tokens](https://github.com/JarlLyng/iamjarl-design) Swift package.
 - **Engine:** `ExtAudioFile` (AudioToolbox), decode → 16-bit PCM → WAV, with sample-rate conversion.
 - **No backend, no third-party runtime dependencies** beyond the design tokens.
+- **Website:** [its404yo.iamjarl.com](https://its404yo.iamjarl.com) is built from [`site/`](site) and deployed with GitHub Pages.
 
-## Support
+### Support
 
 Email **[support@iamjarl.com](mailto:support@iamjarl.com)**, or use **Help › Send Feedback…** in the
 app, which fills in your app and macOS version. The maker also reads the
 [Elektronauts thread](https://www.elektronauts.com/t/its-404-yo-a-small-mac-app-that-makes-any-sample-pack-sp-404-mkii-ready/253645).
 GitHub issues are welcome too. More on the [support page](https://its404yo.iamjarl.com/support.html).
 
-## Roadmap
+### Roadmap
 
 Live on the Mac App Store. Open work is tracked in
 [**GitHub Issues**](https://github.com/JarlLyng/its-404-yo/issues), highlights:
@@ -101,7 +113,7 @@ Live on the Mac App Store. Open work is tracked in
 - In-app text size ([#9](https://github.com/JarlLyng/its-404-yo/issues/9))
 - Exploring additional device profiles ([#15](https://github.com/JarlLyng/its-404-yo/issues/15))
 
-## Credits
+### Credits
 
 - Design tokens: [iamjarl-design](https://github.com/JarlLyng/iamjarl-design)
 - Co-created with AI, [madebyhuman.iamjarl.com](https://madebyhuman.iamjarl.com)
@@ -112,6 +124,6 @@ Live on the Mac App Store. Open work is tracked in
 > *Roland and SP-404 are trademarks of their respective owners. This is an independent tool and is
 > not affiliated with or endorsed by Roland.*
 
-## License
+### License
 
-[MIT](LICENSE) © 2026 Jarl Lyng
+[MIT](LICENSE). It's 404, yo! is made by Jarl at [IAMJARL](https://iamjarl.com).
