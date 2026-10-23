@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FLAC on the SP-404 MkII: convert FLAC to WAV</title>
-  <meta name="description" content="The SP-404 MkII's SD-card import doesn't accept FLAC. Here's why, and how to batch-convert FLAC samples to the 16-bit WAV the SP-404 accepts, folder structure intact." />
+  <title>FLAC on the SP-404 MkII: convert FLAC to 16-bit WAV</title>
+  <meta name="description" content="The SP-404 MkII won't import FLAC from an SD card. The two ways round it, how to check a FLAC's bit depth on a Mac, and how to convert a folder of FLAC to 16-bit WAV." />
   <meta name="theme-color" content="#000000" />
   <link rel="icon" href="assets/icon.png" />
   <link rel="canonical" href="https://its404yo.iamjarl.com/flac-to-wav-sp-404.html" />
 
-  <meta property="og:title" content="FLAC on the SP-404 MkII: convert FLAC to WAV" />
-  <meta property="og:description" content="The SD-card import rejects FLAC. Here's how to batch-convert FLAC samples to the 16-bit WAV the SP-404 MkII accepts." />
+  <meta property="og:title" content="FLAC on the SP-404 MkII: convert FLAC to 16-bit WAV" />
+  <meta property="og:description" content="SD-card import doesn't read FLAC. The two ways round it, the bit-depth setting that catches people out, and how to convert a whole folder." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://its404yo.iamjarl.com/flac-to-wav-sp-404.html" />
   <meta property="og:image" content="https://its404yo.iamjarl.com/assets/og.png" />
@@ -22,27 +22,31 @@
     "@graph": [
       {
         "@type": "TechArticle",
-        "headline": "FLAC on the SP-404 MkII: convert FLAC to WAV",
-        "description": "The SP-404 MkII's SD-card import does not accept FLAC. Convert FLAC samples to 16-bit linear PCM WAV to import them.",
+        "headline": "FLAC on the SP-404 MkII: convert FLAC to 16-bit WAV",
+        "description": "The SP-404 MkII's SD-card import reads only 16-bit linear WAV, AIFF or MP3, so FLAC is refused. Import FLAC through Roland's SP-404MK2 App, or convert it to 16-bit WAV, checking the bit depth, since a 24-bit FLAC can become a 24-bit WAV.",
         "author": { "@type": "Organization", "name": "IAMJARL", "url": "https://iamjarl.com" },
-        "mainEntityOfPage": "https://its404yo.iamjarl.com/flac-to-wav-sp-404.html"
+        "mainEntityOfPage": "https://its404yo.iamjarl.com/flac-to-wav-sp-404.html",
+        "citation": [
+          "https://support.roland.com/hc/en-us/articles/4408190553883-SP-404MK2-What-audio-file-formats-can-be-imported-into-the-SP-404MK2",
+          "https://static.roland.com/manuals/sp-404mk2_app_v4/eng/166921938.html"
+        ]
       },
       {
         "@type": "FAQPage",
         "mainEntity": [
-          { "@type": "Question", "name": "Does the SP-404 MkII support FLAC?", "acceptedAnswer": { "@type": "Answer", "text": "Not via SD-card import. Direct SD-card import accepts only 16-bit linear WAV, AIFF, or MP3. FLAC is rejected with “Unsupported File.” The official SP-404MK2 desktop app does accept FLAC and down-converts it, but for loose sample packs it's simplest to convert FLAC to WAV first." } },
-          { "@type": "Question", "name": "How do I convert FLAC to WAV for the SP-404?", "acceptedAnswer": { "@type": "Answer", "text": "Decode the FLAC to 16-bit linear PCM WAV at 48 or 44.1 kHz. It's 404, yo! batch-converts a whole folder of FLAC (and other formats) to SP-404-ready WAV in one drag, preserving the folder structure." } },
-          { "@type": "Question", "name": "Will converting FLAC to WAV lose quality?", "acceptedAnswer": { "@type": "Answer", "text": "No. FLAC is lossless, so decoding it to 16-bit PCM WAV preserves the audio exactly. You're just changing the container to one the SP-404 accepts." } }
+          { "@type": "Question", "name": "Does the SP-404 MkII support FLAC?", "acceptedAnswer": { "@type": "Answer", "text": "Not from an SD card. SD-card import reads only 16-bit linear WAV, AIFF or MP3, so a FLAC is refused with “Unsupported FILE”. Roland's SP-404MK2 App does import FLAC, and the unit converts it to 48 kHz and 16-bit." } },
+          { "@type": "Question", "name": "How do I convert FLAC to WAV for the SP-404?", "acceptedAnswer": { "@type": "Answer", "text": "Decode it to 16-bit WAV, ideally at 48 kHz, and set the bit depth yourself, since a converter that keeps the source's depth turns a 24-bit FLAC into a 24-bit WAV. With ffmpeg, the command is ffmpeg -i in.flac -c:a pcm_s16le -ar 48000 out.wav. It's 404, yo! converts a whole folder of FLAC on a Mac in one drag and keeps the folder structure." } },
+          { "@type": "Question", "name": "Will converting FLAC to WAV lose quality?", "acceptedAnswer": { "@type": "Answer", "text": "Decoding FLAC is exact, so a 16-bit FLAC becomes a 16-bit WAV with the same samples. A 24-bit FLAC is reduced to 16-bit, the same reduction the SP-404 MkII makes to every sample it imports." } }
         ]
       }
     ]
   }
   </script>
 
-  <link rel="stylesheet" href="assets/design/jetbrains-mono.css" />
-  <link rel="stylesheet" href="assets/design/identity.css" />
+  <link rel="stylesheet" href="/assets/iamjarl-design@v1.35.1/dist/fonts/jetbrains-mono.css" integrity="sha384-vLVcUAHaAI3a2hjpqWvWViI2ow/hgbPQwV7xWrGKHEoth/gOcm0v0zCcxaRHBq7m" />
+  <link rel="stylesheet" href="/assets/iamjarl-design@v1.35.1/dist/identity/its-404-yo.css" integrity="sha384-dkXFfd6ZuHax/rnHuNmfeos7abAL2jAPV386j+gYddE2jWyXmblcOtnx47nJP0NG" />
   <link rel="stylesheet" href="styles.css" />
-  <script type="module" src="assets/ij-footer.js"></script>
+  <script type="module" src="/assets/iamjarl-design@v1.35.1/dist/components/ij-footer.js" integrity="sha384-i37426tUYyrzNktVPZXGI26zfSccQnLf7v7bj8+w9GMsCiimLXduUK//vx30mU/g"></script>
   <script defer src="https://umami-iamjarl.vercel.app/script.js" data-website-id="848fd3dc-4424-4b03-8d98-2750cad6e6c3"></script>
 </head>
 <body>
@@ -60,48 +64,89 @@
   <section>
     <div class="wrap section-head" style="text-align:left">
       <span class="eyebrow">Roland SP-404 MkII</span>
-      <h1>FLAC on the <span class="nw">SP-404</span> MkII: convert FLAC to WAV</h1>
-      <p class="lede">Downloaded a pack full of <strong>.flac</strong> files and the SP-404 MkII
-        won&rsquo;t take them? The direct SD-card import doesn&rsquo;t accept FLAC at all. Here&rsquo;s
-        the fix.</p>
+      <h1>FLAC on the <span class="nw">SP-404</span> MkII: convert FLAC to <span class="nw">16-bit</span> WAV</h1>
+      <p class="lede">Import from the SD card doesn&rsquo;t read FLAC at any bit depth, so a pack of
+        <strong>.flac</strong> files comes back as &ldquo;Unsupported FILE&rdquo;. There are two ways round
+        it. Import the files through Roland&rsquo;s SP-404MK2 App, which does read FLAC, or convert them to
+        16-bit WAV and import from the card as usual.</p>
 
-      <h2>Does the <span class="nw">SP-404</span> MkII support FLAC?</h2>
-      <p>Not on SD-card import. The direct SD-card path accepts only <strong>16-bit linear
-        WAV/AIFF/MP3</strong>. FLAC is a compressed container, so it&rsquo;s rejected with
-        &ldquo;Unsupported File.&rdquo;</p>
-      <p>The <strong>official SP-404MK2 desktop app</strong> <em>does</em> read FLAC (and M4A) and
-        down-converts on its own, but it&rsquo;s built around project transfer, not batch-prepping
-        arbitrary packs. For a folder of loose FLAC samples, converting to WAV first is simpler and
-        works with either import path.</p>
+      <h2>Does the <span class="nw">SP-404</span> MkII read FLAC?</h2>
+      <p>Not from the card. Roland&rsquo;s rule for SD-card import is 16-bit linear WAV, AIFF or MP3, and FLAC
+        isn&rsquo;t on it. FLAC is on the list for the SP-404MK2 App, Roland&rsquo;s companion app for the
+        computer, along with M4A (ALAC and AAC on the Mac version). Roland has verified 16 and 24-bit FLAC at
+        rates up to 192&nbsp;kHz that way, and the unit converts each file to 48&nbsp;kHz and 16-bit as it
+        comes in.</p>
 
-      <h2>Converting FLAC to WAV is lossless</h2>
-      <p>FLAC is a <strong>lossless</strong> format, so decoding it to 16-bit linear PCM WAV preserves the
-        audio exactly. You&rsquo;re only swapping the container for one the SP-404 accepts. No
-        quality is lost in the conversion.</p>
+      <h2>App or conversion</h2>
+      <p>The app is built around loading samples onto pads inside a project, so it suits a handful of files you
+        want on pads now. Converting suits a whole pack that you want on the card as files, or a library you
+        also use somewhere else. A 16-bit WAV imports by either route, so converting once leaves both open.</p>
 
-      <h2>The target the <span class="nw">SP-404</span> MkII accepts</h2>
+      <h2>Check the bit depth first</h2>
+      <p>FLAC can be 16 or 24-bit, and converting it to WAV changes the container, not the depth, unless you
+        ask for that too. A converter that keeps the source&rsquo;s depth turns a 24-bit FLAC into a 24-bit
+        WAV, which is still outside the card&rsquo;s 16-bit rule. Set the output to 16-bit, whatever tool you
+        use.</p>
+      <p>To see what a file is on a Mac, run <code>afinfo</code> on it in the Terminal. It comes with macOS.
+        For a 24-bit FLAC at 96&nbsp;kHz the line to read looks like this.</p>
+      <pre><code>$ afinfo kick.flac
+Data format:     2 ch,  96000 Hz, flac (0x00000003) from 24-bit source, 4608 frames/packet</code></pre>
+
+      <h2>Is converting FLAC to WAV lossless?</h2>
+      <p>Decoding FLAC is exact, so a 16-bit FLAC becomes a 16-bit WAV with the very same samples. A 24-bit FLAC
+        loses its lowest 8 bits on the way to 16-bit. That is the same reduction the SP-404 MkII makes to every
+        sample it imports, since it runs at 16-bit inside, so the unit would have done it anyway.</p>
+
+      <h2>The target</h2>
       <div class="spec">
         <table>
           <tr><td>Codec</td><td><code>Linear PCM WAV</code> (from FLAC)</td></tr>
-          <tr><td>Bit depth</td><td><code>16-bit</code></td></tr>
-          <tr><td>Sample rate</td><td><code>48 kHz</code> (or 44.1 kHz)</td></tr>
+          <tr><td>Bit depth</td><td><code>16-bit</code>, set it even when the FLAC is 24-bit</td></tr>
+          <tr><td>Sample rate</td><td><code>48 kHz</code>, the unit&rsquo;s own rate (or 44.1 kHz)</td></tr>
           <tr><td>Channels</td><td>Mono / stereo preserved</td></tr>
         </table>
       </div>
 
-      <h2>How to convert a whole pack of FLAC</h2>
-      <p><strong>By hand:</strong> <code>ffmpeg -i in.flac -c:a pcm_s16le -ar 48000 out.wav</code> per file,
-        or decode in a DAW/audio editor. Works, but slow across a big pack.</p>
-      <p><strong>The fast way:</strong> <a href="/">It&rsquo;s 404, yo!</a> converts a whole folder of FLAC
-        (mixed with WAV, AIFF, MP3, M4A) to SP-404-ready 16-bit WAV in one drag, resampling odd rates and
-        preserving your folder structure. Native macOS, fully offline.</p>
+      <h2>Convert a folder of FLAC with ffmpeg</h2>
+      <p>If you&rsquo;re comfortable in the Terminal, <code>ffmpeg</code> does it well. One file is</p>
+      <pre><code>ffmpeg -i kick.flac -c:a pcm_s16le -ar 48000 kick.wav</code></pre>
+      <p>and every FLAC in the current folder, written as WAV to a new folder called <code>wav</code>, is</p>
+      <pre><code>mkdir -p wav
+for f in *.flac; do
+  ffmpeg -i "$f" -c:a pcm_s16le -ar 48000 "wav/${f%.flac}.wav"
+done</code></pre>
+      <p><code>pcm_s16le</code> is what makes the output 16-bit, and <code>-ar 48000</code> sets 48&nbsp;kHz.
+        It works on one folder at a time, so a pack with subfolders needs a run in each.</p>
 
-      <p style="margin-top:24px">
-        <a class="btn btn-primary" href="https://apps.apple.com/app/id6785918261?pt=128512007&ct=site&mt=12" data-umami-event="store-click" data-umami-event-store="mac-app-store" data-umami-event-placement="midpage" data-umami-event-locale="en" target="_blank" rel="noopener">Get It&rsquo;s 404, yo! &middot; $0.99</a>
-      </p>
+      <h2>Or convert the whole pack in one drag</h2>
+      <p><a href="/">It&rsquo;s 404, yo!</a> reads FLAC alongside WAV, AIFF, MP3 and M4A. Drop the pack folder
+        in and each FLAC is listed as &ldquo;FLAC &rarr; WAV&rdquo;, with &ldquo;96&nbsp;kHz resampled&rdquo;
+        beside it where the rate changes too. It converts them to 16-bit WAV at 48 or 44.1&nbsp;kHz, copies the
+        files that already import untouched, and writes everything in the same folder structure. It runs
+        offline, and your samples never leave your Mac.</p>
+
+      <!-- IAMJARL store button for It's 404, yo! (en, midpage). Generated from apps.json, v1.35.1. Do not edit. -->
+      <div class="ij-store" data-ij-store="its-404-yo" data-ij-store-locale="en">
+        <a class="ij-store-badge" href="https://apps.apple.com/app/id6785918261?pt=128512007&amp;ct=site&amp;mt=12" data-umami-event="store-click" data-umami-event-store="mac-app-store" data-umami-event-placement="midpage" data-umami-event-locale="en">
+          <picture>
+            <source srcset="/assets/iamjarl-design@v1.35.1/badges/mac-app-store-white-en-us.svg" media="(prefers-color-scheme: dark)">
+            <img src="/assets/iamjarl-design@v1.35.1/badges/mac-app-store-black-en-us.svg" alt="Download on the Mac App Store" width="156" height="40">
+          </picture>
+        </a>
+        <p class="ij-store-facts">$0.99 once · macOS 13 or later</p>
+      </div>
+
+      <h2>Sources</h2>
+      <p>Checked against Roland&rsquo;s own documentation in October 2026. The SD-card rule, the formats the app
+        takes, the verified FLAC depths and rates, and the conversion on import are from Roland&rsquo;s support
+        article
+        <a href="https://support.roland.com/hc/en-us/articles/4408190553883-SP-404MK2-What-audio-file-formats-can-be-imported-into-the-SP-404MK2">What
+        audio file formats can be imported into the SP-404MK2?</a> and the
+        <a href="https://static.roland.com/manuals/sp-404mk2_app_v4/eng/166921938.html">SP-404MK2 App manual</a>.
+        The <code>afinfo</code> line is from a 24-bit, 96&nbsp;kHz FLAC on macOS.</p>
 
       <p class="note" style="margin-top:32px">Related:
-        <a href="/sp-404-unsupported-file.html">Why the SP-404 says &ldquo;Unsupported File&rdquo;</a> &middot;
+        <a href="/sp-404-unsupported-file.html">Why the SP-404 says &ldquo;Unsupported FILE&rdquo;</a> &middot;
         <a href="/convert-32-bit-float-wav-sp-404.html">Convert 32-bit float WAV for the SP-404</a></p>
     </div>
   </section>
@@ -116,8 +161,8 @@
         <a slot="links" href="/privacy.html">Privacy</a>
         <a slot="links" href="https://github.com/JarlLyng/its-404-yo" target="_blank" rel="noopener">GitHub</a>
         <!-- ij-footer:cross-links -->
-        <!-- IAMJARL cross-links for It's 404, yo! — generated, do not edit -->
-        <!-- design system v1.17.0, registry updated 2026-10-04 -->
+        <!-- IAMJARL cross-links for It's 404, yo!: generated, do not edit -->
+        <!-- design system v1.35.1, registry updated 2026-10-13 -->
         <!-- Paste inside <ij-footer app="its-404-yo">. Rebuild to refresh. -->
         <a slot="cross-links" href="https://echolume.iamjarl.com">Echolume</a>
         <a slot="cross-links" href="https://itsmonoyo.iamjarl.com">It's mono, yo!</a>
