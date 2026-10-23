@@ -88,8 +88,9 @@ a { color: inherit; }
 .eyebrow { display: inline-block; font-family: var(--mono); font-size: 13px;
   color: var(--primary); letter-spacing: .04em; margin-bottom: var(--sp-lg); }
 /* The music family's display face (iamjarl-design 1.16.0): headings and the wordmark carry the
-   voice, body copy stays system. --ij-font-display comes from assets/design/identity.css; if that
-   sheet is missing the headings fall back to the body font rather than to a browser default. */
+   voice, body copy stays system. --ij-font-display comes from the identity sheet,
+   dist/identity/its-404-yo.css in the vendored copy; if that sheet is missing the headings fall back
+   to the body font rather than to a browser default. */
 h1, h2, h3, .brand { font-family: var(--ij-font-display, var(--font)); }
 /* Mono is wider than the system face, so headings wrap more. Balance the lines, keep their line
    height tight, and never split a compound like SP-404 or 32-bit at its hyphen. */
@@ -99,8 +100,19 @@ h1, h2, h3 { text-wrap: balance; }
 .hero h1 { font-size: clamp(40px, 8vw, 76px); line-height: 1.02; letter-spacing: -0.02em; }
 .hero .lede { font-size: clamp(18px, 2.6vw, 22px); color: var(--text-2);
   max-width: 640px; margin: var(--sp-2xl) auto 0; }
-.cta-row { display: flex; gap: var(--sp-md); justify-content: center; flex-wrap: wrap; margin-top: var(--sp-3xl); }
+.cta-row { display: flex; gap: var(--sp-md); justify-content: center; align-items: flex-start; flex-wrap: wrap; margin-top: var(--sp-3xl); }
 .note { color: var(--text-3); font-size: 13px; margin-top: var(--sp-md); }
+
+/* Store button: the fragment pasted from iamjarl-design's dist/store (scripts/iamjarl-vendor.mjs
+   pastes it again on every re-vendor, so its price and OS floor stay true). It brings no styles;
+   these are the design system's documented defaults, on this site's tokens. The facts rule is
+   doubled to outrank `.section-head p` on the guides. */
+.ij-store { display: flex; flex-direction: column; align-items: flex-start; gap: var(--sp-sm); }
+.ij-store .ij-store-facts { margin: 0; font-size: 14px; color: var(--text-2); }
+.ij-store-badge { display: inline-block; }
+.ij-store-badge img { display: block; height: 52px; width: auto; }
+.hero .ij-store { align-items: center; }
+.section-head .ij-store { margin-top: var(--sp-2xl); }
 
 /* Shot */
 .shot { margin-top: clamp(32px, 6vw, 64px); }
@@ -116,8 +128,16 @@ section { padding: clamp(48px, 8vw, 96px) 0; }
 .section-head h1 { font-size: clamp(32px, 5.5vw, 48px); line-height: 1.1; letter-spacing: -0.02em; }
 /* Room above a heading that follows body copy. A heading that opens a .section-head, as on the
    homepage, is untouched. */
-.section-head :is(p, div, table) + h2 { margin-top: var(--sp-3xl); }
+.section-head :is(p, div, table, pre) + h2 { margin-top: var(--sp-3xl); }
+.section-head :is(p, div, table, pre, h2) + h3 { margin-top: var(--sp-2xl); }
+.section-head h3 { font-size: 20px; }
+.section-head .spec { margin-top: var(--sp-lg); }
 .section-head p { color: var(--text-2); margin-top: var(--sp-md); font-size: 18px; }
+/* Terminal commands on the guides. They scroll sideways rather than wrap, so a copied command stays
+   one line. */
+.section-head pre { margin-top: var(--sp-md); padding: var(--sp-lg) var(--sp-xl); overflow-x: auto;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md);
+  font-family: var(--mono); font-size: 14px; line-height: 1.6; color: var(--text); }
 
 /* Steps */
 .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-2xl); }
@@ -161,6 +181,7 @@ ij-footer {
   display: block;
   --ij-color-text-primary: var(--text);
   --ij-color-text-secondary: var(--text-2);
+  --ij-color-text-tertiary: var(--text-3);   /* labels and fineprint, since ij-footer 1.32.1 */
   --ij-color-primary: var(--primary);
   --ij-color-border-subtle: transparent;
   --ij-spacing-sm: var(--sp-sm);

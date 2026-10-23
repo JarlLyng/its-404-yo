@@ -4,7 +4,7 @@ SCHEME := Its404Yo
 DEST := platform=macOS
 SPM_DIR := .build-spm
 
-.PHONY: sitemap design footer social help generate open build test clean
+.PHONY: sitemap design design-check footer social help generate open build test clean
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
@@ -39,10 +39,18 @@ social: ## Render the social card: GitHub preview (docs/) + og:image (site/asset
 	@echo "docs/social-preview.png  (1280x640, upload in GitHub: Settings > Social preview)"
 	@echo "site/assets/og.png       (2400x1260, served as og:image)"
 
-DESIGN_TAG ?= v1.17.0
+DESIGN_TAG ?= v1.35.1
 
-design: ## Vendor iamjarl-design at DESIGN_TAG: <ij-footer>, cross-links, identity + display font
-	python3 scripts/vendor_design.py $(DESIGN_TAG)
+# scripts/iamjarl-vendor.mjs is the design system's own copy script (its dist/vendor.mjs, checked
+# against the tag's sri.json when it was taken). It copies what the pages load to
+# site/assets/iamjarl-design@<tag>/, checks each dist/ file against that tag's hashes, and pastes
+# the store buttons, the JSON-LD offer and the footer's cross-links again from the same tag.
+# Vendored rather than loaded from jsDelivr: the privacy page names Umami as the only third party.
+design: ## Vendor iamjarl-design at DESIGN_TAG: <ij-footer>, store buttons, cross-links, identity + font
+	node scripts/iamjarl-vendor.mjs $(DESIGN_TAG) --root site
+
+design-check: ## Exit 1 if the vendored copy or a pasted piece differs from DESIGN_TAG
+	node scripts/iamjarl-vendor.mjs $(DESIGN_TAG) --root site --check
 
 footer: design ## Alias for `make design`
 

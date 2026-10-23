@@ -41,7 +41,7 @@
         "image": "https://its404yo.iamjarl.com/assets/og.png",
         "description": "A native macOS app that batch-converts sample packs into the format the Roland SP-404 MkII accepts (16-bit linear PCM WAV at 44.1 or 48 kHz), fixing the 'Unsupported File' error. No DAW, no Terminal; runs fully offline.",
         "downloadUrl": "https://apps.apple.com/app/id6785918261",
-        "softwareVersion": "1.0",
+        "softwareVersion": "1.2.0",
         "offers": { "@type": "Offer", "price": "0.99", "priceCurrency": "USD", "url": "https://apps.apple.com/app/id6785918261" },
         "author": { "@type": "Organization", "name": "IAMJARL", "url": "https://iamjarl.com" }
       },
@@ -51,7 +51,7 @@
           {
             "@type": "Question",
             "name": "Why does my SP-404 MkII say “Unsupported File”?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Most often the file is 32-bit float (common in pro/Splice packs), an unusual sample rate, or a format like FLAC. The SD-card import only accepts 16-bit linear WAV/AIFF/MP3, so anything else is rejected without explanation." }
+            "acceptedAnswer": { "@type": "Answer", "text": "Most often the file is 32-bit float (common in pro/Splice packs) or a format like FLAC. The SD-card import only accepts 16-bit linear WAV/AIFF/MP3, so anything else is rejected without explanation." }
           },
           {
             "@type": "Question",
@@ -104,10 +104,10 @@
   }
   </script>
 
-  <link rel="stylesheet" href="assets/design/jetbrains-mono.css" />
-  <link rel="stylesheet" href="assets/design/identity.css" />
+  <link rel="stylesheet" href="/assets/iamjarl-design@v1.35.1/dist/fonts/jetbrains-mono.css" integrity="sha384-vLVcUAHaAI3a2hjpqWvWViI2ow/hgbPQwV7xWrGKHEoth/gOcm0v0zCcxaRHBq7m" />
+  <link rel="stylesheet" href="/assets/iamjarl-design@v1.35.1/dist/identity/its-404-yo.css" integrity="sha384-dkXFfd6ZuHax/rnHuNmfeos7abAL2jAPV386j+gYddE2jWyXmblcOtnx47nJP0NG" />
   <link rel="stylesheet" href="styles.css" />
-  <script type="module" src="assets/ij-footer.js"></script>
+  <script type="module" src="/assets/iamjarl-design@v1.35.1/dist/components/ij-footer.js" integrity="sha384-i37426tUYyrzNktVPZXGI26zfSccQnLf7v7bj8+w9GMsCiimLXduUK//vx30mU/g"></script>
 
   <!-- Privacy-friendly, cookieless analytics (Umami) -->
   <script defer src="https://umami-iamjarl.vercel.app/script.js" data-website-id="848fd3dc-4424-4b03-8d98-2750cad6e6c3"></script>
@@ -133,10 +133,19 @@
       <p class="lede">Drop a whole pack. Get it back in exactly the format your SP-404 MkII accepts.
         No DAW, no Terminal, no cryptic <em>“Unsupported File.”</em></p>
       <div class="cta-row">
-        <a class="btn btn-primary" href="https://apps.apple.com/app/id6785918261?pt=128512007&ct=site&mt=12" data-umami-event="store-click" data-umami-event-store="mac-app-store" data-umami-event-placement="hero" data-umami-event-locale="en" target="_blank" rel="noopener">Download on the Mac App Store</a>
+        <!-- IAMJARL store button for It's 404, yo! (en, hero). Generated from apps.json, v1.35.1. Do not edit. -->
+        <div class="ij-store" data-ij-store="its-404-yo" data-ij-store-locale="en">
+          <a class="ij-store-badge" href="https://apps.apple.com/app/id6785918261?pt=128512007&amp;ct=site&amp;mt=12" data-umami-event="store-click" data-umami-event-store="mac-app-store" data-umami-event-placement="hero" data-umami-event-locale="en">
+            <picture>
+              <source srcset="/assets/iamjarl-design@v1.35.1/badges/mac-app-store-white-en-us.svg" media="(prefers-color-scheme: dark)">
+              <img src="/assets/iamjarl-design@v1.35.1/badges/mac-app-store-black-en-us.svg" alt="Download on the Mac App Store" width="156" height="40">
+            </picture>
+          </a>
+          <p class="ij-store-facts">$0.99 once · macOS 13 or later</p>
+        </div>
         <a class="btn btn-ghost" href="#how">See how it works</a>
       </div>
-      <p class="note">One-time purchase · works offline · your samples never leave your Mac</p>
+      <p class="note">No subscription · works offline · your samples never leave your Mac</p>
 
       <div class="shot wrap" style="padding:0">
         <img src="assets/screenshot-dark.png" width="2240" height="1480" fetchpriority="high" alt="It's 404, yo! analyzing a sample pack and showing what each file needs" />
@@ -223,7 +232,7 @@
       <div class="faq">
         <details open>
           <summary>Why does my SP-404 MkII say “Unsupported File”?</summary>
-          <p>Most often the file is 32-bit float (common in pro/Splice packs), an unusual sample rate, or a format like FLAC.
+          <p>Most often the file is 32-bit float (common in pro/Splice packs) or a format like FLAC.
             The SD-card import only accepts 16-bit linear WAV/AIFF/MP3, so anything else is rejected without explanation.
             <a href="/sp-404-unsupported-file.html">Full explanation →</a></p>
         </details>
@@ -295,8 +304,8 @@
         <a slot="links" href="/privacy.html">Privacy</a>
         <a slot="links" href="https://github.com/JarlLyng/its-404-yo" target="_blank" rel="noopener">GitHub</a>
         <!-- ij-footer:cross-links -->
-        <!-- IAMJARL cross-links for It's 404, yo! — generated, do not edit -->
-        <!-- design system v1.17.0, registry updated 2026-10-04 -->
+        <!-- IAMJARL cross-links for It's 404, yo!: generated, do not edit -->
+        <!-- design system v1.35.1, registry updated 2026-10-13 -->
         <!-- Paste inside <ij-footer app="its-404-yo">. Rebuild to refresh. -->
         <a slot="cross-links" href="https://echolume.iamjarl.com">Echolume</a>
         <a slot="cross-links" href="https://itsmonoyo.iamjarl.com">It's mono, yo!</a>

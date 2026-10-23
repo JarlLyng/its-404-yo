@@ -1,5 +1,5 @@
-// IAMJARL <ij-footer> v1.17.0 — generated, do not edit
-// Sources: components/select-links.js, components/ij-footer.js, apps.json
+// IAMJARL <ij-footer> v1.35.1: generated, do not edit
+// Sources: components/select-links.js, components/labels.js, components/ij-footer.js, apps.json
 
 const REGISTRY = {
   "apps": [
@@ -244,6 +244,43 @@ function selectLinks(registry, siteId, options = {}) {
   return { self, siblings, topUp, always, links: [...siblings, ...topUp, ...always] };
 }
 
+// The words <ij-nav> and <ij-footer> print themselves, in the languages the
+// portfolio's sites are written in (#80), and the nav landmark's name (#88). Until 1.29.0 they were English on
+// every page, so Wean's Danish, Swedish and Norwegian pages and WODrounds' six
+// translations said "Menu" and "More from IAMJARL" in English.
+//
+// A component reads the language from the nearest lang attribute, so a Danish
+// page gets Danish without setting anything. An attribute on the element
+// (label, skip-label, menu-label, more-label, projects-label) overrides a word, for a
+// language not listed here or a site's own phrasing. Anything unknown is English.
+//
+// Pure apart from langOf, which reads the DOM: the build imports labelsFor to
+// write the footer fragments in each language.
+
+const LABELS = {
+  en: { nav: 'Main', skip: 'Skip to content', menu: 'Menu', more: 'More from IAMJARL', projects: 'All projects' },
+  da: { nav: 'Hovedmenu', skip: 'Gå til indhold', menu: 'Menu', more: 'Mere fra IAMJARL', projects: 'Alle projekter' },
+  de: { nav: 'Hauptmenü', skip: 'Zum Inhalt springen', menu: 'Menü', more: 'Mehr von IAMJARL', projects: 'Alle Projekte' },
+  es: { nav: 'Menú principal', skip: 'Saltar al contenido', menu: 'Menú', more: 'Más de IAMJARL', projects: 'Todos los proyectos' },
+  fr: { nav: 'Menu principal', skip: 'Aller au contenu', menu: 'Menu', more: 'Plus d’IAMJARL', projects: 'Tous les projets' },
+  nb: { nav: 'Hovedmeny', skip: 'Gå til innhold', menu: 'Meny', more: 'Mer fra IAMJARL', projects: 'Alle prosjekter' },
+  sv: { nav: 'Huvudmeny', skip: 'Till innehållet', menu: 'Meny', more: 'Mer från IAMJARL', projects: 'Alla projekt' },
+};
+
+// Norwegian pages are often marked "no" or "nn"; the words are Bokmål's.
+const ALIASES = { no: 'nb', nn: 'nb' };
+
+function labelsFor(lang) {
+  const base = String(lang || 'en').toLowerCase().split(/[-_]/)[0];
+  return LABELS[ALIASES[base] ?? base] ?? LABELS.en;
+}
+
+// The registry's link to the whole portfolio is a phrase, not a name, so it is
+// the one cross-link that is translated.
+const PROJECTS_ID = 'iamjarl';
+
+const langOf = el => el.closest('[lang]')?.getAttribute('lang') || document.documentElement.lang || 'en';
+
 // <ij-footer app="tonvault" tagline="…" layout="stacked|columns">
 //
 // Renders a site's footer with cross-links to the rest of the portfolio,
@@ -257,21 +294,23 @@ function selectLinks(registry, siteId, options = {}) {
 //   </ij-footer>
 //
 // Two slots, because a footer has two kinds of per-site content: the site's own
-// links, and the colophon — copyright, legal disclaimers, attribution. Both
+// links, and the colophon: copyright, legal disclaimers, attribution. Both
 // reference footers in the portfolio have that second region, and without a slot
 // for it a consuming site would silently lose its legal text on upgrade.
 //
 // Anything in neither slot is deliberately not rendered. Custom elements show
 // their own children until they upgrade, so that content is what a visitor sees
-// if this script never loads — a plainer footer rather than none.
+// if this script never loads: a plainer footer rather than none.
 //
 // layout="stacked" (default) is the WODrounds shape: groups above one another,
 // links flowing inline. layout="columns" is the Wean Nicotine shape: a grid of
 // groups with links stacked under each heading.
 //
 // links-label names the group holding the site's OWN links (slot="links") and
-// defaults to the app's name. The cross-links heading, "More from IAMJARL", is
-// fixed — setting links-label to it prints the string twice.
+// defaults to the app's name. The cross-links heading, "More from IAMJARL", and
+// the portfolio link, "All projects", follow the page's language (nearest lang
+// attribute, components/labels.js), or more-label and projects-label (#80);
+// setting links-label to the heading prints it twice.
 //
 // Alignment follows the page. Labels, tagline and fineprint inherit text-align
 // through the shadow boundary; the link rows are flex and cannot, so they take
@@ -286,12 +325,23 @@ function selectLinks(registry, siteId, options = {}) {
 const STYLE = `
 :host {
   /* The host page wins if it has tokens; otherwise fall back to the system's
-     own values. Never import tokens.shadow.css here — its :host declarations
+     own values. Never import tokens.shadow.css here: its :host declarations
      would beat the page's and override the site's chosen mode. */
   --_text:    var(--ij-color-text-secondary, rgba(0, 0, 0, 0.70));
   --_heading: var(--ij-color-text-primary,   rgba(0, 0, 0, 1));
   --_link:    var(--ij-color-text-secondary, rgba(0, 0, 0, 0.70));
-  --_hover:   var(--ij-color-primary,        #A435D2);
+  /* The quiet text, labels and fineprint, in the tertiary colour, which the
+     identity validator holds to AA on the ground (#98). Never opacity: 0.65 of
+     the secondary colour was about 3.4:1 on every light site. A page that maps
+     its own palette onto the footer and has no tertiary gets its secondary,
+     never the fallback below, which in a dark OS is white on its white. */
+  --_quiet:   var(--ij-color-text-tertiary, var(--ij-color-text-secondary, rgba(0, 0, 0, 0.55)));
+  /* Hover follows the site's accent, as <ij-nav>'s dot and CTA do, so a teal
+     site is not lime on footer hover (#57). It is text, so it takes the
+     text-safe variant (#65): Walkful's magenta is for strokes, and its links
+     are a deeper magenta. validate.js holds accentText to 4.5:1 on the ground.
+     A sheet from before 1.22 has only the family accent, which was text-safe. */
+  --_hover:   var(--ij-color-accent-text, var(--ij-color-accent-family, var(--ij-color-primary, #A435D2)));
   --_border:  var(--ij-color-border-subtle,  rgba(0, 0, 0, 0.10));
   --_gap:     var(--ij-spacing-sm,   8px);
   --_gap-md:  var(--ij-spacing-lg,  16px);
@@ -308,14 +358,15 @@ const STYLE = `
   line-height: var(--ij-line-height-sm, 20px);
 }
 
-/* Only for hosts with no token layer at all — a site that defines --ij-*
+/* Only for hosts with no token layer at all. A site that defines --ij-*
    already carries its own mode and must not be second-guessed here. */
 @media (prefers-color-scheme: dark) {
   :host {
     --_text:    var(--ij-color-text-secondary, rgba(255, 255, 255, 0.75));
     --_heading: var(--ij-color-text-primary,   rgba(255, 255, 255, 1));
     --_link:    var(--ij-color-text-secondary, rgba(255, 255, 255, 0.75));
-    --_hover:   var(--ij-color-primary,        #D0FF00);
+    --_quiet:   var(--ij-color-text-tertiary, var(--ij-color-text-secondary, rgba(255, 255, 255, 0.60)));
+    --_hover:   var(--ij-color-accent-text, var(--ij-color-accent-family, var(--ij-color-primary, #D0FF00)));
     --_border:  var(--ij-color-border-subtle,  rgba(255, 255, 255, 0.12));
   }
 }
@@ -324,10 +375,9 @@ const STYLE = `
 .tagline { color: var(--_heading); margin: 0 0 var(--_gap-lg); }
 
 /* A quiet label, not a shouted one. Both reference footers in the portfolio use
-   sentence case at normal weight — no uppercase, no letter-spacing. */
+   sentence case at normal weight: no uppercase, no letter-spacing. */
 .label {
-  color: var(--_heading);
-  opacity: var(--ij-opacity-muted, 0.65);
+  color: var(--_quiet);
   margin: 0 0 var(--_gap);
 }
 
@@ -347,7 +397,7 @@ const STYLE = `
   justify-content: flex-start;
 }
 
-.fineprint { opacity: var(--ij-opacity-muted, 0.65); }
+.fineprint { color: var(--_quiet); }
 .fineprint ::slotted(*) { margin: 0; }
 
 a, ::slotted(a) {
@@ -372,10 +422,10 @@ const escape = s => String(s).replace(/[&<>"]/g, c =>
 
 // Name only. Neither reference footer annotates links with a platform, and the
 // suffix turned a scannable list into noise.
-const linkHtml = app => `<a href="${escape(app.url)}">${escape(app.name)}</a>`;
+const linkHtml = (app, projects) => `<a href="${escape(app.url)}">${escape(app.id === PROJECTS_ID ? projects : app.name)}</a>`;
 
 class IjFooter extends HTMLElement {
-  static observedAttributes = ['app', 'tagline', 'layout', 'links-label'];
+  static observedAttributes = ['app', 'tagline', 'layout', 'links-label', 'more-label', 'projects-label'];
 
   connectedCallback() {
     this.render();
@@ -413,21 +463,29 @@ class IjFooter extends HTMLElement {
     const provided = this.querySelector('[slot="cross-links"]') !== null;
     const tagline = this.getAttribute('tagline');
     const ownLabel = this.getAttribute('links-label') ?? self.name;
+    // The heading and the portfolio link in the page's language (#80).
+    const words = labelsFor(langOf(this));
+    const moreLabel = this.getAttribute('more-label') || words.more;
+    const projectsLabel = this.getAttribute('projects-label') || words.projects;
+    // A site with no links of its own gets no group for them. Rendered anyway,
+    // it was a label above an empty row. It's mono set links-label="" to hide
+    // the label and still got the empty row and its gap.
+    const ownLinks = this.querySelector('[slot="links"]') !== null;
 
     this.shadowRoot.innerHTML = `
       <style>${STYLE}</style>
       <footer class="footer">
         ${tagline ? `<p class="tagline">${escape(tagline)}</p>` : ''}
         <div class="groups">
-          <div class="group">
+          ${ownLinks ? `<div class="group">
             <p class="label">${escape(ownLabel)}</p>
             <div class="links"><slot name="links"></slot></div>
-          </div>
+          </div>` : ''}
           <nav class="group" aria-labelledby="more">
-            <p class="label" id="more">More from IAMJARL</p>
+            <p class="label" id="more">${escape(moreLabel)}</p>
             <div class="links">${provided
               ? '<slot name="cross-links"></slot>'
-              : related.map(linkHtml).join('')}</div>
+              : related.map(app => linkHtml(app, projectsLabel)).join('')}</div>
           </nav>
         </div>
         <div class="fineprint"><slot name="fineprint"></slot></div>
