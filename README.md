@@ -16,8 +16,8 @@ SP-404 sample pack converter
 
 <p>
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/plain/appstore-02-analysis-dark.png">
-    <img src="docs/screenshots/plain/appstore-05-analysis-light.png" alt="It's 404, yo! with a sample pack of six files: three already OK, and three to convert, each with its reason, such as 32-bit float → 16-bit, 96 kHz resampled and FLAC → WAV." width="640">
+    <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/raw/raw-analysis-dark.png">
+    <img src="docs/screenshots/raw/raw-analysis-light.png" alt="It's 404, yo! with a sample pack of six files: three already OK, and three to convert, each with its reason, such as 32-bit float → 16-bit, 96 kHz resampled and FLAC → WAV." width="640">
   </picture>
 </p>
 

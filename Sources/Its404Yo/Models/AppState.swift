@@ -201,36 +201,52 @@ final class AppState: ObservableObject {
     /// Populate the list with representative mock data for screenshots/demos.
     /// Triggered by the `-DemoMode` launch argument; never used in normal operation.
     func seedDemoData() {
-        func item(_ name: String, _ props: AudioProperties, _ status: FileStatus, _ warnings: [String] = []) -> AudioFileItem {
-            AudioFileItem(
-                url: URL(fileURLWithPath: "/Samples/DemoPack/\(name)"),
-                relativePath: "DemoPack/\(name)",
-                properties: props, status: status, warnings: warnings
-            )
-        }
+        items = Self.demoItems()
+        outputDirectory = URL(fileURLWithPath: "/Users/jarl/Desktop/SP-404 Ready")
+    }
+
+    /// The report a real conversion of `items` would produce (no renames, nothing failing).
+    nonisolated static func demoReport(for items: [AudioFileItem], outputDirectory: URL) -> ConversionReport {
+        ConversionReport(
+            converted: items.filter(\.willConvert).count,
+            copied: items.filter { $0.status == .compatible }.count,
+            failed: items.filter { if case .unreadable = $0.status { return true }; return false }.count,
+            warnings: items.filter { !$0.warnings.isEmpty }.count,
+            outputDirectory: outputDirectory
+        )
+    }
+
+    /// The demo pack used for screenshots. Each file is described by its decoded format only; its
+    /// status and warnings come from the real `AudioFormatInspector`, so every label in a screenshot
+    /// is one the app actually produces for that file (#65). Hand-written labels drifted before.
+    nonisolated static func demoItems() -> [AudioFileItem] {
         func p(_ sr: Double, _ ch: UInt32, _ bits: UInt32, float: Bool, pcm: Bool, mp3: Bool, _ dur: Double) -> AudioProperties {
             AudioProperties(sampleRate: sr, channels: ch, bitsPerChannel: bits,
                             isFloat: float, isLinearPCM: pcm, isMP3: mp3, durationSeconds: dur)
         }
-
-        items = [
-            item("Kick_01.wav",     p(44100, 2, 16, float: false, pcm: true,  mp3: false, 1.1), .compatible),
-            item("Snare_punch.wav", p(96000, 2, 32, float: true,  pcm: true,  mp3: false, 0.8),
-                 .needsConversion(["32-bit float → 16-bit", "96 kHz resampled"])),
-            item("Vox_chop.flac",   p(48000, 2, 24, float: false, pcm: false, mp3: false, 2.4),
-                 .needsConversion(["24-bit → 16-bit", "FLAC → WAV"])),
-            item("Riser_fx.mp3",    p(44100, 2,  0, float: false, pcm: false, mp3: true,  3.0), .compatible),
-            item("Texture_pad.wav", p(88200, 1, 32, float: true,  pcm: true,  mp3: false, 17 * 60 + 4),
-                 .needsConversion(["32-bit float → 16-bit", "88.2 kHz resampled"]),
-                 ["Over 16 min, may exceed the SP-404 limit"]),
-            item("Hat_closed.aif",  p(48000, 1, 16, float: false, pcm: true,  mp3: false, 0.3), .compatible)
+        let files: [(String, AudioProperties)] = [
+            ("Kick_01.wav",     p(44100, 2, 16, float: false, pcm: true,  mp3: false, 1.1)),
+            ("Snare_punch.wav", p(96000, 2, 32, float: true,  pcm: true,  mp3: false, 0.8)),
+            ("Vox_chop.flac",   p(48000, 2, 24, float: false, pcm: false, mp3: false, 2.4)),
+            ("Riser_fx.mp3",    p(44100, 2,  0, float: false, pcm: false, mp3: true,  3.0)),
+            ("Texture_pad.wav", p(88200, 1, 32, float: true,  pcm: true,  mp3: false, 17 * 60 + 4)),
+            ("Hat_closed.aif",  p(48000, 1, 16, float: false, pcm: true,  mp3: false, 0.3)),
         ]
-        outputDirectory = URL(fileURLWithPath: "/Users/jarl/Desktop/SP-404 Ready")
+        return files.map { name, props in
+            let url = URL(fileURLWithPath: "/Samples/DemoPack/\(name)")
+            return AudioFileItem(
+                url: url,
+                relativePath: "DemoPack/\(name)",
+                properties: props,
+                status: AudioFormatInspector.classify(props, ext: url.pathExtension),
+                warnings: AudioFormatInspector.warnings(for: props)
+            )
+        }
     }
 
     /// Seed a finished-conversion report on top of the demo data (for the "done" screenshot).
     func seedDemoReport() {
         let dir = outputDirectory ?? URL(fileURLWithPath: "/Users/jarl/Desktop/SP-404 Ready")
-        lastReport = ConversionReport(converted: 3, copied: 3, failed: 0, warnings: 1, outputDirectory: dir)
+        lastReport = Self.demoReport(for: items, outputDirectory: dir)
     }
 }
