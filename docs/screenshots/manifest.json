@@ -1,0 +1,13 @@
+{
+  "app": "It's 404, yo!",
+  "mode": "dark",
+  "out_dir": ".",
+  "shots": [
+    { "raw": "raw/raw-empty-dark.png",     "slot": "mac", "mode": "dark",  "out": "appstore-01-empty-dark.png",     "caption": "Drop the [whole pack]" },
+    { "raw": "raw/raw-analysis-dark.png",  "slot": "mac", "mode": "dark",  "out": "appstore-02-analysis-dark.png",  "caption": "See every fix, [explained]" },
+    { "raw": "raw/raw-done-dark.png",      "slot": "mac", "mode": "dark",  "out": "appstore-03-done-dark.png",      "caption": "One click, [SP-404 ready]" },
+    { "raw": "raw/raw-empty-light.png",    "slot": "mac", "mode": "light", "out": "appstore-04-empty-light.png",    "caption": "Drop the [whole pack]" },
+    { "raw": "raw/raw-analysis-light.png", "slot": "mac", "mode": "light", "out": "appstore-05-analysis-light.png", "caption": "See every fix, [explained]" },
+    { "raw": "raw/raw-done-light.png",     "slot": "mac", "mode": "light", "out": "appstore-06-done-light.png",     "caption": "One click, [SP-404 ready]" }
+  ]
+}
