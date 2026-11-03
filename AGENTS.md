@@ -74,6 +74,8 @@ and write results there, not here. `BOOTSTRAP_PROMPT.md` in that repo has the fu
   The public identity is IAMJARL; a human name is the first name only. Roland and SP-404 are
   other people's trademarks, and this app is independent and unaffiliated: say so where it matters.
 - **`DESIGN.md`** before App Store screenshots or any visual that carries the brand.
+- **`Its404Yo/app-store-copy.md`** holds the App Store Connect copy (description, What's New,
+  keywords) and the pre-release checklist. It's owner-only, so it lives in the hub, not here.
 - **`ASO_GUIDANCE.md`** before touching App Store metadata; **`SEO_GUIDANCE.md`** before site SEO;
   **`DATA_ACCESS.md`** to pull GSC, Umami or App Store numbers.
 - **Public issues carry findings, never measured numbers.** No download, sales, revenue,
@@ -158,4 +160,4 @@ changes, refresh that baseline in the same commit** or the cloud build silently 
 - `Sources/Its404Yo/Views` — SwiftUI views
 - `Tests/Its404YoTests` — unit + end-to-end conversion tests
 - `site/` — the marketing site source, deployed to GitHub Pages. Support: `site/support.html`, `support@iamjarl.com`
-- `docs/` — build spec, architecture, App Store listing copy
+- `docs/` — format spec (`build-spec.md`), architecture (incl. demo mode and screenshot capture), accessibility audit
