@@ -6,6 +6,11 @@ All notable changes to this project are documented here. The format is based on
 
 ## [Unreleased]
 
+### Fixed
+- A 16-bit CAF file at 44.1 or 48 kHz was treated as already compatible and copied as `.caf`,
+  which SD-card import can't read. Only WAV and AIFF files (and `.mp3`) are copied untouched now;
+  CAF and AIFF-C are converted to WAV, with the reason shown as "CAF → WAV".
+
 ## [1.2.0] - 2026-10-03
 
 ### Added

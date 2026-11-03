@@ -47,13 +47,17 @@ enum AudioFormatInspector {
     // MARK: - Classification
 
     static func classify(_ props: AudioProperties, ext: String) -> FileStatus {
+        let ext = ext.lowercased()
         let rateOK = AudioFormat.safeSampleRates.contains(props.sampleRate)
+        // Compatible files are copied with their own extension, so the container has to be one the
+        // card reads, not just the decoded format (#68: a 16-bit CAF used to be copied as `.caf`).
+        let pcmContainerOK = AudioFormat.pcmPassThroughExtensions.contains(ext)
 
-        // MP3 is accepted by SD-card import as-is.
-        if props.isMP3 { return .compatible }
+        // An MP3 file is accepted by SD-card import as-is.
+        if props.isMP3, AudioFormat.mp3PassThroughExtensions.contains(ext) { return .compatible }
 
-        // 16-bit linear PCM (WAV or AIFF) at 44.1/48 kHz is accepted as-is.
-        if props.isLinearPCM, !props.isFloat, props.bitsPerChannel == 16, rateOK {
+        // 16-bit linear PCM in a WAV or AIFF file at 44.1/48 kHz is accepted as-is.
+        if props.isLinearPCM, !props.isFloat, props.bitsPerChannel == 16, rateOK, pcmContainerOK {
             return .compatible
         }
 
@@ -67,7 +71,7 @@ enum AudioFormatInspector {
         if !rateOK {
             reasons.append("\(formatKHz(props.sampleRate)) kHz resampled")
         }
-        if !props.isLinearPCM {
+        if !props.isLinearPCM || !pcmContainerOK {
             reasons.append("\(ext.uppercased()) → WAV")
         }
         if reasons.isEmpty {

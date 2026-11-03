@@ -94,7 +94,9 @@ build on what it says.
 - Analyses every file and gives a plain-language reason per file ("32-bit float → 16-bit",
   "96 kHz resampled", "FLAC → WAV").
 - Converts to 16-bit linear PCM WAV at **48 kHz** (default) or **44.1 kHz**.
-- Files that already import cleanly are **copied untouched**, never re-encoded.
+- Files that already import cleanly are **copied untouched**, never re-encoded: 16-bit linear PCM
+  in a `.wav`/`.wave`/`.aif`/`.aiff` file at 44.1 or 48 kHz, and `.mp3` files. The container is
+  checked too, so 16-bit PCM in a CAF or AIFF-C file is converted to WAV.
 - Output mirrors the input folder structure.
 - Warns (without blocking) on edge cases: over 16 minutes, estimated output over ~185 MB, or
   under 0.1 s. Files with warnings are still converted; only unreadable files are skipped.

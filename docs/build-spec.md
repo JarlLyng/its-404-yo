@@ -38,10 +38,12 @@ The app therefore converts to the format the stated rule guarantees, and treats 
 | **Channels** | **Kept as the source** (mono stays mono, stereo stays stereo). Roland documents no channel restriction. |
 | **Metadata** | A clean, canonical WAV, which drops BWF/broadcast chunks, extra RIFF chunks and cue points. |
 
-**Copied untouched, not re-encoded:** 16-bit linear PCM WAV or AIFF at 44.1 or 48 kHz, and MP3. These
-already match the stated SD-card rule (`AudioFormatInspector.classify`). Known gap: `classify` doesn't
-check the container yet, so a 16-bit CAF at those rates is copied as `.caf` too
-([#68](https://github.com/JarlLyng/its-404-yo/issues/68)).
+**Copied untouched, not re-encoded:** 16-bit linear PCM in a WAV (`.wav`, `.wave`) or AIFF (`.aif`,
+`.aiff`) file at 44.1 or 48 kHz, and `.mp3` files. These already match the stated SD-card rule
+(`AudioFormatInspector.classify`). A copied file keeps its own extension, so the container is checked,
+not only the decoded format: 16-bit PCM in a CAF or AIFF-C file, or an MP3 stream in any other
+container, is converted to WAV (fixed in [#68](https://github.com/JarlLyng/its-404-yo/issues/68);
+before that, a 16-bit CAF was copied as `.caf`).
 
 **Warnings, never blocking:** over 16 minutes, estimated output over about 185 MB, or under 0.1 s.
 A file with a warning is still converted. Only unreadable files are skipped.
