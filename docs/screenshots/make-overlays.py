@@ -5,7 +5,7 @@ Writes two sets at 2560x1600:
   - ./appstore-NN-*.png        captioned (headline + subtitle, app-theme accent)
   - ./plain/appstore-NN-*.png  un-captioned (window centered on a solid canvas)
 
-Raws are produced by the DEBUG demo hook (see ../app-store-listing.md). To change
+Raws are produced by the DEBUG demo hook (see ../ARCHITECTURE.md, "Demo mode and screenshots"). To change
 the wording, edit CAPTIONS below and re-run — no need to re-capture the app.
 
     python3 docs/screenshots/make-overlays.py

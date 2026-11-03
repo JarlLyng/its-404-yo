@@ -53,6 +53,30 @@ The Xcode project is generated from [`project.yml`](../project.yml) with
 [XcodeGen](https://github.com/yonaskolb/XcodeGen) and is git-ignored. This keeps the repo free of
 `.pbxproj` churn and makes the build reproducible (`make generate`).
 
+## Demo mode and screenshots
+
+DEBUG builds read `-Demo…` launch arguments and seed the window with sample data, so screenshots don't
+need real files. Release builds ignore them.
+
+| Argument | Scene |
+|---|---|
+| `-DemoEmpty` | the empty drop zone |
+| `-DemoMode` (or `-DemoAnalysis`) | a populated analysis list |
+| `-DemoDone` | the list plus a finished conversion report |
+| `-DemoLight` | add to any of the above for light mode (dark by default) |
+
+In demo mode the app sizes its window to 1120×740 points (2240×1480 pixels on Retina) and prints
+`ITS404_WINDOW=<id>`, so a script can capture just that window:
+
+```sh
+open --stdout /tmp/o.txt -n path/to/Debug/Its404Yo.app --args -DemoMode
+sleep 3
+screencapture -o -x -l"$(sed -n 's/^ITS404_WINDOW=//p' /tmp/o.txt)" raw.png
+```
+
+Read the id from the `ITS404_WINDOW=` line rather than grepping for digits. The app's name contains
+"404", and grepping digits picks that up instead of the id.
+
 ## Why these format choices
 
 See [`build-spec.md`](build-spec.md) for the full, source-cited rationale behind 16-bit / 44.1–48 kHz
