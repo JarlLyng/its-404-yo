@@ -45,8 +45,10 @@ The `iamjarl` organisation also strips `user.id`, `contexts.device.id` and
 sends `infer_ip: never`.
 
 The privacy policy (`site/privacy.html`), `PrivacyInfo.xcprivacy` and the App Store label name
-the same three kinds of data, all not linked to the user and not used for tracking: Crash Data and
-Performance Data (Diagnostics), and Product Interaction (Usage Data).
+the same four kinds of data, all not linked to the user and not used for tracking: Crash Data,
+Performance Data and Other Diagnostic Data (Diagnostics), and Product Interaction (Usage Data).
+Other Diagnostic Data covers the MetricKit diagnostics; sentry-cocoa's own manifest declares it
+too.
 
 ## Checking the envelopes (after every sentry-cocoa upgrade)
 
