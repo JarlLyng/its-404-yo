@@ -4,14 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Privacy Policy for It's 404, yo!</title>
-  <meta name="description" content="Privacy policy for It's 404, yo! The app collects no data. Everything runs offline on your Mac; your samples never leave your computer." />
+  <meta name="description" content="Privacy policy for It's 404, yo! Your samples never leave your Mac. The app sends only anonymous crash reports and one anonymous count, with no ID and nothing from your files." />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#000000" />
   <link rel="icon" href="assets/icon.png" />
   <link rel="canonical" href="https://its404yo.iamjarl.com/privacy.html" />
 
   <meta property="og:title" content="Privacy Policy for It's 404, yo!" />
-  <meta property="og:description" content="The app collects no data. Everything runs offline on your Mac, and your samples never leave your computer." />
+  <meta property="og:description" content="Your samples never leave your Mac. The app sends only anonymous crash reports and one anonymous count, with no ID and nothing from your files." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="It's 404, yo!" />
   <meta property="og:url" content="https://its404yo.iamjarl.com/privacy.html" />
@@ -44,28 +44,50 @@
   <section id="privacy">
     <div class="wrap section-head" style="text-align:left">
       <h1>Privacy Policy</h1>
-      <p><em>Last updated: 3 October 2026</em></p>
+      <p><em>Last updated: 15 November 2026</em></p>
 
       <h2>Summary</h2>
-      <p><strong>The It's 404, yo! app collects no data.</strong> It runs entirely offline on your Mac. Your sample files are read and converted locally and never leave your computer. This website uses
-        privacy-friendly, cookieless analytics (see below).</p>
+      <p><strong>Your samples never leave your Mac.</strong> They are read and converted on your
+        computer, and the conversion works without an internet connection. From version 1.3.0 the app
+        sends two kinds of anonymous data, crash reports and a count of finished conversions, with no ID
+        and nothing from your files. This website uses privacy-friendly, cookieless analytics (see
+        below).</p>
 
       <h2>The app</h2>
-      <p>The macOS app collects nothing. There is no account, no sign-in, and no cloud service. It
-        gathers no personal information (no name, email, IP address, or device identifiers), does no
-        in-app usage tracking, and uses no cookies or analytics. Your audio files never leave your
-        Mac; nothing is uploaded anywhere.</p>
+      <p>There is no account, no sign-in and no cloud service. The app gathers no personal
+        information (no name, email address or device identifier), uses no cookies, and nothing it
+        sends is used for advertising or tracking.</p>
+      <p>From version 1.3.0 it sends anonymous data to <a href="https://sentry.io" target="_blank" rel="noopener">Sentry</a>,
+        a crash reporting service, so I learn when a release breaks and whether the app does its job.
+        Sentry stores it in its EU region, in Germany. There are two kinds.</p>
+      <p><strong>Diagnostics.</strong> When the app crashes or hangs, a report goes out with the
+        technical details of the crash, the app and macOS version, the Mac model and the language
+        setting. The diagnostics macOS itself collects through MetricKit (hangs, heavy CPU or disk use)
+        are sent the same way, and so is a short note that a session started and ended without a
+        crash.</p>
+      <p><strong>One count.</strong> Each time a conversion finishes, the app counts one, together
+        with the sample rate you chose (48 or 44.1&nbsp;kHz). It doesn&rsquo;t count your files or
+        what was wrong with them.</p>
+      <p>None of it carries an identifier. Every Mac reports as the same user,
+        &ldquo;anonymous&rdquo;, so no report can be tied to you or to another report from your Mac.
+        Nothing from your files goes with it, no sample, no file name and no folder path. The app
+        removes them from crash messages before anything is sent. It keeps nothing on your Mac to
+        measure you with, no ID and no &ldquo;first seen&rdquo; date. Sentry is set not to store IP
+        addresses. On the App Store this shows as Data Not Linked to You: Diagnostics and Usage
+        Data.</p>
+      <p>If you&rsquo;d rather the app send nothing at all, a firewall can block it, and the app
+        works exactly the same.</p>
 
       <h2>This website</h2>
       <p>This website (its404yo.iamjarl.com) uses <a href="https://umami.is" target="_blank" rel="noopener">Umami</a>,
         a privacy-friendly, cookieless analytics tool, to count visits and see which pages are popular. It
         records aggregate statistics only, <strong>no cookies, no cross-site tracking, and no personally
-        identifiable information</strong>. This is separate from the app, which remains fully offline.</p>
+        identifiable information</strong>. This is separate from the app.</p>
 
       <h2>Local file processing</h2>
       <p>All inspection and conversion happens on your device using Apple's Core Audio frameworks.
         The app only accesses the files and folders you explicitly choose, and writes converted
-        output to a location you pick. Nothing is uploaded anywhere.</p>
+        output to a location you pick. None of your files are uploaded anywhere.</p>
 
       <h2>Changes to this policy</h2>
       <p>If this policy changes, the updated version will be posted on this page.</p>

@@ -89,7 +89,8 @@ final class AppState: ObservableObject {
     func convert() {
         guard let outDir = outputDirectory else { return }
         let items = self.items
-        let rate = self.settings.targetSampleRate.rawValue
+        let targetRate = self.settings.targetSampleRate
+        let rate = targetRate.rawValue
         let sanitize = self.settings.sanitizeFilenames
         isConverting = true
         progress = 0
@@ -150,6 +151,9 @@ final class AppState: ObservableObject {
                 self.isConverting = false
                 self.lastReport = report
                 self.maybeRequestReview(report: report)
+                if report.converted + report.copied > 0 {
+                    Telemetry.conversionFinished(rate: targetRate)
+                }
             }
         }
     }

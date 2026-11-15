@@ -1,0 +1,8 @@
+// Build settings for the app target (project.yml, configFiles).
+//
+// The Sentry DSN comes from a gitignored file next to this one, Config/Sentry.xcconfig: written by
+// ci_scripts/ci_post_clone.sh on Xcode Cloud, or by hand for a local test (docs/SENTRY.md).
+// Without it the DSN is empty, the app sends nothing, and an archive stops (project.yml).
+
+SENTRY_DSN =
+#include? "Sentry.xcconfig"

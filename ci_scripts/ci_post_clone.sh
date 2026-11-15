@@ -13,6 +13,18 @@ brew install xcodegen
 cd "$CI_PRIMARY_REPOSITORY_PATH"
 xcodegen generate
 
+# The Sentry DSN (docs/SENTRY.md) comes from the workflow's SENTRY_DSN environment variable and is
+# written to the gitignored Config/Sentry.xcconfig, which Config/Its404Yo.xcconfig includes. In an
+# xcconfig `//` starts a comment, so the scheme's slashes are split with `$()`, which expands to
+# nothing. Without the variable no file is written: builds and tests still run with crash reports
+# off, and an archive stops at the "Check Sentry DSN on archive" build phase.
+if [ -n "${SENTRY_DSN}" ]; then
+  printf 'SENTRY_DSN = %s\n' "$(printf '%s' "${SENTRY_DSN}" | sed 's#//#/$()/#g')" > Config/Sentry.xcconfig
+  echo "ci_post_clone: wrote Config/Sentry.xcconfig with a DSN"
+else
+  echo "ci_post_clone: SENTRY_DSN is not set; crash reports are off and an archive will stop"
+fi
+
 # Xcode Cloud runs with automatic package resolution disabled and requires a committed
 # Package.resolved. Ours lives inside the generated (uncommitted) .xcodeproj, so we keep a tracked
 # baseline (ci_scripts/Package.resolved.baseline) and drop it into place after generating the
