@@ -11,6 +11,12 @@ packages:
   IAMJARLDesignTokens:
     url: https://github.com/JarlLyng/iamjarl-design
     from: "1.2.1"
+  # Anonymous crash reports and one feature count (#73, docs/SENTRY.md). Pinned exactly: the
+  # app pins the SDK's installation ID to a shared value, which relies on SDK internals, so every
+  # upgrade is a deliberate one followed by the envelope check.
+  Sentry:
+    url: https://github.com/getsentry/sentry-cocoa
+    exactVersion: "9.32.0"
 
 settings:
   base:
@@ -34,11 +40,17 @@ targets:
       - path: Sources/Its404Yo
         excludes:
           - "**/*.entitlements"
+    # Sets SENTRY_DSN, empty unless the gitignored Config/Sentry.xcconfig provides one.
+    configFiles:
+      Debug: Config/Its404Yo.xcconfig
+      Release: Config/Its404Yo.xcconfig
     settings:
       base:
         PRODUCT_NAME: Its404Yo
         PRODUCT_BUNDLE_IDENTIFIER: com.iamjarl.its404yo
         GENERATE_INFOPLIST_FILE: YES
+        # Merged with the generated keys; carries only SentryDSN = $(SENTRY_DSN).
+        INFOPLIST_FILE: Sources/Its404Yo/Info.plist
         INFOPLIST_KEY_CFBundleDisplayName: "It's 404, yo!"
         INFOPLIST_KEY_LSApplicationCategoryType: "public.app-category.music"
         INFOPLIST_KEY_NSHumanReadableCopyright: "© 2026 IAMJARL. MIT-licensed."
@@ -53,6 +65,20 @@ targets:
     dependencies:
       - package: IAMJARLDesignTokens
         product: IAMJARLDesignTokens
+      - package: Sentry
+        product: Sentry
+    preBuildScripts:
+      # An archive without a DSN would ship with crash reports quietly off. Stop it instead, with
+      # a message that names the fix. Builds and tests still run without one.
+      - name: Check Sentry DSN on archive
+        basedOnDependencyAnalysis: false
+        script: |
+          [ "$ACTION" = "install" ] || exit 0
+          case "$SENTRY_DSN" in
+            https://*@*/*) exit 0 ;;
+          esac
+          echo "error: SENTRY_DSN is missing or malformed, so this archive would ship without crash reports. Set it on the Xcode Cloud workflow (or in Config/Sentry.xcconfig for a local archive), then archive again. See docs/SENTRY.md."
+          exit 1
 
   Its404YoTests:
     type: bundle.unit-test

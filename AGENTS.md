@@ -7,9 +7,10 @@ Quick-start context for developers and AI assistants. Detailed specs in `docs/`.
 A single-purpose native macOS utility that batch-converts whole sample packs into the format the
 Roland SP-404 MkII accepts on SD-card import (16-bit linear PCM WAV at 48 or 44.1 kHz), and tells
 you in plain language why each file would otherwise have failed. It exists because the device
-rejects most downloaded packs with a bare "Unsupported File" and no explanation. Everything runs
-offline and sandboxed: no account, no network, no cloud, and samples never leave the Mac. Sibling
-to _It's mono, yo!_
+rejects most downloaded packs with a bare "Unsupported File" and no explanation. Converting runs
+on the Mac, sandboxed and offline-capable: no account, no cloud, and samples never leave the Mac.
+From 1.3.0 the app sends anonymous crash reports and one count to Sentry (`docs/SENTRY.md`).
+Sibling to _It's mono, yo!_
 
 - **Developer:** [IAMJARL](https://iamjarl.com) (Jarl). The full personal name is never used in copy or docs; see `BRAND_LEGAL.md` in the hub.
 - **Website:** [its404yo.iamjarl.com](https://its404yo.iamjarl.com)
@@ -107,6 +108,12 @@ build on what it says.
 - **Help › Send Feedback…** opens a draft email to `support@iamjarl.com` in the user's own mail
   app, with the app and macOS version prefilled. The app sends nothing itself; the user sees and
   sends (or discards) the draft. Built by `FeedbackMail` in `Services`.
+- **Anonymous crash reports and one count (from 1.3.0, #73).** Crashes, hangs, MetricKit
+  diagnostics and crash-free sessions go to Sentry, plus one count, `conversion.finished`, with the
+  chosen rate (`48k`/`44.1k`) as its only attribute. Every install reports as the same user,
+  `anonymous` (sessions too, via the pinned `INSTALLATION` file); device IDs are dropped, and free
+  text that might name a sample or a path is replaced. Built by `Telemetry`; the rules and the
+  envelope check are in `docs/SENTRY.md`. Network access (`network.client`) exists for this only.
 
 ### Features that do NOT exist (common hallucination targets)
 
@@ -119,8 +126,12 @@ These are open issues or deliberate exclusions, not shipped behaviour. Do not de
 - **Does not talk to the device.** No USB connection, no writing to the SD card, no reading the
   SP-404's project format. It writes converted files to a folder you choose; moving them to the
   card is manual.
-- **No network, no backend, no cloud, no accounts, and no telemetry or analytics in the app.**
-  "Send Feedback" is not an exception: it hands a `mailto:` draft to the user's mail app.
+- **No backend, no cloud, no accounts, and no tracking.** The only network traffic is the anonymous
+  Sentry data above: no ID, no file names, no paths, no samples, no performance tracing, no
+  screenshots or replay, and no count other than `conversion.finished`. There is **no in-app switch**
+  to turn it off (the privacy policy says a firewall can). "Send Feedback" hands a `mailto:` draft
+  to the user's mail app; the app sends nothing itself.
+- **Never uploads a sample**, a file name or a folder path, anywhere.
 - **macOS only.** No iOS, iPadOS or command-line build.
 
 ## Requirements
@@ -141,6 +152,11 @@ Xcode Cloud builds from the `release` branch. `ci_scripts/ci_post_clone.sh` rege
 project and copies `ci_scripts/Package.resolved.baseline` into place, because Xcode Cloud has
 automatic package resolution disabled and needs a committed resolve. **When a dependency version
 changes, refresh that baseline in the same commit** or the cloud build silently keeps the old one.
+The same script writes `SENTRY_DSN` from the workflow environment into `Config/Sentry.xcconfig`
+(with `//` escaped as `/$()/`, since xcconfig reads `//` as a comment), and
+`ci_post_xcodebuild.sh` uploads dSYMs with `SENTRY_AUTH_TOKEN`. An archive without a valid DSN
+stops at the "Check Sentry DSN on archive" build phase. sentry-cocoa is pinned exactly; after an
+upgrade, repeat the envelope check in `docs/SENTRY.md`.
 
 ## Conventions
 
@@ -150,7 +166,10 @@ changes, refresh that baseline in the same commit** or the cloud build silently 
   colors, spacing, radius, and type sizes — never hard-code them.
 - **Engine is pure & tested.** Conversion/inspection logic lives in `Sources/Its404Yo/Services` and
   must stay free of UI dependencies so the tests can call it directly. Add tests for logic changes.
-- **No backend, no network, no new runtime dependencies.** The app is offline and sandboxed.
+- **No backend, and no network beyond the anonymous Sentry recipe.** Telemetry follows
+  `docs/SENTRY.md` and the hub's privacy standard; anything new it sends (a count, an attribute)
+  goes through the allowlists in `Telemetry` and is named in the privacy policy, the manifest and
+  the label in the same release. No other new runtime dependencies.
 - **Format facts are documented.** Any change to accepted/target formats must stay consistent with
   `docs/build-spec.md` (source-cited).
 - **One agent file.** This repo keeps `AGENTS.md` and no tool-specific AI config; see `.gitignore`.
@@ -158,8 +177,10 @@ changes, refresh that baseline in the same commit** or the cloud build silently 
 ## Where things are
 
 - `Sources/Its404Yo/Services` — `AudioConverter`, `AudioFormatInspector`, `AudioFormat`, `SampleScanner`, `FilenameSanitizer`, `FeedbackMail`
+- `Sources/Its404Yo/Telemetry` — `Telemetry` (anonymous Sentry; kept out of the engine)
+- `Config/` — `Its404Yo.xcconfig`; the DSN lives in the gitignored `Config/Sentry.xcconfig`
 - `Sources/Its404Yo/Models` — `AppState`, `AudioFileItem`, `ConversionSettings`
 - `Sources/Its404Yo/Views` — SwiftUI views
 - `Tests/Its404YoTests` — unit + end-to-end conversion tests
 - `site/` — the marketing site source, deployed to GitHub Pages. Support: `site/support.html`, `support@iamjarl.com`
-- `docs/` — format spec (`build-spec.md`), architecture (incl. demo mode and screenshot capture), accessibility audit
+- `docs/` — format spec (`build-spec.md`), architecture (incl. demo mode and screenshot capture), accessibility audit, `SENTRY.md`

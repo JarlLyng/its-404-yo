@@ -1,8 +1,9 @@
 # Architecture
 
 _It's 404, yo!_ is a small SwiftUI macOS app over a pure Core Audio conversion engine. There is no
-backend and no persistence — it transforms files the user drops and writes results to a folder they
-choose.
+backend and no persistence: it transforms files the user drops and writes results to a folder they
+choose. The only thing that leaves the Mac is anonymous crash reports and one count, sent to Sentry
+(see Telemetry below).
 
 ## Layers
 
@@ -47,11 +48,19 @@ Plain SwiftUI. All colors, spacing, radius, and type sizes come from the
 [`IAMJARLDesignTokens`](https://github.com/JarlLyng/iamjarl-design) Swift package via
 `DesignTokens.*`, so the app stays on-brand and theme-aware (light/dark).
 
+### Telemetry
+
+`Telemetry` (`Sources/Its404Yo/Telemetry/`) starts Sentry in the app's `init` and counts a finished
+conversion from `AppState`. It sits outside Services on purpose: the engine stays free of it, and
+the tests that exercise the engine never touch the network. What it sends, how it stays anonymous
+and how to check the envelopes is in [`SENTRY.md`](SENTRY.md).
+
 ## Build system
 
 The Xcode project is generated from [`project.yml`](../project.yml) with
 [XcodeGen](https://github.com/yonaskolb/XcodeGen) and is git-ignored. This keeps the repo free of
-`.pbxproj` churn and makes the build reproducible (`make generate`).
+`.pbxproj` churn and makes the build reproducible (`make generate`). `Config/Its404Yo.xcconfig`
+carries the Sentry DSN build setting, filled from a gitignored file ([`SENTRY.md`](SENTRY.md)).
 
 ## Demo mode and screenshots
 

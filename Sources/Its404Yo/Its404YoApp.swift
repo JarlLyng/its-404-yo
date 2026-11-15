@@ -6,6 +6,11 @@ struct Its404YoApp: App {
     @StateObject private var state = AppState()
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
 
+    init() {
+        // As early as possible, so a crash during launch is reported too. Anonymous (Telemetry).
+        Telemetry.start()
+    }
+
     // Screenshot/demo hook — DEBUG only, inert without a `-Demo…` launch argument.
     // Scenes: -DemoMode / -DemoAnalysis (populated, default), -DemoEmpty (drop zone),
     //         -DemoDone (populated + conversion report). Appearance: -DemoLight (default dark).
@@ -39,8 +44,9 @@ struct Its404YoApp: App {
         .commands {
             CommandGroup(replacing: .newItem) {} // single-window utility
             // Replaces the default "It's 404, yo! Help" item, which only says help isn't available.
-            // The app collects no usage data, so what users choose to say is how we learn; this
-            // gives an unhappy user somewhere to go other than a review.
+            // Beyond anonymous crash reports and one count, the app learns nothing about its use, so
+            // what users choose to say is how we learn; this gives an unhappy user somewhere to go
+            // other than a review.
             CommandGroup(replacing: .help) {
                 Button("Send Feedback\u{2026}") {
                     NSWorkspace.shared.open(FeedbackMail.current())

@@ -55,3 +55,6 @@ ExportOptions.plist
 
 # make social scratch output
 .build-social/
+
+# Local Sentry DSN, written by ci_scripts/ci_post_clone.sh or by hand (docs/SENTRY.md)
+Config/Sentry.xcconfig

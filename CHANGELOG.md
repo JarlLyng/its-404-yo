@@ -6,6 +6,19 @@ All notable changes to this project are documented here. The format is based on
 
 ## [Unreleased]
 
+### Added
+- Anonymous crash reports, MetricKit diagnostics, crash-free sessions and one count (a conversion
+  finished, with the chosen sample rate) are sent to Sentry. No ID leaves the Mac: every install
+  reports as the same user, `anonymous`, sessions carry that instead of an installation ID, and
+  file names and paths are removed from crash messages. No sample is ever uploaded. The privacy
+  policy, `PrivacyInfo.xcprivacy` and the App Store label say the same. Details in
+  `docs/SENTRY.md` (#73).
+
+### Changed
+- The app now has outgoing network access, used by Sentry only.
+- `PrivacyInfo.xcprivacy` declares the app's use of `UserDefaults` (settings, the output folder
+  and the review prompt's counter), which it had left out.
+
 ### Fixed
 - A 16-bit CAF file at 44.1 or 48 kHz was treated as already compatible and copied as `.caf`,
   which SD-card import can't read. Only WAV and AIFF files (and `.mp3`) are copied untouched now;

@@ -49,7 +49,11 @@ Drop a folder (or files) → see exactly what will change, in plain language →
 - **Warns** about edge cases (over 16 min / ~185 MB, or under 100 ms).
 - **Optionally sanitizes** file names for SD-card import (off by default), keeping structure.
 
-Everything runs **offline, on-device**. No network, no account, no data leaves your Mac.
+Converting runs **on your Mac** and works offline. No account, no cloud, and your samples never
+leave your Mac. From 1.3.0 the app sends anonymous crash reports and a count of finished
+conversions, with no ID and nothing from your files. The
+[privacy policy](https://its404yo.iamjarl.com/privacy.html) and [`docs/SENTRY.md`](docs/SENTRY.md)
+have the details.
 
 ### The target format (why these choices)
 
