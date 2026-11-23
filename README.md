@@ -50,8 +50,8 @@ Drop a folder (or files) → see exactly what will change, in plain language →
 - **Optionally sanitizes** file names for SD-card import (off by default), keeping structure.
 
 Converting runs **on your Mac** and works offline. No account, no cloud, and your samples never
-leave your Mac. From 1.3.0 the app sends anonymous crash reports and a count of finished
-conversions, with no ID and nothing from your files. The
+leave your Mac. From 1.3.0 the app sends anonymous crash reports, diagnostics, a note per
+session and a count of finished conversions, with no ID and nothing from your files. The
 [privacy policy](https://its404yo.iamjarl.com/privacy.html) and [`docs/SENTRY.md`](docs/SENTRY.md)
 have the details.
 

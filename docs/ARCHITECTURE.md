@@ -2,8 +2,8 @@
 
 _It's 404, yo!_ is a small SwiftUI macOS app over a pure Core Audio conversion engine. There is no
 backend and no persistence: it transforms files the user drops and writes results to a folder they
-choose. The only thing that leaves the Mac is anonymous crash reports and one count, sent to Sentry
-(see Telemetry below).
+choose. What leaves the Mac is anonymous crash reports, diagnostics, a note per session and one count,
+sent to Sentry (see Telemetry below).
 
 ## Layers
 
