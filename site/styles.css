@@ -2,9 +2,13 @@
    Built on the IAMJARL design tokens. Dark-first (brand default), light via prefers-color-scheme. */
 
 :root {
-  /* Color (dark = default) */
-  --primary: #D0FF00;
-  --on-primary: #000000;
+  /* Color (dark = default). The accent comes from the identity sheet (iamjarl-design 1.38.2,
+     linked before this file): the icon's lime in both modes, black on it. As text it is
+     --primary-text, olive by day and lime by night, because the lime is 1.1:1 on white.
+     The fallbacks only matter if the sheet fails to load. */
+  --primary: var(--ij-color-accent, #D0FF00);
+  --on-primary: var(--ij-color-on-accent, #000000);
+  --primary-text: var(--ij-color-accent-text, #D0FF00);
   --bg: #000000;
   --surface: rgba(255, 255, 255, 0.03);
   --card: rgba(255, 255, 255, 0.05);
@@ -32,8 +36,7 @@
 
 @media (prefers-color-scheme: light) {
   :root {
-    --primary: #A435D2;
-    --on-primary: #FFFFFF;
+    --primary-text: var(--ij-color-accent-text, #4A5900);
     --bg: #FFFFFF;
     --surface: rgba(0, 0, 0, 0.02);
     --card: rgba(0, 0, 0, 0.04);
@@ -86,7 +89,7 @@ a { color: inherit; }
 /* Hero */
 .hero { text-align: center; padding: clamp(48px, 9vw, 110px) 0 var(--sp-3xl); }
 .eyebrow { display: inline-block; font-family: var(--mono); font-size: 13px;
-  color: var(--primary); letter-spacing: .04em; margin-bottom: var(--sp-lg); }
+  color: var(--primary-text); letter-spacing: .04em; margin-bottom: var(--sp-lg); }
 /* The music family's display face (iamjarl-design 1.16.0): headings and the wordmark carry the
    voice, body copy stays system. --ij-font-display comes from the identity sheet,
    dist/identity/its-404-yo.css in the vendored copy; if that sheet is missing the headings fall back
@@ -141,7 +144,7 @@ section { padding: clamp(48px, 8vw, 96px) 0; }
 
 /* Steps */
 .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-2xl); }
-.step .num { font-family: var(--mono); color: var(--primary); font-size: 14px; }
+.step .num { font-family: var(--mono); color: var(--primary-text); font-size: 14px; }
 .step h3 { margin: var(--sp-sm) 0; font-size: 20px; }
 .step p { color: var(--text-2); }
 
@@ -159,7 +162,7 @@ section { padding: clamp(48px, 8vw, 96px) 0; }
 .spec td { padding: 14px var(--sp-2xl); border-bottom: 1px solid var(--border); }
 .spec tr:last-child td { border-bottom: none; }
 .spec td:first-child { color: var(--text-2); width: 38%; }
-.spec code { font-family: var(--mono); color: var(--primary); }
+.spec code { font-family: var(--mono); color: var(--primary-text); }
 
 /* FAQ */
 .faq { max-width: 760px; margin: 0 auto; }
@@ -182,7 +185,7 @@ ij-footer {
   --ij-color-text-primary: var(--text);
   --ij-color-text-secondary: var(--text-2);
   --ij-color-text-tertiary: var(--text-3);   /* labels and fineprint, since ij-footer 1.32.1 */
-  --ij-color-primary: var(--primary);
+  --ij-color-primary: var(--primary-text);   /* only a fallback: the footer reads the sheet's accent-text first */
   --ij-color-border-subtle: transparent;
   --ij-spacing-sm: var(--sp-sm);
   --ij-spacing-lg: var(--sp-lg);
