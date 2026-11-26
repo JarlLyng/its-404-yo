@@ -22,7 +22,11 @@ All notable changes to this project are documented here. The format is based on
 ### Fixed
 - A 16-bit CAF file at 44.1 or 48 kHz was treated as already compatible and copied as `.caf`,
   which SD-card import can't read. Only WAV and AIFF files (and `.mp3`) are copied untouched now;
-  CAF and AIFF-C are converted to WAV, with the reason shown as "CAF → WAV".
+  CAF and AIFF-C are converted to WAV, with the reason shown as "CAF → WAV" (#68).
+- FLAC and Apple Lossless files were read as floating-point audio with no bit depth, so their row
+  said "0-bit float" and listed a "0-bit float → 16-bit" fix that wasn't one. AAC files read
+  "0-bit". The row now names the codec and the source's real depth ("FLAC · 24-bit · 48 kHz ·
+  stereo", "AAC · 44.1 kHz · stereo"), and the reasons are "FLAC → WAV" or "M4A → WAV" (#81).
 
 ## [1.2.0] - 2026-10-03
 

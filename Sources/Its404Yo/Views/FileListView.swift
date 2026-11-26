@@ -101,12 +101,7 @@ private struct FileRow: View {
     }
 
     private var detailLine: String? {
-        guard let p = item.properties else { return nil }
-        let rate = AudioFormatInspector.formatKHz(p.sampleRate)
-        let ch = p.channels == 1 ? "mono" : (p.channels == 2 ? "stereo" : "\(p.channels)ch")
-        if p.isMP3 { return "MP3 · \(rate) kHz · \(ch)" }
-        let depth = p.isFloat ? "\(p.bitsPerChannel)-bit float" : "\(p.bitsPerChannel)-bit"
-        return "\(depth) · \(rate) kHz · \(ch)"
+        item.properties.map(AudioFormatInspector.detail(for:))
     }
 
     @ViewBuilder private var reasonBadges: some View {
