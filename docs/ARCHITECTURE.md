@@ -72,7 +72,12 @@ need real files. Release builds ignore them.
 | `-DemoEmpty` | the empty drop zone |
 | `-DemoMode` (or `-DemoAnalysis`) | a populated analysis list |
 | `-DemoDone` | the list plus a finished conversion report |
+| `-DemoPack` | a whole pack of 18 files in the formats packs arrive in (WAV, AIFF, FLAC, CAF, M4A, MP3) |
 | `-DemoLight` | add to any of the above for light mode (dark by default) |
+| `-DemoCompact` | add for an 800×560 window instead of 1120×740, so the same screen reads larger |
+
+Use flags only: a bare value such as `800x560` after an argument is taken by AppKit as a file to open,
+and SwiftUI then opens no window.
 
 In demo mode the app sizes its window to 1120×740 points (2240×1480 pixels on Retina) and prints
 `ITS404_WINDOW=<id>`, so a script can capture just that window:
