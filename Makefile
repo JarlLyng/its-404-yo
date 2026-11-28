@@ -39,7 +39,7 @@ social: ## Render the social card: GitHub preview (docs/) + og:image (site/asset
 	@echo "docs/social-preview.png  (1280x640, upload in GitHub: Settings > Social preview)"
 	@echo "site/assets/og.png       (2400x1260, served as og:image)"
 
-DESIGN_TAG ?= v1.35.1
+DESIGN_TAG ?= v1.38.2
 
 # scripts/iamjarl-vendor.mjs is the design system's own copy script (its dist/vendor.mjs, checked
 # against the tag's sri.json when it was taken). It copies what the pages load to
