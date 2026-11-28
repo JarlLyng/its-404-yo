@@ -6,6 +6,8 @@ All notable changes to this project are documented here. The format is based on
 
 ## [Unreleased]
 
+## [1.3.0] - 2026-11-28
+
 ### Added
 - Anonymous crash reports, MetricKit diagnostics, crash-free sessions and one count (a conversion
   finished, with the chosen sample rate) are sent to Sentry. No ID leaves the Mac: every install
