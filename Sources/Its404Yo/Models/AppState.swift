@@ -249,6 +249,51 @@ final class AppState: ObservableObject {
         }
     }
 
+    /// A whole pack for the "drop the whole pack" screenshot: 18 files in the formats a pack really
+    /// arrives in, labelled by the real `AudioFormatInspector` like `demoItems()`.
+    func seedDemoPack() {
+        items = Self.demoPackItems()
+        outputDirectory = URL(fileURLWithPath: "/Users/jarl/Desktop/SP-404 Ready")
+    }
+
+    nonisolated static func demoPackItems() -> [AudioFileItem] {
+        func p(_ sr: Double, _ ch: UInt32, _ bits: UInt32, float: Bool = false, pcm: Bool = true,
+               codec: String? = nil, _ dur: Double) -> AudioProperties {
+            AudioProperties(sampleRate: sr, channels: ch, bitsPerChannel: bits, isFloat: float,
+                            isLinearPCM: pcm, isMP3: codec == "MP3", durationSeconds: dur, codec: codec)
+        }
+        let files: [(String, AudioProperties)] = [
+            ("Drums/Kick_boom.wav",       p(44100, 2, 24, 1.2)),
+            ("Drums/Kick_tight.wav",      p(44100, 1, 16, 0.6)),
+            ("Drums/Snare_crack.wav",     p(48000, 2, 32, float: true, 0.9)),
+            ("Drums/Snare_rim.aif",       p(48000, 1, 16, 0.4)),
+            ("Drums/Hat_open.wav",        p(96000, 2, 24, 1.0)),
+            ("Drums/Clap_room.flac",      p(44100, 2, 16, pcm: false, codec: "FLAC", 1.1)),
+            ("Drums/Shaker_loop.caf",     p(48000, 2, 16, 4.0)),
+            ("Loops/Keys_85bpm.m4a",      p(44100, 2, 0, pcm: false, codec: "AAC", 11.3)),
+            ("Loops/Chop_soul_01.wav",    p(48000, 2, 16, 5.6)),
+            ("Loops/Pad_warm.aiff",       p(88200, 2, 24, 9.4)),
+            ("Loops/Bass_sub_C.wav",      p(44100, 1, 32, float: true, 2.1)),
+            ("Loops/Chop_soul_02.wav",    p(48000, 2, 16, 4.8)),
+            ("Vox/Vox_hook.mp3",          p(44100, 2, 0, pcm: false, codec: "MP3", 3.2)),
+            ("Vox/Vox_adlib.wav",         p(48000, 1, 24, 1.6)),
+            ("FX/Tape_stop.wav",          p(96000, 2, 32, float: true, 1.8)),
+            ("FX/Riser_long.wav",         p(44100, 2, 16, 6.0)),
+            ("FX/Vinyl_noise.wav",        p(44100, 2, 16, 12.0)),
+            ("FX/Impact_low.wav",         p(48000, 2, 24, 2.2)),
+        ]
+        return files.map { relative, props in
+            let url = URL(fileURLWithPath: "/Samples/Dusty Keys Kit/\(relative)")
+            return AudioFileItem(
+                url: url,
+                relativePath: "Dusty Keys Kit/\(relative)",
+                properties: props,
+                status: AudioFormatInspector.classify(props, ext: url.pathExtension),
+                warnings: AudioFormatInspector.warnings(for: props)
+            )
+        }
+    }
+
     /// Seed a finished-conversion report on top of the demo data (for the "done" screenshot).
     func seedDemoReport() {
         let dir = outputDirectory ?? URL(fileURLWithPath: "/Users/jarl/Desktop/SP-404 Ready")

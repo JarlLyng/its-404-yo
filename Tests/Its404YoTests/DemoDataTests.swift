@@ -32,6 +32,29 @@ final class DemoDataTests: XCTestCase {
         XCTAssertTrue(items.contains { !$0.warnings.isEmpty })
     }
 
+    func testEveryDemoPackLabelIsWhatTheInspectorProduces() {
+        let pack = AppState.demoPackItems()
+        XCTAssertEqual(pack.count, 18)
+        for item in pack {
+            guard let props = item.properties else { return XCTFail("\(item.fileName) has no format") }
+            XCTAssertEqual(item.status, AudioFormatInspector.classify(props, ext: item.url.pathExtension), item.fileName)
+            XCTAssertEqual(item.warnings, AudioFormatInspector.warnings(for: props), item.fileName)
+            XCTAssertFalse(AudioFormatInspector.detail(for: props).contains("0-bit"), item.fileName)
+        }
+        let byName = Dictionary(uniqueKeysWithValues: pack.map { ($0.fileName, $0) })
+        XCTAssertEqual(byName["Shaker_loop.caf"]?.status, .needsConversion(["CAF → WAV"]))
+        XCTAssertEqual(byName["Keys_85bpm.m4a"]?.status, .needsConversion(["M4A → WAV"]))
+        XCTAssertEqual(byName["Vox_hook.mp3"]?.status, .compatible)
+    }
+
+    func testDemoWindowSize() {
+        XCTAssertEqual(DemoWindow.size(from: ["-DemoMode"]), DemoWindow.defaultSize)
+        XCTAssertEqual(DemoWindow.size(from: ["-DemoMode", "-DemoCompact"]), NSSize(width: 800, height: 560))
+        // Within the window's minimum, 640×480.
+        XCTAssertGreaterThanOrEqual(DemoWindow.compactSize.width, 640)
+        XCTAssertGreaterThanOrEqual(DemoWindow.compactSize.height, 480)
+    }
+
     func testDemoReportMatchesTheItems() {
         let report = AppState.demoReport(for: AppState.demoItems(), outputDirectory: URL(fileURLWithPath: "/tmp"))
         XCTAssertEqual(report.converted, 3)
