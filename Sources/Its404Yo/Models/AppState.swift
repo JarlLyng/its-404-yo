@@ -89,7 +89,8 @@ final class AppState: ObservableObject {
     func convert() {
         guard let outDir = outputDirectory else { return }
         let items = self.items
-        let rate = self.settings.targetSampleRate.rawValue
+        let targetRate = self.settings.targetSampleRate
+        let rate = targetRate.rawValue
         let sanitize = self.settings.sanitizeFilenames
         isConverting = true
         progress = 0
@@ -150,6 +151,9 @@ final class AppState: ObservableObject {
                 self.isConverting = false
                 self.lastReport = report
                 self.maybeRequestReview(report: report)
+                if report.converted + report.copied > 0 {
+                    Telemetry.conversionFinished(rate: targetRate)
+                }
             }
         }
     }
@@ -201,36 +205,98 @@ final class AppState: ObservableObject {
     /// Populate the list with representative mock data for screenshots/demos.
     /// Triggered by the `-DemoMode` launch argument; never used in normal operation.
     func seedDemoData() {
-        func item(_ name: String, _ props: AudioProperties, _ status: FileStatus, _ warnings: [String] = []) -> AudioFileItem {
-            AudioFileItem(
-                url: URL(fileURLWithPath: "/Samples/DemoPack/\(name)"),
+        items = Self.demoItems()
+        outputDirectory = URL(fileURLWithPath: "/Users/jarl/Desktop/SP-404 Ready")
+    }
+
+    /// The report a real conversion of `items` would produce (no renames, nothing failing).
+    nonisolated static func demoReport(for items: [AudioFileItem], outputDirectory: URL) -> ConversionReport {
+        ConversionReport(
+            converted: items.filter(\.willConvert).count,
+            copied: items.filter { $0.status == .compatible }.count,
+            failed: items.filter { if case .unreadable = $0.status { return true }; return false }.count,
+            warnings: items.filter { !$0.warnings.isEmpty }.count,
+            outputDirectory: outputDirectory
+        )
+    }
+
+    /// The demo pack used for screenshots. Each file is described by its decoded format only; its
+    /// status and warnings come from the real `AudioFormatInspector`, so every label in a screenshot
+    /// is one the app actually produces for that file (#65). Hand-written labels drifted before.
+    nonisolated static func demoItems() -> [AudioFileItem] {
+        func p(_ sr: Double, _ ch: UInt32, _ bits: UInt32, float: Bool, pcm: Bool, mp3: Bool, _ dur: Double,
+               codec: String? = nil) -> AudioProperties {
+            AudioProperties(sampleRate: sr, channels: ch, bitsPerChannel: bits,
+                            isFloat: float, isLinearPCM: pcm, isMP3: mp3, durationSeconds: dur, codec: codec)
+        }
+        let files: [(String, AudioProperties)] = [
+            ("Kick_01.wav",     p(44100, 2, 16, float: false, pcm: true,  mp3: false, 1.1)),
+            ("Snare_punch.wav", p(96000, 2, 32, float: true,  pcm: true,  mp3: false, 0.8)),
+            ("Vox_chop.flac",   p(48000, 2, 24, float: false, pcm: false, mp3: false, 2.4, codec: "FLAC")),
+            ("Riser_fx.mp3",    p(44100, 2,  0, float: false, pcm: false, mp3: true,  3.0, codec: "MP3")),
+            ("Texture_pad.wav", p(88200, 1, 32, float: true,  pcm: true,  mp3: false, 17 * 60 + 4)),
+            ("Hat_closed.aif",  p(48000, 1, 16, float: false, pcm: true,  mp3: false, 0.3)),
+        ]
+        return files.map { name, props in
+            let url = URL(fileURLWithPath: "/Samples/DemoPack/\(name)")
+            return AudioFileItem(
+                url: url,
                 relativePath: "DemoPack/\(name)",
-                properties: props, status: status, warnings: warnings
+                properties: props,
+                status: AudioFormatInspector.classify(props, ext: url.pathExtension),
+                warnings: AudioFormatInspector.warnings(for: props)
             )
         }
-        func p(_ sr: Double, _ ch: UInt32, _ bits: UInt32, float: Bool, pcm: Bool, mp3: Bool, _ dur: Double) -> AudioProperties {
-            AudioProperties(sampleRate: sr, channels: ch, bitsPerChannel: bits,
-                            isFloat: float, isLinearPCM: pcm, isMP3: mp3, durationSeconds: dur)
-        }
+    }
 
-        items = [
-            item("Kick_01.wav",     p(44100, 2, 16, float: false, pcm: true,  mp3: false, 1.1), .compatible),
-            item("Snare_punch.wav", p(96000, 2, 32, float: true,  pcm: true,  mp3: false, 0.8),
-                 .needsConversion(["32-bit float → 16-bit", "96 kHz resampled"])),
-            item("Vox_chop.flac",   p(48000, 2, 24, float: false, pcm: false, mp3: false, 2.4),
-                 .needsConversion(["24-bit → 16-bit", "FLAC → WAV"])),
-            item("Riser_fx.mp3",    p(44100, 2,  0, float: false, pcm: false, mp3: true,  3.0), .compatible),
-            item("Texture_pad.wav", p(88200, 1, 32, float: true,  pcm: true,  mp3: false, 17 * 60 + 4),
-                 .needsConversion(["32-bit float → 16-bit", "88.2 kHz resampled"]),
-                 ["Over 16 min, may exceed the SP-404 limit"]),
-            item("Hat_closed.aif",  p(48000, 1, 16, float: false, pcm: true,  mp3: false, 0.3), .compatible)
-        ]
+    /// A whole pack for the "drop the whole pack" screenshot: 18 files in the formats a pack really
+    /// arrives in, labelled by the real `AudioFormatInspector` like `demoItems()`.
+    func seedDemoPack() {
+        items = Self.demoPackItems()
         outputDirectory = URL(fileURLWithPath: "/Users/jarl/Desktop/SP-404 Ready")
+    }
+
+    nonisolated static func demoPackItems() -> [AudioFileItem] {
+        func p(_ sr: Double, _ ch: UInt32, _ bits: UInt32, float: Bool = false, pcm: Bool = true,
+               codec: String? = nil, _ dur: Double) -> AudioProperties {
+            AudioProperties(sampleRate: sr, channels: ch, bitsPerChannel: bits, isFloat: float,
+                            isLinearPCM: pcm, isMP3: codec == "MP3", durationSeconds: dur, codec: codec)
+        }
+        let files: [(String, AudioProperties)] = [
+            ("Drums/Kick_boom.wav",       p(44100, 2, 24, 1.2)),
+            ("Drums/Kick_tight.wav",      p(44100, 1, 16, 0.6)),
+            ("Drums/Snare_crack.wav",     p(48000, 2, 32, float: true, 0.9)),
+            ("Drums/Snare_rim.aif",       p(48000, 1, 16, 0.4)),
+            ("Drums/Hat_open.wav",        p(96000, 2, 24, 1.0)),
+            ("Drums/Clap_room.flac",      p(44100, 2, 16, pcm: false, codec: "FLAC", 1.1)),
+            ("Drums/Shaker_loop.caf",     p(48000, 2, 16, 4.0)),
+            ("Loops/Keys_85bpm.m4a",      p(44100, 2, 0, pcm: false, codec: "AAC", 11.3)),
+            ("Loops/Chop_soul_01.wav",    p(48000, 2, 16, 5.6)),
+            ("Loops/Pad_warm.aiff",       p(88200, 2, 24, 9.4)),
+            ("Loops/Bass_sub_C.wav",      p(44100, 1, 32, float: true, 2.1)),
+            ("Loops/Chop_soul_02.wav",    p(48000, 2, 16, 4.8)),
+            ("Vox/Vox_hook.mp3",          p(44100, 2, 0, pcm: false, codec: "MP3", 3.2)),
+            ("Vox/Vox_adlib.wav",         p(48000, 1, 24, 1.6)),
+            ("FX/Tape_stop.wav",          p(96000, 2, 32, float: true, 1.8)),
+            ("FX/Riser_long.wav",         p(44100, 2, 16, 6.0)),
+            ("FX/Vinyl_noise.wav",        p(44100, 2, 16, 12.0)),
+            ("FX/Impact_low.wav",         p(48000, 2, 24, 2.2)),
+        ]
+        return files.map { relative, props in
+            let url = URL(fileURLWithPath: "/Samples/Dusty Keys Kit/\(relative)")
+            return AudioFileItem(
+                url: url,
+                relativePath: "Dusty Keys Kit/\(relative)",
+                properties: props,
+                status: AudioFormatInspector.classify(props, ext: url.pathExtension),
+                warnings: AudioFormatInspector.warnings(for: props)
+            )
+        }
     }
 
     /// Seed a finished-conversion report on top of the demo data (for the "done" screenshot).
     func seedDemoReport() {
         let dir = outputDirectory ?? URL(fileURLWithPath: "/Users/jarl/Desktop/SP-404 Ready")
-        lastReport = ConversionReport(converted: 3, copied: 3, failed: 0, warnings: 1, outputDirectory: dir)
+        lastReport = Self.demoReport(for: items, outputDirectory: dir)
     }
 }

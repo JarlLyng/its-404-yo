@@ -1,8 +1,9 @@
 # Architecture
 
 _It's 404, yo!_ is a small SwiftUI macOS app over a pure Core Audio conversion engine. There is no
-backend and no persistence — it transforms files the user drops and writes results to a folder they
-choose.
+backend and no persistence: it transforms files the user drops and writes results to a folder they
+choose. The only thing that leaves the Mac is anonymous crash reports and one count, sent to Sentry
+(see Telemetry below).
 
 ## Layers
 
@@ -47,11 +48,48 @@ Plain SwiftUI. All colors, spacing, radius, and type sizes come from the
 [`IAMJARLDesignTokens`](https://github.com/JarlLyng/iamjarl-design) Swift package via
 `DesignTokens.*`, so the app stays on-brand and theme-aware (light/dark).
 
+### Telemetry
+
+`Telemetry` (`Sources/Its404Yo/Telemetry/`) starts Sentry in the app's `init` and counts a finished
+conversion from `AppState`. It sits outside Services on purpose: the engine stays free of it, and
+the tests that exercise the engine never touch the network. What it sends, how it stays anonymous
+and how to check the envelopes is in [`SENTRY.md`](SENTRY.md).
+
 ## Build system
 
 The Xcode project is generated from [`project.yml`](../project.yml) with
 [XcodeGen](https://github.com/yonaskolb/XcodeGen) and is git-ignored. This keeps the repo free of
-`.pbxproj` churn and makes the build reproducible (`make generate`).
+`.pbxproj` churn and makes the build reproducible (`make generate`). `Config/Its404Yo.xcconfig`
+carries the Sentry DSN build setting, filled from a gitignored file ([`SENTRY.md`](SENTRY.md)).
+
+## Demo mode and screenshots
+
+DEBUG builds read `-Demo…` launch arguments and seed the window with sample data, so screenshots don't
+need real files. Release builds ignore them.
+
+| Argument | Scene |
+|---|---|
+| `-DemoEmpty` | the empty drop zone |
+| `-DemoMode` (or `-DemoAnalysis`) | a populated analysis list |
+| `-DemoDone` | the list plus a finished conversion report |
+| `-DemoPack` | a whole pack of 18 files in the formats packs arrive in (WAV, AIFF, FLAC, CAF, M4A, MP3) |
+| `-DemoLight` | add to any of the above for light mode (dark by default) |
+| `-DemoCompact` | add for an 800×560 window instead of 1120×740, so the same screen reads larger |
+
+Use flags only: a bare value such as `800x560` after an argument is taken by AppKit as a file to open,
+and SwiftUI then opens no window.
+
+In demo mode the app sizes its window to 1120×740 points (2240×1480 pixels on Retina) and prints
+`ITS404_WINDOW=<id>`, so a script can capture just that window:
+
+```sh
+open --stdout /tmp/o.txt -n path/to/Debug/Its404Yo.app --args -DemoMode
+sleep 3
+screencapture -o -x -l"$(sed -n 's/^ITS404_WINDOW=//p' /tmp/o.txt)" raw.png
+```
+
+Read the id from the `ITS404_WINDOW=` line rather than grepping for digits. The app's name contains
+"404", and grepping digits picks that up instead of the id.
 
 ## Why these format choices
 

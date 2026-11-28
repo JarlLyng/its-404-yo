@@ -1,0 +1,3 @@
+// Copy to Config/Sentry.xcconfig (gitignored) to send from a local build. In an xcconfig file
+// `//` starts a comment, so the scheme's slashes are split with `$()`, which expands to nothing.
+SENTRY_DSN = https:/$()/PUBLIC_KEY@oORG_ID.ingest.de.sentry.io/PROJECT_ID
