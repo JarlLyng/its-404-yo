@@ -16,6 +16,9 @@ final class DemoDataTests: XCTestCase {
     func testFlacRowAndLongFileWarning() {
         let items = Dictionary(uniqueKeysWithValues: AppState.demoItems().map { ($0.fileName, $0) })
         XCTAssertEqual(items["Vox_chop.flac"]?.status, .needsConversion(["FLAC → WAV"]))
+        // What the row reads for a real 24-bit FLAC file (CompressedFormatTests), not "0-bit float".
+        XCTAssertEqual(items["Vox_chop.flac"]?.properties.map(AudioFormatInspector.detail(for:)),
+                       "FLAC · 24-bit · 48 kHz · stereo")
         let pad = items["Texture_pad.wav"]?.warnings ?? []
         XCTAssertEqual(pad, ["Over 16 min, may exceed the SP-404 limit"])
         XCTAssertFalse(pad.joined().contains("—"))

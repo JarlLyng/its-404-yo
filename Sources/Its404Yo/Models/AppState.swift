@@ -224,15 +224,16 @@ final class AppState: ObservableObject {
     /// status and warnings come from the real `AudioFormatInspector`, so every label in a screenshot
     /// is one the app actually produces for that file (#65). Hand-written labels drifted before.
     nonisolated static func demoItems() -> [AudioFileItem] {
-        func p(_ sr: Double, _ ch: UInt32, _ bits: UInt32, float: Bool, pcm: Bool, mp3: Bool, _ dur: Double) -> AudioProperties {
+        func p(_ sr: Double, _ ch: UInt32, _ bits: UInt32, float: Bool, pcm: Bool, mp3: Bool, _ dur: Double,
+               codec: String? = nil) -> AudioProperties {
             AudioProperties(sampleRate: sr, channels: ch, bitsPerChannel: bits,
-                            isFloat: float, isLinearPCM: pcm, isMP3: mp3, durationSeconds: dur)
+                            isFloat: float, isLinearPCM: pcm, isMP3: mp3, durationSeconds: dur, codec: codec)
         }
         let files: [(String, AudioProperties)] = [
             ("Kick_01.wav",     p(44100, 2, 16, float: false, pcm: true,  mp3: false, 1.1)),
             ("Snare_punch.wav", p(96000, 2, 32, float: true,  pcm: true,  mp3: false, 0.8)),
-            ("Vox_chop.flac",   p(48000, 2, 24, float: false, pcm: false, mp3: false, 2.4)),
-            ("Riser_fx.mp3",    p(44100, 2,  0, float: false, pcm: false, mp3: true,  3.0)),
+            ("Vox_chop.flac",   p(48000, 2, 24, float: false, pcm: false, mp3: false, 2.4, codec: "FLAC")),
+            ("Riser_fx.mp3",    p(44100, 2,  0, float: false, pcm: false, mp3: true,  3.0, codec: "MP3")),
             ("Texture_pad.wav", p(88200, 1, 32, float: true,  pcm: true,  mp3: false, 17 * 60 + 4)),
             ("Hat_closed.aif",  p(48000, 1, 16, float: false, pcm: true,  mp3: false, 0.3)),
         ]

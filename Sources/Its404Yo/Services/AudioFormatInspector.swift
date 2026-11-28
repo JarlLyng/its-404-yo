@@ -10,6 +10,8 @@ struct AudioProperties: Equatable {
     var isLinearPCM: Bool
     var isMP3: Bool
     var durationSeconds: Double
+    /// The codec's name for a compressed file ("FLAC", "AAC", "ALAC", "MP3"); nil for linear PCM.
+    var codec: String? = nil
 }
 
 /// Reads an audio file's format and decides whether it is already SP-404 MkII-compatible
@@ -116,20 +118,67 @@ enum AudioFormatInspector {
         _ = ExtAudioFileGetProperty(file, kExtAudioFileProperty_FileLengthFrames, &framesSize, &frames)
 
         let duration = asbd.mSampleRate > 0 ? Double(frames) / asbd.mSampleRate : 0
-        let isFloat = (asbd.mFormatFlags & kAudioFormatFlagIsFloat) != 0
+        let isLinearPCM = asbd.mFormatID == kAudioFormatLinearPCM
+        let isFloat = isLinearPCM && (asbd.mFormatFlags & kAudioFormatFlagIsFloat) != 0
 
         return AudioProperties(
             sampleRate: asbd.mSampleRate,
             channels: asbd.mChannelsPerFrame,
-            bitsPerChannel: asbd.mBitsPerChannel,
+            bitsPerChannel: bitsPerChannel(asbd),
             isFloat: isFloat,
-            isLinearPCM: asbd.mFormatID == kAudioFormatLinearPCM,
+            isLinearPCM: isLinearPCM,
             isMP3: asbd.mFormatID == kAudioFormatMPEGLayer3,
-            durationSeconds: duration
+            durationSeconds: duration,
+            codec: codecName(asbd.mFormatID)
         )
     }
 
+    /// A compressed file's format carries no bit depth (`mBitsPerChannel` is 0), so the row used to
+    /// read "0-bit". FLAC and Apple Lossless keep the source's depth in their format flags instead.
+    static func bitsPerChannel(_ asbd: AudioStreamBasicDescription) -> UInt32 {
+        if asbd.mBitsPerChannel > 0 { return asbd.mBitsPerChannel }
+        guard asbd.mFormatID == kAudioFormatFLAC || asbd.mFormatID == kAudioFormatAppleLossless else { return 0 }
+        switch asbd.mFormatFlags {
+        case kAppleLosslessFormatFlag_16BitSourceData: return 16
+        case kAppleLosslessFormatFlag_20BitSourceData: return 20
+        case kAppleLosslessFormatFlag_24BitSourceData: return 24
+        case kAppleLosslessFormatFlag_32BitSourceData: return 32
+        default: return 0
+        }
+    }
+
+    static func codecName(_ formatID: AudioFormatID) -> String? {
+        switch formatID {
+        case kAudioFormatLinearPCM: return nil
+        case kAudioFormatMPEGLayer3: return "MP3"
+        case kAudioFormatFLAC: return "FLAC"
+        case kAudioFormatAppleLossless: return "ALAC"
+        case kAudioFormatMPEG4AAC, kAudioFormatMPEG4AAC_HE, kAudioFormatMPEG4AAC_HE_V2,
+             kAudioFormatMPEG4AAC_LD, kAudioFormatMPEG4AAC_ELD:
+            return "AAC"
+        default:
+            // Anything else a CAF can hold (IMA4, µ-law, …): its four-character code.
+            let bytes = withUnsafeBytes(of: formatID.bigEndian) { Array($0) }
+            let code = String(decoding: bytes, as: UTF8.self).trimmingCharacters(in: .whitespaces)
+            return code.isEmpty ? nil : code.uppercased()
+        }
+    }
+
     // MARK: - Formatting
+
+    /// The row's detail line: "24-bit · 48 kHz · stereo", "32-bit float · 96 kHz · stereo",
+    /// "FLAC · 24-bit · 48 kHz · stereo", "AAC · 44.1 kHz · stereo". A depth is shown only when the
+    /// file has one, never "0-bit".
+    static func detail(for p: AudioProperties) -> String {
+        var parts: [String] = []
+        if let codec = p.codec ?? (p.isMP3 ? "MP3" : nil) { parts.append(codec) }
+        if p.bitsPerChannel > 0, !p.isMP3 {
+            parts.append(p.isFloat ? "\(p.bitsPerChannel)-bit float" : "\(p.bitsPerChannel)-bit")
+        }
+        parts.append("\(formatKHz(p.sampleRate)) kHz")
+        parts.append(p.channels == 1 ? "mono" : (p.channels == 2 ? "stereo" : "\(p.channels)ch"))
+        return parts.joined(separator: " · ")
+    }
 
     static func formatKHz(_ rate: Double) -> String {
         let khz = rate / 1000
